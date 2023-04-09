@@ -1,0 +1,10 @@
+name: sds-prog2
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - numpy
+  - opencv
+  - matplotlib
+  - scikit-learn
+  - ipython
