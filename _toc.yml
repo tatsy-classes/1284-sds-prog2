@@ -1,0 +1,17 @@
+format: jb-book
+root: index
+parts:
+  - numbered: 3
+    chapters:
+      - file: contents/setup-python
+      - file: contents/setup-git
+      - file: contents/webpage
+      - file: contents/regex
+      - file: contents/crawler
+      - file: contents/email
+      - file: contents/encryption
+      - file: contents/retrieval
+      - file: contents/database
+      - file: contents/socket
+      - file: contents/web-server
+      - file: contents/web-system

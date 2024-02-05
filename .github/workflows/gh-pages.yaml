@@ -1,0 +1,65 @@
+name: Github Pages
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+
+jobs:
+  deploy:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: [3.11]
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          token: ${{ secrets.MY_PAT }}
+
+      # - name: Install FFmpeg
+      #   run: |
+      #     sudo apt-get update -y
+      #     sudo apt-get install -y ffmpeg
+
+      - name: Cache Jupyter execution
+        uses: actions/cache@v3
+        with:
+          path: .jupyter_cache
+          key: ${{ matrix.os }}-jupyter-${{ hashFiles('**/*.ipynb') }}
+          restore-keys: |
+            ${{ matrix.os }}-jupyter-
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "16"
+
+      - name: Install Poetry
+        run: |
+          pipx install poetry==1.5.1
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "poetry"
+          cache-dependency-path: "pyproject.toml"
+
+      - name: Install packages
+        run: |
+          poetry install --no-root
+          poetry install --all-extras
+
+      - name: Build
+        run: poetry run jb build --all .
+
+      - name: Github Pages deployment
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_build/html/
+          publish_branch: gh-pages
