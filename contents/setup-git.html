@@ -397,10 +397,22 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">2.1. GitHubアカウントの作成</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.2. Gitレポジトリの作成</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.3. Gitの基本コマンド</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.4. ソースコードの編集・管理</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.1. Gitについて</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">2.2. GitHubアカウントの作成</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.3. Gitリポジトリの作成</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.4. ローカル環境の準備</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">2.4.1. Windows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mac-linux">2.4.2. Mac / Linux</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guigit">2.4.3. GUIを通してGitを使う (非推奨)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.5. Gitの基本コマンド</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.5.1. クローン</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.5.2. コミット</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.5.3. プッシュ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.6. ソースコードの編集・管理</a></li>
 </ul>
             </nav>
         </div>
@@ -414,25 +426,101 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="git">
 <span id="sec-setup-git"></span><h1><span class="section-number">2. </span>Git環境の設定<a class="headerlink" href="#git" title="Permalink to this heading">#</a></h1>
-<p>Gitとは、プログラミングのソースコード等の更新履歴を管理するためのバージョン管理システム (VCS, Version Cotrol System)の一種である。バージョン管理システムにはGit以外にもSubversionやMercurialなどがある。</p>
+<p>Gitとは、プログラミングのソースコード等の更新履歴を管理するためのバージョン管理システム (VCS, Version Cotrol System)の一種です。バージョン管理システムにはGit以外にもSubversionやMercurialなどがある。</p>
 <p>Gitを利用するには、</p>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://github.com/">GitHub</a>や<a class="reference external" href="https://bitbucket.org">BitBucket</a>等のウェブサービスを使う</p></li>
-<li><p>自分でGitサーバーを立てて使う
-の2通りの方法が考えられるが、機密性の高いソースコードを扱う等の場合でなければ、ウェブサービスを使う方法で問題ない。</p></li>
+<li><p>自分でGitサーバーを立てて使う</p></li>
 </ol>
-<p>以下では、GitHubを用いてGitレポジトリの作成とソースコードの管理を行う方法を紹介する。</p>
-<section id="github">
-<h2><span class="section-number">2.1. </span>GitHubアカウントの作成<a class="headerlink" href="#github" title="Permalink to this heading">#</a></h2>
-</section>
+<p>の2通りの方法が考えらるが、よほど機密性の高いソースコードを扱う等の場合でなければ、ウェブサービスを使う方法で問題ない。</p>
+<p>本節では、GitHubを用いてGitレポジトリの作成とソースコードの管理を行う方法を紹介する。</p>
 <section id="id1">
-<h2><span class="section-number">2.2. </span>Gitレポジトリの作成<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.1. </span>Gitについて<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>Gitは<strong>分散型バージョン管理システム</strong>であり、一つのプロジェクトに関連するコードを複数のユーザが別々に編集することを想定して設計されている。</p>
+<p>Gitにおいては、ここのユーザが作成した変更が<strong>コミット</strong>という形で管理され、異なるユーザが作成したコミットを<strong>マージ</strong>することにより、コードを更新していく。</p>
+<p>一方、Git以前に主流であったSubversionは<strong>中央集権的なバージョン管理システム</strong>であり、とあるユーザがソースコードを編集している間は、サーバ上のソースコードの更新がロックされるという仕組みであった。そのため、複数の異なるユーザが同時にソースコードを編集するようなプロジェクトには不向きであった。</p>
+<p>現在、多くのソフトウェアプロジェクトは、システムの大規模化に伴い、複数のユーザで共同開発されるのが一般的になっており、Gitは現在のプログラミング・パラダイムにより即した仕組みであると言える。</p>
+<div class="note admonition">
+<p class="admonition-title">Gitの特長</p>
+<ul class="simple">
+<li><p>分散型であるために複数のユーザが同時にコードを編集可能</p></li>
+<li><p>各ユーザの編集内容はローカル環境で「コミット」という単位で管理される</p></li>
+<li><p>複数のユーザが行った編集が「マージ」されることでコードが更新されていく</p></li>
+</ul>
+</div>
+</section>
+<section id="github">
+<h2><span class="section-number">2.2. </span>GitHubアカウントの作成<a class="headerlink" href="#github" title="Permalink to this heading">#</a></h2>
+<p>公式アナウンスに従ってアカウントを作成しよう。ユーザ名は変更できないので慎重に考えること。</p>
+<p><a class="reference external" href="https://docs.github.com/ja/get-started/quickstart/creating-an-account-on-github">https://docs.github.com/ja/get-started/quickstart/creating-an-account-on-github</a></p>
 </section>
 <section id="id2">
-<h2><span class="section-number">2.3. </span>Gitの基本コマンド<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.3. </span>Gitリポジトリの作成<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>GitHubを用いてバージョン管理を開始するには<strong>リポジトリ</strong>を作成する必要がある。</p>
+<p>本来、リポジトリを作成するには、Gitサーバ上で</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>init<span class="w"> </span>--bare
+</pre></div>
+</div>
+<p>というコマンドを実行する必要があるのだが、GitHubを用いる場合には、ウェブ上の操作によりGitリポジトリを作成することができる。</p>
+<p>まずは、各自のGitHubのトップページ (<code class="docutils literal notranslate"><span class="pre">https://github.com/[ユーザ名]</span></code>)にアクセスし、右上の「＋」ボタンから「Create New Repository」を選ぶ。</p>
 </section>
 <section id="id3">
-<h2><span class="section-number">2.4. </span>ソースコードの編集・管理<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.4. </span>ローカル環境の準備<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<section id="windows">
+<h3><span class="section-number">2.4.1. </span>Windows<a class="headerlink" href="#windows" title="Permalink to this heading">#</a></h3>
+<p>Windowsは、初期状態ではGit環境が用意されていないので、別途ソフトウェアをインストールする必要がある。</p>
+<p>最も一般的なものは<a class="reference external" href="https://gitforwindows.org/">Git for Windows</a>なのだが、こちらを使う場合には、Gitコマンドに環境変数のパスを通すなど、余計な設定が必要になるため、インストールの際に注意が必要。</p>
+<p>環境変数のパスを通す設定をし損ねた場合には、自分で環境変数のパスを通すか、(慣れないと使い勝手が悪い)Git Bashというシステムを使うことになる。</p>
+<p>そこでおすすめしたいのが、PowerShell上で動く、ソフトウェア管理ツールである<a class="reference external" href="https://chocolatey.org/">Chocolatey</a>である。Chocolateyをインストールするための(おすすめ)手順は以下の通り。</p>
+<ol class="arabic simple">
+<li><p>オープンソース版の<a class="reference external" href="https://github.com/PowerShell/PowerShell/releases/tag/v7.4.1">PowerShell</a>をインストールする。</p></li>
+<li><p>PowerShellを<strong>管理者権限で</strong>開き、<a class="reference external" href="https://chocolatey.org/install#individual">Install Chocolatey</a>のページ中段にある以下のコマンドを実行する。</p></li>
+</ol>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="n">-Scope</span> <span class="k">Process</span> <span class="n">-Force</span><span class="p">;</span> <span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="p">=</span> <span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="o">-bor</span> <span class="n">3072</span><span class="p">;</span> <span class="nb">iex </span><span class="p">((</span><span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s1">&#39;https://community.chocolatey.org/install.ps1&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>PowerShellを開き、<code class="docutils literal notranslate"><span class="pre">choco</span> <span class="pre">list</span> <span class="pre">-l</span></code>とタイプしてEnterを押す。正しくコマンドが認識されていれば、現在のChocolateyのバージョンが表示される。</p></li>
+</ol>
+<p>ここまででChocolateyのインストールは完了なので、最後にChocolateyを使ってGitをインストールする (<a class="reference external" href="https://community.chocolatey.org/packages/git">参考ページ</a>)。</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">choco</span> <span class="n">install</span> <span class="n">git</span>
+</pre></div>
+</div>
+<p>インストール完了後、PowerShell上で<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">--version</span></code>とタイプしてEnterを押す。正しくコマンドが認識されていれば、現在のGitのバージョンが表示される。</p>
+</section>
+<section id="mac-linux">
+<h3><span class="section-number">2.4.2. </span>Mac / Linux<a class="headerlink" href="#mac-linux" title="Permalink to this heading">#</a></h3>
+<p>特に準備をする必要はなく、ターミナルから<code class="docutils literal notranslate"><span class="pre">git</span></code>コマンドが使用できる。念のため、ターミナルを開き <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">--version</span></code>とタイプしてEnterを押す。正しくコマンドが認識されていれば、現在のGitのバージョンが表示される。</p>
+</section>
+<section id="guigit">
+<h3><span class="section-number">2.4.3. </span>GUIを通してGitを使う (非推奨)<a class="headerlink" href="#guigit" title="Permalink to this heading">#</a></h3>
+<p>もしGUIを用いて、視覚的にバージョン管理を行いたい場合は、<a class="reference external" href="https://desktop.github.com/">GitHub Desktop</a>や<a class="reference external" href="https://www.sourcetreeapp.com/">Sourcetree</a>などを使うと良い。</p>
+<p>しかし、GUIを使っていると、なかなか融通が利かない部分もあり、またGitのコマンドをなかなか覚えないので、基本はターミナルからコマンドを実行することを強く推奨する。</p>
+<div class="note admonition">
+<p class="admonition-title">Gitのインストール</p>
+<ul class="simple">
+<li><p>WindowsはGit for Windowsをインストールするか、Chocolateyを使ってGitをインストール</p></li>
+<li><p>MacやLinuxの場合には特段、インストールをしなくてもGitがインストールされている</p></li>
+<li><p>Gitをローカル環境で操作する場合にはシェル環境 (PowerShellやターミナル等)を使うことを推奨</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="id4">
+<h2><span class="section-number">2.5. </span>Gitの基本コマンド<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>Gitでまず覚えるべきコマンドは<strong>クローン</strong> (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code>)、<strong>コミット</strong> (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code>)、そして<strong>プッシュ</strong> (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code>)の3つである。</p>
+<section id="id5">
+<h3><span class="section-number">2.5.1. </span>クローン<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="id6">
+<h3><span class="section-number">2.5.2. </span>コミット<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="id7">
+<h3><span class="section-number">2.5.3. </span>プッシュ<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="id8">
+<h2><span class="section-number">2.6. </span>ソースコードの編集・管理<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -500,10 +588,22 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">2.1. GitHubアカウントの作成</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.2. Gitレポジトリの作成</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.3. Gitの基本コマンド</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.4. ソースコードの編集・管理</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.1. Gitについて</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">2.2. GitHubアカウントの作成</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.3. Gitリポジトリの作成</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.4. ローカル環境の準備</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">2.4.1. Windows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mac-linux">2.4.2. Mac / Linux</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guigit">2.4.3. GUIを通してGitを使う (非推奨)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.5. Gitの基本コマンド</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.5.1. クローン</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.5.2. コミット</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.5.3. プッシュ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.6. ソースコードの編集・管理</a></li>
 </ul>
   </nav></div>
 
