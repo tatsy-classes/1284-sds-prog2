@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>10. ソケット通信 &#8212; プログラミングⅡ</title>
+    <title>12. ブロックチェーンの基礎 &#8212; プログラミングⅡ</title>
   
   
   
@@ -63,11 +63,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'contents/socket';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'contents/blockchain';</script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="11. 簡易ウェブサーバの実装" href="web-server.html" />
-    <link rel="prev" title="9. データベースの基礎" href="database.html" />
+    <link rel="next" title="13. 課題: Webシステムの実装" href="web-system.html" />
+    <link rel="prev" title="11. 簡易ウェブサーバの実装" href="web-server.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ja"/>
   </head>
@@ -167,9 +167,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="encryption.html">7. 暗号化とSSL通信</a></li>
 <li class="toctree-l1"><a class="reference internal" href="retrieval.html">8. 情報検索の基礎</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">9. データベースの基礎</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">10. ソケット通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="socket.html">10. ソケット通信</a></li>
 <li class="toctree-l1"><a class="reference internal" href="web-server.html">11. 簡易ウェブサーバの実装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="blockchain.html">12. ブロックチェーンの基礎</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">12. ブロックチェーンの基礎</a></li>
 <li class="toctree-l1"><a class="reference internal" href="web-system.html">13. 課題: Webシステムの実装</a></li>
 </ul>
 
@@ -225,7 +225,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://colab.research.google.com/github/tatsy/1284-sds-programming-2/blob/master/./contents/socket.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/tatsy/1284-sds-programming-2/blob/master/./contents/blockchain.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -273,7 +273,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/tatsy/1284-sds-programming-2/issues/new?title=Issue%20on%20page%20%2Fcontents/socket.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/tatsy/1284-sds-programming-2/issues/new?title=Issue%20on%20page%20%2Fcontents/blockchain.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="問題を報告"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -303,7 +303,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/contents/socket.ipynb" target="_blank"
+      <li><a href="../_sources/contents/blockchain.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="ソースファイルをダウンロード"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -385,7 +385,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>ソケット通信</h1>
+    <h1>ブロックチェーンの基礎</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -399,8 +399,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="sec-socket">
-<span id="id1"></span><h1><span class="section-number">10. </span>ソケット通信<a class="headerlink" href="#sec-socket" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="sec-blockchain">
+<span id="id1"></span><h1><span class="section-number">12. </span>ブロックチェーンの基礎<a class="headerlink" href="#sec-blockchain" title="Permalink to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -434,20 +434,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="database.html"
+       href="web-server.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">前へ</p>
-        <p class="prev-next-title"><span class="section-number">9. </span>データベースの基礎</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>簡易ウェブサーバの実装</p>
       </div>
     </a>
     <a class="right-next"
-       href="web-server.html"
+       href="web-system.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">次へ</p>
-        <p class="prev-next-title"><span class="section-number">11. </span>簡易ウェブサーバの実装</p>
+        <p class="prev-next-title"><span class="section-number">13. </span>課題: Webシステムの実装</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

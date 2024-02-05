@@ -34,18 +34,19 @@
 
 ### 講義日程
 
-1.  [Python環境の設定](sec:setup-python)
-1.  [Git環境の設定](sec:setup-git)
-1.  [ウェブページの作成](sec:webpage)
-1.  [正規表現とスクレイピング](sec:regex)
-1.  [簡易クローラの作成](sec:crawler)
-1.  [Eメールの送受信](sec:email)
-1.  [暗号化とSSL通信](sec:encryption)
-1.  [情報検索の基礎](sec:retrieval)
-1.  [データベースの基礎](sec:database)
-1.  [ソケット通信](sec:socket)
-1.  [簡易ウェブサーバの実装](sec:web-server)
-1.  [課題:Webシステムの実装](sec:web-system)
+1. [Python環境の設定](sec:setup-python)
+1. [Git環境の設定](sec:setup-git)
+1. [ウェブページの作成](sec:webpage)
+1. [正規表現とスクレイピング](sec:regex)
+1. [簡易クローラの作成](sec:crawler)
+1. [情報検索の基礎](sec:retrieval)
+1. [暗号化とSSL通信](sec:encryption)
+1. [Eメールの送受信](sec:email)
+1. [データベースの基礎](sec:database)
+1. [ソケット通信](sec:socket)
+1. [簡易ウェブサーバの作成](sec:web-server)
+1. [ブロックチェーンの基礎](sec:blockchain)
+1. [課題:Webシステムの実装](sec:web-system)
 
 ## Build Status
 

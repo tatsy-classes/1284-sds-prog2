@@ -169,7 +169,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="database.html">9. データベースの基礎</a></li>
 <li class="toctree-l1"><a class="reference internal" href="socket.html">10. ソケット通信</a></li>
 <li class="toctree-l1"><a class="reference internal" href="web-server.html">11. 簡易ウェブサーバの実装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-system.html">12. 課題: Webシステムの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blockchain.html">12. ブロックチェーンの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-system.html">13. 課題: Webシステムの実装</a></li>
 </ul>
 
     </div>
@@ -224,7 +225,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://colab.research.google.com/github/tatsy/1284-sds-prog2/blob/master/./contents/setup-git.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/tatsy/1284-sds-programming-2/blob/master/./contents/setup-git.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -255,7 +256,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/tatsy/1284-sds-prog2" target="_blank"
+      <li><a href="https://github.com/tatsy/1284-sds-programming-2" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="ソースリポジトリ"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -272,7 +273,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/tatsy/1284-sds-prog2/issues/new?title=Issue%20on%20page%20%2Fcontents/setup-git.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/tatsy/1284-sds-programming-2/issues/new?title=Issue%20on%20page%20%2Fcontents/setup-git.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="問題を報告"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -373,7 +374,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -389,6 +392,17 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">2.1. GitHubアカウントの作成</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.2. Gitレポジトリの作成</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.3. Gitの基本コマンド</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.4. ソースコードの編集・管理</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -400,6 +414,26 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="git">
 <span id="sec-setup-git"></span><h1><span class="section-number">2. </span>Git環境の設定<a class="headerlink" href="#git" title="Permalink to this heading">#</a></h1>
+<p>Gitとは、プログラミングのソースコード等の更新履歴を管理するためのバージョン管理システム (VCS, Version Cotrol System)の一種である。バージョン管理システムにはGit以外にもSubversionやMercurialなどがある。</p>
+<p>Gitを利用するには、</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://github.com/">GitHub</a>や<a class="reference external" href="https://bitbucket.org">BitBucket</a>等のウェブサービスを使う</p></li>
+<li><p>自分でGitサーバーを立てて使う
+の2通りの方法が考えられるが、機密性の高いソースコードを扱う等の場合でなければ、ウェブサービスを使う方法で問題ない。</p></li>
+</ol>
+<p>以下では、GitHubを用いてGitレポジトリの作成とソースコードの管理を行う方法を紹介する。</p>
+<section id="github">
+<h2><span class="section-number">2.1. </span>GitHubアカウントの作成<a class="headerlink" href="#github" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="id1">
+<h2><span class="section-number">2.2. </span>Gitレポジトリの作成<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="id2">
+<h2><span class="section-number">2.3. </span>Gitの基本コマンド<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="id3">
+<h2><span class="section-number">2.4. </span>ソースコードの編集・管理<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -457,7 +491,23 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">2.1. GitHubアカウントの作成</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.2. Gitレポジトリの作成</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.3. Gitの基本コマンド</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.4. ソースコードの編集・管理</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -169,7 +169,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="database.html">9. データベースの基礎</a></li>
 <li class="toctree-l1"><a class="reference internal" href="socket.html">10. ソケット通信</a></li>
 <li class="toctree-l1"><a class="reference internal" href="web-server.html">11. 簡易ウェブサーバの実装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-system.html">12. 課題: Webシステムの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blockchain.html">12. ブロックチェーンの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-system.html">13. 課題: Webシステムの実装</a></li>
 </ul>
 
     </div>
@@ -224,7 +225,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://colab.research.google.com/github/tatsy/1284-sds-prog2/blob/master/./contents/webpage.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/tatsy/1284-sds-programming-2/blob/master/./contents/webpage.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -255,7 +256,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/tatsy/1284-sds-prog2" target="_blank"
+      <li><a href="https://github.com/tatsy/1284-sds-programming-2" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="ソースリポジトリ"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -272,7 +273,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/tatsy/1284-sds-prog2/issues/new?title=Issue%20on%20page%20%2Fcontents/webpage.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/tatsy/1284-sds-programming-2/issues/new?title=Issue%20on%20page%20%2Fcontents/webpage.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="問題を報告"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -373,7 +374,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -389,6 +392,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#htmlcss">3.1. HTMLとCSS</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -400,6 +411,27 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="sec-webpage">
 <span id="id1"></span><h1><span class="section-number">3. </span>ウェブページの作成<a class="headerlink" href="#sec-webpage" title="Permalink to this heading">#</a></h1>
+<p>本節では、HTMLとCSSを用いたウェブページ作成の基礎について学ぶ。</p>
+<section id="htmlcss">
+<h2><span class="section-number">3.1. </span>HTMLとCSS<a class="headerlink" href="#htmlcss" title="Permalink to this heading">#</a></h2>
+<p>HTMLはHyper Text Markup Languageの略で、ウェブページの各種要素 (大もとはハイパーリンク)を含んだ文書であるHyper Textを記述するためのマークアップ言語を指す。</p>
+<p>一方、マークアップ言語は、文書の構造に従って構造化されたコードを記述するための仕組みで、HTML以外にもXML (Extended Markup Language)やYAML (Yet Another Markup Language, 略後には諸説あり)などが知られている。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="na">align</span><span class="o">=</span><span class="s">&quot;center&quot;</span><span class="p">&gt;</span>
+Hello world!
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>CSSはCascade Style Sheetの略で、HTMLのタグや特定のID、クラスを持つ要素に対して、デザイン要素を指定する役割を持つ。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">.</span><span class="nc">red</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">text-color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;red&quot;</span> <span class="na">align</span><span class="o">=</span><span class="s">&quot;center&quot;</span><span class="p">&gt;</span>
+Hello, world!
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -457,7 +489,20 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#htmlcss">3.1. HTMLとCSS</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
