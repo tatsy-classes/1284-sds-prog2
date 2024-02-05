@@ -14,4 +14,5 @@ parts:
       - file: contents/database
       - file: contents/socket
       - file: contents/web-server
+      - file: contents/blockchain
       - file: contents/web-system
