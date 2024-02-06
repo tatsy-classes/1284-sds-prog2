@@ -1,12 +1,16 @@
 format: jb-book
 root: index
 parts:
-  - numbered: 3
+  - caption: 事前準備
+    numbered: 3
     chapters:
       - file: contents/setup-python
       - file: contents/setup-git
+  - caption: 講義内容
+    numbered: 3
+    chapters:
       - file: contents/webpage
-      - file: contents/regex
+      - file: contents/scraping
       - file: contents/crawler
       - file: contents/email
       - file: contents/encryption
