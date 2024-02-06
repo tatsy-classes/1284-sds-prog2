@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -158,20 +159,24 @@ const thebe_selector_output = ".output, .cell_output"
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="nav bd-sidenav">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">事前準備</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="contents/setup-python.html">1. Python環境の設定</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/setup-git.html">2. Git環境の設定</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/webpage.html">3. ウェブページの作成</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/regex.html">4. 正規表現とスクレイピング</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/crawler.html">5. 簡易クローラの作成</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/email.html">6. Eメールの送受信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/encryption.html">7. 暗号化とSSL通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/retrieval.html">8. 情報検索の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/database.html">9. データベースの基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/socket.html">10. ソケット通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/web-server.html">11. 簡易ウェブサーバの実装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/blockchain.html">12. ブロックチェーンの基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/web-system.html">13. 課題: Webシステムの実装</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">講義内容</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="contents/webpage.html">1. ウェブページの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/scraping.html">2. 正規表現とスクレイピング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/crawler.html">3. 簡易クローラの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/email.html">4. Eメールの送受信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/encryption.html">5. 暗号化とSSL通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/retrieval.html">6. 情報検索の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/database.html">7. データベースの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/socket.html">8. ソケット通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/web-server.html">9. 簡易ウェブサーバの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/blockchain.html">10. ブロックチェーンの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/web-system.html">11. 課題: Webシステムの実装</a></li>
 </ul>
 
     </div>
@@ -374,7 +379,12 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">講義について</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">講義形式</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">講義日程</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">推奨受講環境</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">講義内容</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">事前準備</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">講義内で説明</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-status">Build Status</a></li>
@@ -391,8 +401,8 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="ii">
 <h1>プログラミングⅡ<a class="headerlink" href="#ii" title="Permalink to this heading">#</a></h1>
-<p><a class="reference external" href="https://github.com/tatsy/1284-programming-2/actions/workflows/gh-pages.yaml"><img alt="Github Pages" src="https://github.com/tatsy/1284-sds-ml-advanced/actions/workflows/gh-pages.yaml/badge.svg" /></a></p>
-<p><a class="reference external" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></p>
+<p><a class="reference external" href="https://github.com/tatsy/1284-programming-2/actions/workflows/gh-pages.yaml"><img alt="Github Pages" src="https://github.com/tatsy/1284-sds-ml-advanced/actions/workflows/gh-pages.yaml/badge.svg" /></a>
+<a class="reference external" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a></p>
 <section id="id1">
 <h2>講義の概要<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p>ウェブプログラミングの基礎的な内容を取り扱う。</p>
@@ -401,6 +411,7 @@ document.write(`
 <ul class="simple">
 <li><p>基本的なPythonの読み書きができる</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">*.py</span></code>形式のスクリプトファイルによるプログラム作成ができる</p></li>
+<li><p>シェルの基本的な操作 (<code class="docutils literal notranslate"><span class="pre">ls</span></code>, <code class="docutils literal notranslate"><span class="pre">cd</span></code>, <code class="docutils literal notranslate"><span class="pre">pwd</span></code>等のディレクトリ操作)が分かる</p></li>
 </ul>
 </section>
 <section id="id3">
@@ -422,16 +433,29 @@ document.write(`
 <section id="id5">
 <h3>講義形式<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>資料の内容を全て講義内で解説することはしないので、必要に応じて自習をお願いします。</p></li>
+<li><p><a class="reference internal" href="contents/setup-python.html#sec-setup-python"><span class="std std-ref">Pythonの設定</span></a>と<a class="reference internal" href="contents/setup-git.html#sec-setup-git"><span class="std std-ref">Gitの設定</span></a>は済んでいる前提で講義を進めますので各自準備をお願いします。</p></li>
+<li><p>講義内で資料の内容を全て解説することはしないので、必要に応じて自習をお願いします。</p></li>
 </ul>
 </section>
 <section id="id6">
-<h3>講義日程<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<h3>推奨受講環境<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>本講義では、主に<strong>シェル環境</strong>を使用してプログラムの実行を行う。各自、WindowsであればPowerShell、MacやLinuxであればターミナルの使い方に慣れておくこと。</p>
+<p>また、エディタはOS付属のメモ帳などではなく<a class="reference external" href="https://azure.microsoft.com/ja-jp/products/visual-studio-code">Visual Studio Code</a>や<a class="reference external" href="https://www.sublimetext.com/">Sublime Text</a>などの、プログラミング専用のエディタを使うこと。</p>
+</section>
+<section id="id7">
+<h3>講義内容<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<section id="id8">
+<h4>事前準備<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
 <ol class="arabic simple">
 <li><p><a class="reference internal" href="contents/setup-python.html#sec-setup-python"><span class="std std-ref">Python環境の設定</span></a></p></li>
 <li><p><a class="reference internal" href="contents/setup-git.html#sec-setup-git"><span class="std std-ref">Git環境の設定</span></a></p></li>
+</ol>
+</section>
+<section id="id9">
+<h4>講義内で説明<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
+<ol class="arabic simple">
 <li><p><a class="reference internal" href="contents/webpage.html#sec-webpage"><span class="std std-ref">ウェブページの作成</span></a></p></li>
-<li><p><a class="reference internal" href="contents/regex.html#sec-regex"><span class="std std-ref">正規表現とスクレイピング</span></a></p></li>
+<li><p><a class="reference internal" href="contents/scraping.html#sec-scraping"><span class="std std-ref">正規表現とスクレイピング</span></a></p></li>
 <li><p><a class="reference internal" href="contents/crawler.html#sec-crawler"><span class="std std-ref">簡易クローラの作成</span></a></p></li>
 <li><p><a class="reference internal" href="contents/retrieval.html#sec-retrieval"><span class="std std-ref">情報検索の基礎</span></a></p></li>
 <li><p><a class="reference internal" href="contents/encryption.html#sec-encryption"><span class="std std-ref">暗号化とSSL通信</span></a></p></li>
@@ -442,6 +466,7 @@ document.write(`
 <li><p><a class="reference internal" href="contents/blockchain.html#sec-blockchain"><span class="std std-ref">ブロックチェーンの基礎</span></a></p></li>
 <li><p><a class="reference internal" href="contents/web-system.html#sec-web-system"><span class="std std-ref">課題:Webシステムの実装</span></a></p></li>
 </ol>
+</section>
 </section>
 </section>
 <section id="build-status">
@@ -486,16 +511,16 @@ document.write(`
 <td><p>1.62</p></td>
 <td><p>✅</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/regex.html"><span class="doc">contents/regex</span></a></p></td>
-<td><p>2024-02-05 06:06</p></td>
-<td><p>cache</p></td>
-<td><p>1.83</p></td>
-<td><p>✅</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/retrieval.html"><span class="doc">contents/retrieval</span></a></p></td>
+<tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/retrieval.html"><span class="doc">contents/retrieval</span></a></p></td>
 <td><p>2024-02-05 06:06</p></td>
 <td><p>cache</p></td>
 <td><p>1.2</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/scraping.html"><span class="doc">contents/scraping</span></a></p></td>
+<td><p>2024-02-06 03:20</p></td>
+<td><p>cache</p></td>
+<td><p>5.18</p></td>
 <td><p>✅</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/setup-git.html"><span class="doc">contents/setup-git</span></a></p></td>
@@ -537,6 +562,8 @@ document.write(`
 </tbody>
 </table>
 </section>
+<div class="toctree-wrapper compound">
+</div>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -603,7 +630,12 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">講義について</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">講義形式</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">講義日程</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">推奨受講環境</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">講義内容</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">事前準備</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">講義内で説明</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-status">Build Status</a></li>

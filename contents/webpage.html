@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>3. ウェブページの作成 &#8212; プログラミングⅡ</title>
+    <title>1. ウェブページの作成 &#8212; プログラミングⅡ</title>
   
   
   
@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -66,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'contents/webpage';</script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="4. 正規表現とスクレイピング" href="regex.html" />
+    <link rel="next" title="2. 正規表現とスクレイピング" href="scraping.html" />
     <link rel="prev" title="2. Git環境の設定" href="setup-git.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ja"/>
@@ -157,20 +158,24 @@ const thebe_selector_output = ".output, .cell_output"
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="current nav bd-sidenav">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">事前準備</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="setup-python.html">1. Python環境の設定</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup-git.html">2. Git環境の設定</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. ウェブページの作成</a></li>
-<li class="toctree-l1"><a class="reference internal" href="regex.html">4. 正規表現とスクレイピング</a></li>
-<li class="toctree-l1"><a class="reference internal" href="crawler.html">5. 簡易クローラの作成</a></li>
-<li class="toctree-l1"><a class="reference internal" href="email.html">6. Eメールの送受信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="encryption.html">7. 暗号化とSSL通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="retrieval.html">8. 情報検索の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database.html">9. データベースの基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="socket.html">10. ソケット通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-server.html">11. 簡易ウェブサーバの実装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="blockchain.html">12. ブロックチェーンの基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-system.html">13. 課題: Webシステムの実装</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">講義内容</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. ウェブページの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scraping.html">2. 正規表現とスクレイピング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crawler.html">3. 簡易クローラの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.html">4. Eメールの送受信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encryption.html">5. 暗号化とSSL通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="retrieval.html">6. 情報検索の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">7. データベースの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="socket.html">8. ソケット通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-server.html">9. 簡易ウェブサーバの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blockchain.html">10. ブロックチェーンの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-system.html">11. 課題: Webシステムの実装</a></li>
 </ul>
 
     </div>
@@ -397,7 +402,22 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#htmlcss">3.1. HTMLとCSS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#html">1.1. HTMLの基本</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.1.1. HTMLタグ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.1.2. HTML文書の構造</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hmtl">1.1.3. HMTL文書のプロパティ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1.1.4. 練習問題</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#css">1.2. CSSの基本</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.2.1. CSSの文法</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#style">1.2.2. style属性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.2.3. styleタグ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.2.4. CSSファイル</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">1.2.5. 練習問題</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">1.3. 演習</a></li>
 </ul>
             </nav>
         </div>
@@ -410,27 +430,270 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="sec-webpage">
-<span id="id1"></span><h1><span class="section-number">3. </span>ウェブページの作成<a class="headerlink" href="#sec-webpage" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">1. </span>ウェブページの作成<a class="headerlink" href="#sec-webpage" title="Permalink to this heading">#</a></h1>
 <p>本節では、HTMLとCSSを用いたウェブページ作成の基礎について学ぶ。</p>
-<section id="htmlcss">
-<h2><span class="section-number">3.1. </span>HTMLとCSS<a class="headerlink" href="#htmlcss" title="Permalink to this heading">#</a></h2>
-<p>HTMLはHyper Text Markup Languageの略で、ウェブページの各種要素 (大もとはハイパーリンク)を含んだ文書であるHyper Textを記述するためのマークアップ言語を指す。</p>
-<p>一方、マークアップ言語は、文書の構造に従って構造化されたコードを記述するための仕組みで、HTML以外にもXML (Extended Markup Language)やYAML (Yet Another Markup Language, 略後には諸説あり)などが知られている。</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="na">align</span><span class="o">=</span><span class="s">&quot;center&quot;</span><span class="p">&gt;</span>
+<section id="html">
+<h2><span class="section-number">1.1. </span>HTMLの基本<a class="headerlink" href="#html" title="Permalink to this heading">#</a></h2>
+<p>HTMLは<strong>Hyper Text Markup Languag</strong>eの略で、ウェブページの各種要素 (元々はハイパーリンク)を含んだ文書であるHyper Textを記述するための<strong>マークアップ言語</strong>を指す。</p>
+<p>なお、マークアップ言語は、文書の構造に従って構造化されたコードを記述するための仕組みで、HTML以外にも<strong>XML</strong> (Extended Markup Language)や<strong>YAML</strong> (Yet Another Markup Language, 呼称には諸説あり)などが知られている。</p>
+<section id="id2">
+<h3><span class="section-number">1.1.1. </span>HTMLタグ<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>HTMLの文書は<strong>タグ</strong>と呼ばれる構造を記述するための要素を階層状に記述することで作られる。例えば、段落を表すタグであるpタグ (<code class="docutils literal notranslate"><span class="pre">&lt;p&gt;...&lt;/p&gt;</span></code>)は以下のように使う。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cm">&lt;!-- pタグの使用例 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
 Hello world!
 <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<p>CSSはCascade Style Sheetの略で、HTMLのタグや特定のID、クラスを持つ要素に対して、デザイン要素を指定する役割を持つ。</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
-<span class="p">.</span><span class="nc">red</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">text-color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
-
-<span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;red&quot;</span> <span class="na">align</span><span class="o">=</span><span class="s">&quot;center&quot;</span><span class="p">&gt;</span>
+<p>このように記述することで、ブラウザ上では<code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">world!</span></code>の文章が1つの段落であると認識され、ブラウザの初期設定に従って上下にマージン等が挿入される。実際に、上記の内容を記述したHTML文書をブラウザで表示してみると、以下のように表示される (Google Chromeの場合)。</p>
+<a class="with-border reference internal image-reference" href="../_images/hello_html.jpg"><img alt="../_images/hello_html.jpg" class="with-border align-center" src="../_images/hello_html.jpg" style="width: 80%;" /></a>
+<p>上記の<code class="docutils literal notranslate"><span class="pre">&lt;p&gt;...&lt;/p&gt;</span></code>は開始と終了を表す要素の組からなっているが、imgタグ (<code class="docutils literal notranslate"><span class="pre">&lt;img</span> <span class="pre">/&gt;</span></code>)のように、単一の要素で記述される要素もある。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cm">&lt;!-- imgタグの使用例 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;./image/sample.jpg&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+</div>
+<p>また、各タグは<strong>属性</strong>によって、各要素の挙動を調整することができる。例えば上記のimgタグの例では<code class="docutils literal notranslate"><span class="pre">src=&quot;...&quot;</span></code>が属性であり、画像ファイルのある場所を相対パスで指定している。</p>
+<p>HTMLは要素を階層的に記述するのが一般的であり、例えばpタグとimgタグを組み合わせて、段落内にある画像を以下のように記述することができる。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;./image/sample.jpg&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>タグの階層構造は親子関係のように呼ばれ、上記の例ではimgタグはpタグの<strong>子要素</strong>であり、反対にpタグはimgタグの<strong>親要素</strong>である。</p>
+<p>HTMLにはpタグやimgタグ以外にも、非常に多くのタグが存在するので、<a class="reference external" href="https://www.google.com/search?q=HTML+%E3%82%BF%E3%82%B0+%E4%B8%80%E8%A6%A7">「HTML タグ 一覧」</a>などのキーワードで検索して、どのようなものがあるかを確認してほしい。</p>
+<div class="note admonition">
+<p class="admonition-title">HTMLタグ</p>
+<ul class="simple">
+<li><p>HTMLタグは<code class="docutils literal notranslate"><span class="pre">&lt;p&gt;...&lt;/p&gt;</span></code>のように開始・終端を表す要素のペアからなるものと<code class="docutils literal notranslate"><span class="pre">&lt;img</span> <span class="pre">/&gt;</span></code>のように単一の要素からなるものがある</p></li>
+<li><p>各タグは属性によって付加情報を指定し、その挙動を調整することができる</p></li>
+</ul>
+</div>
+</section>
+<section id="id3">
+<h3><span class="section-number">1.1.2. </span>HTML文書の構造<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>ひとつのHTML文書は、<code class="docutils literal notranslate"><span class="pre">.html</span></code>という拡張子を持つファイル内に記述される。文書中には、親要素としてhtmlタグが最初に記述され、その子要素としてheadタグとbodyタグが記述される。</p>
+<p><strong>headタグ</strong> (<code class="docutils literal notranslate"><span class="pre">&lt;head&gt;...&lt;/head&gt;</span></code>)は、HTML文書のプロパティを指定する役割を持ち、その子要素として、メタ情報を付加するmetaタグや文書のタイトルを指定するtitleタグを持たせることができる。</p>
+<p><strong>bodyタグ</strong> (<code class="docutils literal notranslate"><span class="pre">&lt;body&gt;...&lt;/body&gt;</span></code>)は、HTML文書の本体であり、実際にブラウザに表示される内容を指定する。例えば、前述の例で示したpタグやimgタグを用いて、ページの表示内容を指定する。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cm">&lt;!-- HTML文書の構造 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="cm">&lt;!-- HTML文書のプロパティを指定 --&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="cm">&lt;!-- HTML文書の本体を記述 --&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="hmtl">
+<h3><span class="section-number">1.1.3. </span>HMTL文書のプロパティ<a class="headerlink" href="#hmtl" title="Permalink to this heading">#</a></h3>
+<p>HTML文書のプロパティの代表的なものにタイトルとテキスト・エンコーディングがある。</p>
+<p>タイトルはtitleタグ (<code class="docutils literal notranslate"><span class="pre">&lt;title&gt;...&lt;/title&gt;</span></code>)を用いて指定され、多くのブラウザではページ上部に指定した文字列が表示される。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cm">&lt;!-- headタグの子要素として指定 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>最初のHTML<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>一例としてGoogle Chromeでは、以下のようにタブの部分にタイトルが表示される。</p>
+<a class="with-border reference internal image-reference" href="../_images/html_with_title.jpg"><img alt="../_images/html_with_title.jpg" class="with-border align-center" src="../_images/html_with_title.jpg" style="width: 80%;" /></a>
+<p><strong>テキスト・エンコーディング</strong>は、そのHTML文書がどのようなバイト形式で書かれているのかを示す。英語の文書は基本的に<code class="docutils literal notranslate"><span class="pre">a</span></code>や<code class="docutils literal notranslate"><span class="pre">1</span></code>などの文字の表現に1バイト(=8ビット)の情報を使用するが、日本語(&amp;その他の言語)の場合には、「あ」や「大」などの文字に1バイトより多くの情報を使用する。このような文字のことを特に<strong>マルチバイト文字</strong>と呼ぶ。</p>
+<p>マルチバイト文字には、各言語ごとに複数のバイト表現形式があり、日本語なら、<strong>Shift-JIS</strong>や<strong>EUC-JP</strong>, <strong>UTF-8</strong>などがある。ネットサーフィン中にページが文字化けしているのを見たことがある人も多いと思うが、これは<strong>HTML文書のエンコーディング</strong>と<strong>HTMLプロパティに指定されたエンコーディング</strong>が不一致のために起こることが多い。そのため、日本語等の英語以外の言語でウェブページを作る際には、常に、HTML文書のエンコーディングとHTMLプロパティに指定するエンコーディングが揃っていることを確認することが大切である。</p>
+<p>HTML文書のエンコーディングは、Visual Studio Codeなら、画面右下の情報バーから確認できる (下図参照)。</p>
+<a class="mb-1 reference internal image-reference" href="../_images/text_encoding.jpg"><img alt="../_images/text_encoding.jpg" class="mb-1 align-center" src="../_images/text_encoding.jpg" style="width: 80%;" /></a>
+<p>この画像では文書がUTF-8形式で作成されているので、HTML文書のプロパティにも同様にUTF-8を指定する。指定にはmetaタグを用いて以下のように記述する。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cm">&lt;!-- headタグの子要素として指定 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+</div>
+<p>なお、余談にはなるが、上記の<code class="docutils literal notranslate"><span class="pre">charset</span></code>属性はHTML5から導入されたものなので、古いブラウザもサポートしたい場合には、以下のように記述する必要がある。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;content-type&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;text/html; charset=utf-8&quot;</span> <span class="p">/&gt;</span> 
+</pre></div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">HTML文書</p>
+<ul class="simple">
+<li><p>各文書は<code class="docutils literal notranslate"><span class="pre">.html</span></code>の拡張子を持つテキストファイルに保存する</p></li>
+<li><p>HTML文書はhtmlタグと、その子要素としてのheadタグ、bodyタグからなる</p></li>
+<li><p>headタグにはタイトルやテキスト・エンコーディングなどの文書プロパティを指定する</p></li>
+<li><p>bodyタグにはブラウザに表示されるページ内容を記述する</p></li>
+</ul>
+</div>
+</section>
+<section id="id4">
+<h3><span class="section-number">1.1.4. </span>練習問題<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>これまでの内容を基に、単一の段落内に画像が1つだけあるようなHTML文書を作成せよ。この際、テキストのエンコーディングはUTF-8であるとし、文書のタイトルを「最初のHTML」とせよ。</p></li>
+<li><p>文書をUTF-8で作成した上で、HTML文書のエンコーディングをShift JISに指定するとどうなるか確認せよ (ブラウザによって挙動が異なる)。</p></li>
+</ul>
+</section>
+</section>
+<section id="css">
+<h2><span class="section-number">1.2. </span>CSSの基本<a class="headerlink" href="#css" title="Permalink to this heading">#</a></h2>
+<p>CSSはCascade Style Sheetの略で、HTMLのタグや特定のID、クラスを持つ要素に対して、スタイル(= デザイン要素)を指定する役割を持つ。スタイルの指定方法には大きく分けて以下の3つの方法がある。</p>
+<ol class="arabic simple">
+<li><p>HTMLタグに属性<code class="docutils literal notranslate"><span class="pre">style=...</span></code>を指定する方法</p></li>
+<li><p>headタグの子要素としてstyleタグを配置して指定する方法</p></li>
+<li><p>拡張子が<code class="docutils literal notranslate"><span class="pre">.css</span></code>のファイルを別に作成する方法</p></li>
+</ol>
+<p>なお、同じ要素に対して複数の異なる指定がなされた場合には、上記のリストの中で<strong>より若い番号のものが優先</strong>される。</p>
+<section id="id5">
+<h3><span class="section-number">1.2.1. </span>CSSの文法<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>CSSによるスタイルは、<strong>デザイン要素の名前</strong>と、その要素に対する<strong>パラメータ</strong>の組により指定される。一例として、要素の幅を指定したい場合には、</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">width</span><span class="o">:</span><span class="w"> </span><span class="nt">100px</span><span class="o">;</span>
+</pre></div>
+</div>
+<p>のように書く。この際、パラメータの後に<strong>セミコロンをつける</strong>のを忘れないようにすること。</p>
+<p>また、色の指定には、<code class="docutils literal notranslate"><span class="pre">red</span></code>や<code class="docutils literal notranslate"><span class="pre">black</span></code>などの色の名前 (<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/named-color">使える名前の一覧</a>)の他、16進数の組による指定の方法がある。16進数で色を指定する場合には、赤、緑、青の各色要素に対して、0-255の値を16進数で記述する。一例として、黄色 (= 赤: 255, 緑: 255, 青: 0)を指定したい場合には</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">color</span><span class="o">:</span><span class="w"> </span><span class="p">#</span><span class="nn">ffff00</span><span class="o">;</span>
+</pre></div>
+</div>
+<p>のように書く。これは、</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">color</span><span class="o">:</span><span class="w"> </span><span class="nt">yellow</span><span class="o">;</span>
+</pre></div>
+</div>
+<p>と書くことと同義である。</p>
+<p>また、デザイン要素の中には<code class="docutils literal notranslate"><span class="pre">border</span></code>のように複数のパラメータを指定できるものもある。例えば、1px幅の線、実線、青色、の属性を持つ線を引きたければ、</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">border</span><span class="o">:</span><span class="w"> </span><span class="nt">1px</span><span class="w"> </span><span class="nt">solid</span><span class="w"> </span><span class="p">#</span><span class="nn">0000ff</span><span class="o">;</span>
+</pre></div>
+</div>
+<p>のようにパラメータを指定すれば良い。</p>
+</section>
+<section id="style">
+<h3><span class="section-number">1.2.2. </span>style属性<a class="headerlink" href="#style" title="Permalink to this heading">#</a></h3>
+<p>では、実際にタグにstyle属性を指定して、その挙動を確認してみよう。pタグにstyle属性を指定して、文字を赤色に変更してみる。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;color: #ff0000;&quot;</span><span class="p">&gt;</span>
 Hello, world!
 <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </pre></div>
 </div>
+<p>すると、ブラウザ上では、以下の画像のように文字の色が変更される。</p>
+<a class="with-border reference internal image-reference" href="../_images/text_color_red.jpg"><img alt="../_images/text_color_red.jpg" class="with-border align-center" src="../_images/text_color_red.jpg" style="width: 80%;" /></a>
+<p>同様にして、フォントサイズを変更したり、フォントを太字にしたりすることもできる。この場合には、style属性にセミコロンで区切って、複数のスタイルを指定する。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;color: #ff0000; font-size: 20pt; font-weight: bold;&quot;</span><span class="p">&gt;</span>
+Hello, world!
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<a class="with-border reference internal image-reference" href="../_images/text_styles.jpg"><img alt="../_images/text_styles.jpg" class="with-border align-center" src="../_images/text_styles.jpg" style="width: 80%;" /></a>
+</section>
+<section id="id6">
+<h3><span class="section-number">1.2.3. </span>styleタグ<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>headタグの子要素としてstyleタグを用いる場合には、上記の<strong>デザイン要素</strong>＋<strong>パラメータ</strong>のペアに加えて、それらを<strong>どの要素に適用するか</strong>を指定する必要がある。</p>
+<p>例えば、全てのpタグに対して、文字を赤色、フォントサイズ20pt、文字を太字、というスタイルを指定するには、</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="nt">p</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#ff0000</span><span class="p">;</span>
+<span class="w">        </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">pt</span><span class="p">;</span>
+<span class="w">        </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">bold</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>のようにstyleタグを使用する。</p>
+<p>全体ではなく、個別の要素に対してスタイルを指定したい場合には、IDもしくはクラスを用いる。これらはタグの属性としてIDなら<code class="docutils literal notranslate"><span class="pre">id=&quot;...&quot;</span></code>、クラスなら<code class="docutils literal notranslate"><span class="pre">class=&quot;...&quot;</span></code>のような形で指定する。これらの指定を持つタグにのみスタイルを適用する場合、CSSの内容は次のようになる。</p>
+<hr class="docutils" />
+<p><strong>styleタグの記述</strong></p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="c">/* IDとしてredを持つpタグにスタイルを指定 */</span>
+<span class="w">    </span><span class="nt">p</span><span class="p">#</span><span class="nn">red</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#ff0000</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c">/* クラスとしてblueを持つpタグにスタイルを指定 */</span>
+<span class="w">    </span><span class="nt">p</span><span class="p">.</span><span class="nc">blue</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#0000ff</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p><strong>スタイルが適用される要素</strong></p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;red&quot;</span><span class="p">&gt;</span>
+赤色のテキスト
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;blue&quot;</span><span class="p">&gt;</span>
+青色のテキスト
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>なお、同じデザイン要素に異なるパラメータがIDとクラスの両方で指定された場合にはIDの方の指定が優先される。従って、</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;red&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;blue&quot;</span><span class="p">&gt;</span>
+何色のテキスト？
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>のように書くと、pタグ内部の文字列は赤色になる。これはIDが個別のタグ(= identity)を、クラスが一定の要素の集まり(= class of tags)を指定する目的で使われるものであることと関係する。</p>
+<p>また、HTMLのタグが階層構造を持つことと関係して、CSSでは、特定のタグの子要素に対してのみスタイルを適用することができる。例えばpタグの子要素になっているimgタグにのみ囲み線をつけたければ、次のように記述する。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="nt">p</span><span class="w"> </span><span class="nt">img</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c">/* 1px幅で黒色の実線 */</span>
+<span class="w">        </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#000000</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>この例のようにタグやID等をスペースで区切ると、要素の親子関係に基づいてスタイルが指定できる。一方で、気をつけなければならないのは、次のような例である。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="c">/* スペースなし */</span>
+<span class="w">    </span><span class="nt">p</span><span class="p">.</span><span class="nc">red</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#ff0000</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c">/* スペースあり */</span>
+<span class="w">    </span><span class="nt">p</span><span class="w"> </span><span class="p">.</span><span class="nc">red</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#ff0000</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>この例では<strong>スペースなし</strong>の方は、「クラスがredであるpタグ」を表すのに対して、<strong>スペースあり</strong>の方は、「pタグの子要素のうち、クラスがredであるもの」を表す。このような些細な違いが、結果に影響するので注意したい。</p>
+</section>
+<section id="id7">
+<h3><span class="section-number">1.2.4. </span>CSSファイル<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>CSSファイルを使用するには、拡張子が<code class="docutils literal notranslate"><span class="pre">.css</span></code>のファイルを別途用意 (<code class="docutils literal notranslate"><span class="pre">style.css</span></code>とする)し、このファイルをHTML文書のheadタグ内にlinkタグを用いて指定する。</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cm">&lt;!-- headタグ内に記述する --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;./style.css&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+</div>
+<p>この際、href属性に指定するCSSファイルのパスが(絶対パスでも相対パスでも)間違っていないかをよく確認すること。その上で、CSSファイルには、styleタグの内部に記述したものと同様の内容を記述すれば良い。</p>
+<div class="note admonition">
+<p class="admonition-title">CSSの基本事項</p>
+<ul class="simple">
+<li><p>CSSによるスタイルの指定方法には、style属性、styleタグ、CSSファイルの3つの方法がある</p></li>
+<li><p>各スタイルは、デザイン要素の名前と、その要素に対するパラメータの組により定義される</p></li>
+<li><p>個別の要素にスタイルを指定するためにIDやクラスなどの属性が用いられる</p></li>
+</ul>
+</div>
+</section>
+<section id="id8">
+<h3><span class="section-number">1.2.5. </span>練習問題<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>styleタグ、もしくはCSSファイルを用いて、pタグに次のスタイルを指定せよ (以下の実行例を参照)。</p>
+<ul>
+<li><p>テキストの色が青色</p></li>
+<li><p>テキストが中央揃え</p></li>
+<li><p>赤色の点線で囲まれている</p></li>
+<li><p>背景の色が灰色</p></li>
+</ul>
+</li>
+</ul>
+<figure class="align-center" id="id10">
+<a class="reference internal image-reference" href="../_images/css_practice_01.jpg"><img alt="../_images/css_practice_01.jpg" src="../_images/css_practice_01.jpg" style="width: 80%;" /></a>
+<figcaption>
+<p><span class="caption-number">図 1.1 </span><span class="caption-text">実行例</span><a class="headerlink" href="#id10" title="この画像へのパーマリンク">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="id9">
+<h2><span class="section-number">1.3. </span>演習<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<p>HTMLとCSSを0から書いて、自分のプロフィールページを作成しよう。その際、以下の要件を満たすように作成すること。</p>
+<ol class="arabic simple">
+<li><p>HTMLファイル1つ (<code class="docutils literal notranslate"><span class="pre">index.html</span></code>)とCSSファイル1つ (<code class="docutils literal notranslate"><span class="pre">style.css</span></code>)からなるページにする</p></li>
+<li><p>スタイルは全てCSSファイル内に記述する</p></li>
+<li><p>画像と外部サイトへのリンクを1つ以上入れる</p></li>
+</ol>
+<p>作成したページはクラス内で限定公開するので、他の人を傷つける内容や公序良俗に反する内容は書かないこと。その代わり、限定公開なので、インターネット上の画像等は常識の範囲内で自由に使って良い。</p>
 </section>
 </section>
 
@@ -474,11 +737,11 @@ Hello, world!
       </div>
     </a>
     <a class="right-next"
-       href="regex.html"
+       href="scraping.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">次へ</p>
-        <p class="prev-next-title"><span class="section-number">4. </span>正規表現とスクレイピング</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>正規表現とスクレイピング</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -498,7 +761,22 @@ Hello, world!
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#htmlcss">3.1. HTMLとCSS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#html">1.1. HTMLの基本</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.1.1. HTMLタグ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.1.2. HTML文書の構造</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hmtl">1.1.3. HMTL文書のプロパティ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1.1.4. 練習問題</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#css">1.2. CSSの基本</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.2.1. CSSの文法</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#style">1.2.2. style属性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.2.3. styleタグ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.2.4. CSSファイル</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">1.2.5. 練習問題</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">1.3. 演習</a></li>
 </ul>
   </nav></div>
 

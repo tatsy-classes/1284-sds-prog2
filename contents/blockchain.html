@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>12. ブロックチェーンの基礎 &#8212; プログラミングⅡ</title>
+    <title>10. ブロックチェーンの基礎 &#8212; プログラミングⅡ</title>
   
   
   
@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -66,8 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'contents/blockchain';</script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="13. 課題: Webシステムの実装" href="web-system.html" />
-    <link rel="prev" title="11. 簡易ウェブサーバの実装" href="web-server.html" />
+    <link rel="next" title="11. 課題: Webシステムの実装" href="web-system.html" />
+    <link rel="prev" title="9. 簡易ウェブサーバの実装" href="web-server.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ja"/>
   </head>
@@ -157,20 +158,24 @@ const thebe_selector_output = ".output, .cell_output"
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="current nav bd-sidenav">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">事前準備</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="setup-python.html">1. Python環境の設定</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup-git.html">2. Git環境の設定</a></li>
-<li class="toctree-l1"><a class="reference internal" href="webpage.html">3. ウェブページの作成</a></li>
-<li class="toctree-l1"><a class="reference internal" href="regex.html">4. 正規表現とスクレイピング</a></li>
-<li class="toctree-l1"><a class="reference internal" href="crawler.html">5. 簡易クローラの作成</a></li>
-<li class="toctree-l1"><a class="reference internal" href="email.html">6. Eメールの送受信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="encryption.html">7. 暗号化とSSL通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="retrieval.html">8. 情報検索の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database.html">9. データベースの基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="socket.html">10. ソケット通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-server.html">11. 簡易ウェブサーバの実装</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">12. ブロックチェーンの基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-system.html">13. 課題: Webシステムの実装</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">講義内容</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="webpage.html">1. ウェブページの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scraping.html">2. 正規表現とスクレイピング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crawler.html">3. 簡易クローラの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.html">4. Eメールの送受信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encryption.html">5. 暗号化とSSL通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="retrieval.html">6. 情報検索の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">7. データベースの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="socket.html">8. ソケット通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-server.html">9. 簡易ウェブサーバの実装</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">10. ブロックチェーンの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-system.html">11. 課題: Webシステムの実装</a></li>
 </ul>
 
     </div>
@@ -400,7 +405,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="sec-blockchain">
-<span id="id1"></span><h1><span class="section-number">12. </span>ブロックチェーンの基礎<a class="headerlink" href="#sec-blockchain" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">10. </span>ブロックチェーンの基礎<a class="headerlink" href="#sec-blockchain" title="Permalink to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -439,7 +444,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">前へ</p>
-        <p class="prev-next-title"><span class="section-number">11. </span>簡易ウェブサーバの実装</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>簡易ウェブサーバの実装</p>
       </div>
     </a>
     <a class="right-next"
@@ -447,7 +452,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">次へ</p>
-        <p class="prev-next-title"><span class="section-number">13. </span>課題: Webシステムの実装</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>課題: Webシステムの実装</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
