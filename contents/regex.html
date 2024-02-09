@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>2. 正規表現とスクレイピング &#8212; プログラミングⅡ</title>
+    <title>2. 正規表現の基礎 &#8212; プログラミングⅡ</title>
   
   
   
@@ -64,10 +64,10 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'contents/scraping';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'contents/regex';</script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="3. 簡易クローラの作成" href="crawler.html" />
+    <link rel="next" title="3. HTTPリクエスト" href="request.html" />
     <link rel="prev" title="1. ウェブページの作成" href="webpage.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ja"/>
@@ -166,15 +166,15 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">講義内容</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="webpage.html">1. ウェブページの作成</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. 正規表現とスクレイピング</a></li>
-<li class="toctree-l1"><a class="reference internal" href="crawler.html">3. 簡易クローラの作成</a></li>
-<li class="toctree-l1"><a class="reference internal" href="email.html">4. Eメールの送受信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="encryption.html">5. 暗号化とSSL通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="retrieval.html">6. 情報検索の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database.html">7. データベースの基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="socket.html">8. ソケット通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-server.html">9. 簡易ウェブサーバの実装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="blockchain.html">10. ブロックチェーンの基礎</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. 正規表現の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request.html">3. HTTPリクエスト</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crawler.html">4. 簡易クローラの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.html">5. Eメールの送受信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encryption.html">6. 暗号化とSSL通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="retrieval.html">7. 情報検索の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">8. データベースの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="socket.html">9. ソケット通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-server.html">10. 簡易ウェブサーバの実装</a></li>
 <li class="toctree-l1"><a class="reference internal" href="web-system.html">11. 課題: Webシステムの実装</a></li>
 </ul>
 
@@ -230,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://colab.research.google.com/github/tatsy/1284-sds-programming-2/blob/master/./contents/scraping.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/tatsy/1284-sds-programming-2/blob/master/./contents/regex.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -278,7 +278,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/tatsy/1284-sds-programming-2/issues/new?title=Issue%20on%20page%20%2Fcontents/scraping.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/tatsy/1284-sds-programming-2/issues/new?title=Issue%20on%20page%20%2Fcontents/regex.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="問題を報告"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -308,7 +308,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/contents/scraping.ipynb" target="_blank"
+      <li><a href="../_sources/contents/regex.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="ソースファイルをダウンロード"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -392,7 +392,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>正規表現とスクレイピング</h1>
+    <h1>正規表現の基礎</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -402,21 +402,22 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 正規表現の基本</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.1.1. 正規表現のシンタックス</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">何らかの1文字</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">文字の繰り返し</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">文字セット</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">接頭辞、接尾辞</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">最短マッチ、最長マッチ</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">日本語の取り扱い</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 正規表現とは？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.2. 正規表現と決定性有限オートマトン</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.3. 正規表現のシンタックス 初級編</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.3.1. 何らかの1文字</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.3.2. 文字の繰り返し</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.3.3. 文字セット</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.3.4. 最短マッチ、最長マッチ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.3.5. 接頭辞、接尾辞</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.3.6. エスケープ文字</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.1.2. サブグループ</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#urllib">2.2. urllib</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.2.1. 練習問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.4. 正規表現のシンタックス 中級編</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.4.1. 検索方法の詳細設定</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.4.2. サブグループ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.4.3. 名前付きサブグループ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.4.4. 日本語の取り扱い</a></li>
 </ul>
 </li>
 </ul>
@@ -430,11 +431,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="sec-scraping">
-<span id="id1"></span><h1><span class="section-number">2. </span>正規表現とスクレイピング<a class="headerlink" href="#sec-scraping" title="Permalink to this heading">#</a></h1>
-<p>本節では、正規表現と、それを用いたHTMLのスクレイピングについて学ぶ。</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="sec-regex">
+<span id="id1"></span><h1><span class="section-number">2. </span>正規表現の基礎<a class="headerlink" href="#sec-regex" title="Permalink to this heading">#</a></h1>
+<p>本節では、正規表現の基本について学ぶ。</p>
 <section id="id2">
-<h2><span class="section-number">2.1. </span>正規表現の基本<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.1. </span>正規表現とは？<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>正規表現 (regular expression)とは、特定の文字パターンに合致する文字列を見つける仕組みを指す。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
@@ -448,7 +450,7 @@ document.write(`
 <span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
 <span class="n">match</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matched text is </span><span class="se">\&quot;</span><span class="si">{</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Matched text is &quot;</span><span class="si">{</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s1">s</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pattern not matched.&quot;</span><span class="p">)</span>
 </pre></div>
@@ -554,45 +556,59 @@ document.write(`
 </div>
 </div>
 </div>
-<section id="id3">
-<h3><span class="section-number">2.1.1. </span>正規表現のシンタックス<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
-<p>正規表現は特定の文字列を探すだけでなく、より複雑なパターンを持った文字列を探すことができる。</p>
-<section id="id4">
-<h4>何らかの1文字<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
+<div class="note admonition">
+<p class="admonition-title">正規表現の基本</p>
+<ul class="simple">
+<li><p>正規表現は特定の文字パターンに合致する文字列を探すのに用いる</p></li>
+<li><p>Pythonにおいては標準ライブラリの<code class="docutils literal notranslate"><span class="pre">re</span></code>を用いる</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">re.compile</span></code>で文字パターンを定義した後、<code class="docutils literal notranslate"><span class="pre">search</span></code>や<code class="docutils literal notranslate"><span class="pre">fullmatch</span></code>を使って文字列を解析する</p></li>
+</ul>
+</div>
 </section>
+<section id="id3">
+<h2><span class="section-number">2.2. </span>正規表現と決定性有限オートマトン<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="id4">
+<h2><span class="section-number">2.3. </span>正規表現のシンタックス 初級編<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>正規表現は特定の文字列を探すだけでなく、より複雑なパターンを持った文字列を探すことができる。</p>
 <section id="id5">
-<h4>文字の繰り返し<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
-<p>a, b, cの3文字だけからなる単語が存在するかどうかを調べたい場合には、文字の繰り返しを表す<code class="docutils literal notranslate"><span class="pre">*</span></code>あるいは<code class="docutils literal notranslate"><span class="pre">+</span></code>を用いて、以下のようにパターン文字列を記述する。</p>
+<h3><span class="section-number">2.3.1. </span>何らかの1文字<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>どこかに1文字、何でも良いので文字が存在することを表したい場合には、<code class="docutils literal notranslate"><span class="pre">a.c</span></code>のように<code class="docutils literal notranslate"><span class="pre">.</span></code>を用いる。この正規表現は例えば<code class="docutils literal notranslate"><span class="pre">adc</span></code>や<code class="docutils literal notranslate"><span class="pre">aBc</span></code>など、<code class="docutils literal notranslate"><span class="pre">.</span></code>の部分に何らか1文字がはいるような文字列とマッチするが、<code class="docutils literal notranslate"><span class="pre">a.c</span></code>のように<code class="docutils literal notranslate"><span class="pre">.</span></code>に対応する場所に2文字以上ある場合にはマッチしない。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;bake&quot;</span>
-<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[abc]+&quot;</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="si">{</span><span class="n">text</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> consists of a, b, and c&quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="si">{</span><span class="n">text</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> contains characters other than a, b, and c&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;a.c&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;adc :&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="s2">&quot;adc&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;aBc :&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="s2">&quot;aBc&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;adBc :&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="s2">&quot;adBc&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;bake&quot; contains characters other than a, b, and c
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>re.compile(&#39;a.c&#39;)
+adc : True
+aBc : True
+adBc : False
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="id6">
+<h3><span class="section-number">2.3.2. </span>文字の繰り返し<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>a, b, cの3文字だけからなる単語が存在するかどうかを調べたい場合には、文字の繰り返しを表す<code class="docutils literal notranslate"><span class="pre">*</span></code>あるいは<code class="docutils literal notranslate"><span class="pre">+</span></code>を用いる。例えば、<code class="docutils literal notranslate"><span class="pre">aaabcccc</span></code>のような文字列とマッチさせたい場合<code class="docutils literal notranslate"><span class="pre">a+bc+</span></code>のように繰り返したい文字の後に<code class="docutils literal notranslate"><span class="pre">+</span></code>あるいは<code class="docutils literal notranslate"><span class="pre">*</span></code>をつける。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;cab&quot;</span>
-<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[abc]+&quot;</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="si">{</span><span class="n">text</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> consists of a, b, and c&quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="si">{</span><span class="n">text</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> contains characters other than a, b, and c&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;aaabcccc&quot;</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;a+bc+&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;cab&quot; consists of a, b, and c
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>re.compile(&#39;a+bc+&#39;)
+aaabcccc : True
 </pre></div>
 </div>
 </div>
@@ -640,78 +656,83 @@ ab : True
 </div>
 </div>
 </div>
-</section>
-<section id="id6">
-<h4>文字セット<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<p>加えて、回数を制限した文字の繰り返しを定義することもできる。例えば、<code class="docutils literal notranslate"><span class="pre">abbccc</span></code>は検出したいが、<code class="docutils literal notranslate"><span class="pre">c</span></code>が4回以上繰り返す場合や<code class="docutils literal notranslate"><span class="pre">c</span></code>が含まれない場合は除外したいという場合には、繰り返し回数は1-3回に指定して、<code class="docutils literal notranslate"><span class="pre">abc{1,3}</span></code>のような文字パターンを定義することができる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;abc{1,3}&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;abcc :&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="s2">&quot;abcc&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;abcccc :&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="s2">&quot;abcccc&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>abcc : True
+abcccc : False
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="id7">
-<h4>接頭辞、接尾辞<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<h3><span class="section-number">2.3.3. </span>文字セット<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>ここまでの例では、<code class="docutils literal notranslate"><span class="pre">+</span></code>や<code class="docutils literal notranslate"><span class="pre">*</span></code>といった文字の繰り返しは、特定の1文字にしか適用していなかった。しかし、Pythonに限らず、正規表現には特定の範囲の文字を扱う<strong>文字セット</strong>が用意されている。</p>
+<p>例えば、<code class="docutils literal notranslate"><span class="pre">[a-z]</span></code>のように書くと、小文字のアルファベット全てにマッチする文字パターンを表すことができる。これに<code class="docutils literal notranslate"><span class="pre">+</span></code>や<code class="docutils literal notranslate"><span class="pre">*</span></code>を組み合わせると小文字アルファベットだけで構成されている単語かどうかをチェックすることができる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[a-z]+&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello : &quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hello : &quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello :  False
+hello :  True
+</pre></div>
+</div>
+</div>
+</div>
+<p>また、Pythonの正規表現ではASCIIコード表で連続する文字種を文字セットの始点と終点に指定することができるため、<code class="docutils literal notranslate"><span class="pre">[x-z]</span></code>のように書くと、小文字でx, y, zのいずれかにマッチするような文字パターンを作ることもできる。</p>
+<p>文字セットを表す<code class="docutils literal notranslate"><span class="pre">[...]</span></code>の内側には複数の文字や文字の範囲を含めることができ、例えば、大文字、小文字の全てのアルファベットと、0-9の数字を含めたい場合、<code class="docutils literal notranslate"><span class="pre">[a-zA-Z0-9]</span></code>のような文字パターンを作ることができる。これに加えて、さらに、ハイフン (<code class="docutils literal notranslate"><span class="pre">-</span></code>)やスペース (<code class="docutils literal notranslate"> </code>)を含めたい場合には <code class="docutils literal notranslate"><span class="pre">[a-zA-Z0-9-</span> <span class="pre">]</span></code>のように書けばよい。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;2-1 Naka Kunitachi-shi&quot;</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[a-zA-Z0-9- ]+&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2-1 Naka Kunitachi-shi : True
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="id8">
-<h4>最短マッチ、最長マッチ<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
+<h3><span class="section-number">2.3.4. </span>最短マッチ、最長マッチ<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 </section>
 <section id="id9">
-<h4>日本語の取り扱い<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
-</section>
+<h3><span class="section-number">2.3.5. </span>接頭辞、接尾辞<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 </section>
 <section id="id10">
-<h3><span class="section-number">2.1.2. </span>サブグループ<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.3.6. </span>エスケープ文字<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="id11">
+<h2><span class="section-number">2.4. </span>正規表現のシンタックス 中級編<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
+<section id="id12">
+<h3><span class="section-number">2.4.1. </span>検索方法の詳細設定<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="id13">
+<h3><span class="section-number">2.4.2. </span>サブグループ<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
 <p>上記の例では、マッチした文字列を取り出すために <code class="docutils literal notranslate"><span class="pre">match.group(0)</span></code>のように<code class="docutils literal notranslate"><span class="pre">group</span></code>メソッドに<code class="docutils literal notranslate"><span class="pre">0</span></code>を指定した。この<code class="docutils literal notranslate"><span class="pre">group</span></code>はマッチした文字列内にあるサブグループのことで、<code class="docutils literal notranslate"><span class="pre">0</span></code>はマッチした文章全体を示す。また<code class="docutils literal notranslate"><span class="pre">match.group(0)</span></code>は<code class="docutils literal notranslate"><span class="pre">match[0]</span></code>とも書くことができる。</p>
 </section>
+<section id="id14">
+<h3><span class="section-number">2.4.3. </span>名前付きサブグループ<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
 </section>
-<section id="urllib">
-<h2><span class="section-number">2.2. </span>urllib<a class="headerlink" href="#urllib" title="Permalink to this heading">#</a></h2>
-<p>Pythonでウェブページのデータをサーバーから取得するための標準ライブラリに<code class="docutils literal notranslate"><span class="pre">urllib</span></code>がある。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">req</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s2">&quot;https://google.co.jp/&quot;</span><span class="p">)</span>
-<span class="k">except</span> <span class="n">urllib</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">req</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="n">body</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">body</span><span class="p">)</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> bytes received!&quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HTTP request failed!&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>19066 bytes received!
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;shift-jis&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;href=</span><span class="se">\&quot;</span><span class="s2">(.*?)</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">match</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>https://www.google.co.jp/imghp?hl=en&amp;tab=wi
-</pre></div>
-</div>
-</div>
-</div>
-<section id="id11">
-<h3><span class="section-number">2.2.1. </span>練習問題<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Googleのトップページ (https://www.google.co.jp/) から、Googleのロゴ画像のURLを取り出しなさい。</p></li>
-</ul>
+<section id="id15">
+<h3><span class="section-number">2.4.4. </span>日本語の取り扱い<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
 </section>
 </section>
 </section>
@@ -756,11 +777,11 @@ ab : True
       </div>
     </a>
     <a class="right-next"
-       href="crawler.html"
+       href="request.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">次へ</p>
-        <p class="prev-next-title"><span class="section-number">3. </span>簡易クローラの作成</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>HTTPリクエスト</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -780,21 +801,22 @@ ab : True
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 正規表現の基本</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.1.1. 正規表現のシンタックス</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">何らかの1文字</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">文字の繰り返し</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">文字セット</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">接頭辞、接尾辞</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">最短マッチ、最長マッチ</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">日本語の取り扱い</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 正規表現とは？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.2. 正規表現と決定性有限オートマトン</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.3. 正規表現のシンタックス 初級編</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.3.1. 何らかの1文字</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.3.2. 文字の繰り返し</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.3.3. 文字セット</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.3.4. 最短マッチ、最長マッチ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.3.5. 接頭辞、接尾辞</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.3.6. エスケープ文字</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.1.2. サブグループ</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#urllib">2.2. urllib</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.2.1. 練習問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.4. 正規表現のシンタックス 中級編</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.4.1. 検索方法の詳細設定</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.4.2. サブグループ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.4.3. 名前付きサブグループ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.4.4. 日本語の取り扱い</a></li>
 </ul>
 </li>
 </ul>

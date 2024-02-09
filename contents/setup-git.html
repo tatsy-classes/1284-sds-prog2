@@ -166,15 +166,15 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">講義内容</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="webpage.html">1. ウェブページの作成</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scraping.html">2. 正規表現とスクレイピング</a></li>
-<li class="toctree-l1"><a class="reference internal" href="crawler.html">3. 簡易クローラの作成</a></li>
-<li class="toctree-l1"><a class="reference internal" href="email.html">4. Eメールの送受信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="encryption.html">5. 暗号化とSSL通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="retrieval.html">6. 情報検索の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database.html">7. データベースの基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="socket.html">8. ソケット通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-server.html">9. 簡易ウェブサーバの実装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="blockchain.html">10. ブロックチェーンの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regex.html">2. 正規表現の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request.html">3. HTTPリクエスト</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crawler.html">4. 簡易クローラの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email.html">5. Eメールの送受信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encryption.html">6. 暗号化とSSL通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="retrieval.html">7. 情報検索の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">8. データベースの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="socket.html">9. ソケット通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-server.html">10. 簡易ウェブサーバの実装</a></li>
 <li class="toctree-l1"><a class="reference internal" href="web-system.html">11. 課題: Webシステムの実装</a></li>
 </ul>
 
@@ -404,20 +404,21 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.1. Gitについて</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">2.2. GitHubアカウントの作成</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.3. Gitリポジトリの作成</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.4. ローカル環境の準備</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">2.4.1. Windows</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mac-linux">2.4.2. Mac / Linux</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guigit">2.4.3. GUIを通してGitを使う (非推奨)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ssh">2.3. SSHキーの登録</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.4. Gitリポジトリの作成</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.5. ローカル環境の準備</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">2.5.1. Windows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mac-linux">2.5.2. Mac / Linux</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guigit">2.5.3. GUIを通してGitを使う (非推奨)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.5. Gitの基本コマンド</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.5.1. クローン</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.5.2. コミット</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.5.3. プッシュ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.6. Gitの基本コマンド</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.6.1. クローン</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.6.2. コミット</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.6.3. プッシュ</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.6. ソースコードの編集・管理</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.7. ソースコードの編集・管理</a></li>
 </ul>
             </nav>
         </div>
@@ -459,8 +460,38 @@ document.write(`
 <p>公式アナウンスに従ってアカウントを作成しよう。ユーザ名は変更できないので慎重に考えること。</p>
 <p><a class="reference external" href="https://docs.github.com/ja/get-started/quickstart/creating-an-account-on-github">https://docs.github.com/ja/get-started/quickstart/creating-an-account-on-github</a></p>
 </section>
+<section id="ssh">
+<h2><span class="section-number">2.3. </span>SSHキーの登録<a class="headerlink" href="#ssh" title="Permalink to this heading">#</a></h2>
+<p>2024年現在、GitHubのプライベート・リポジトリ上でソースコードを管理するためにはSSH (Secure Shellの略)を使用する必要がある。</p>
+<p>Gitと同様、Mac/Linuxでは特別なインストールは必要なく、ターミナル上で<code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">--version</span></code>とタイプしてEnterを押すと、SSHのバージョンが表示される。</p>
+<p>一方、Windowsの場合には、SSHの機能をOS付属のオプションから有効化する必要がある。詳細はMicrosoftの公式ガイドを参考にしてほしい。
+<a class="reference external" href="https://learn.microsoft.com/ja-jp/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui">https://learn.microsoft.com/ja-jp/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui</a></p>
+<p>SSHの用意ができたら、<code class="docutils literal notranslate"><span class="pre">ssh-keygen</span></code>コマンドを使ってSSHキーを生成する。SSHキーにはいくつかの種類があるが、今回はRSA暗号を用いた4096ビット長のキーを用いる。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ssh-keygen<span class="w"> </span>-r<span class="w"> </span>rsa<span class="w"> </span>-b<span class="w"> </span><span class="m">4096</span>
+</pre></div>
+</div>
+<p>すると、パスワードの入力を求められるが、今回はパスワードは設定しなくて良い (本当は設定した方が良いが、よく分からない場合は設定すると混乱する)。</p>
+<p>ただしくSSHキーの生成が完了すると、ホームディレクトリ直下に<code class="docutils literal notranslate"><span class="pre">.ssh</span></code>という名前のフォルダが作成され、そこに<code class="docutils literal notranslate"><span class="pre">id_rsa</span></code>と<code class="docutils literal notranslate"><span class="pre">id_rsa.pub</span></code>という2つのファイルが生成される。なお、<code class="docutils literal notranslate"><span class="pre">.ssh</span></code>フォルダはMacやLinuxでは隠しフォルダ扱いで、単に<code class="docutils literal notranslate"><span class="pre">ls</span></code>とするだけではリストに現れないので注意すること (代わりに<code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-a</span></code>を使う)。</p>
+<p>この<code class="docutils literal notranslate"><span class="pre">id_rsa</span></code>と<code class="docutils literal notranslate"><span class="pre">id_rsa.pub</span></code>は前者が秘密鍵、後者が公開鍵と呼ばれる。公開鍵はその名前の通り、他の人が見られる場所に置いても良く、こちらがGitHubに登録する方のファイルになる。一方で、秘密鍵はその名前の通り、秘密の鍵なので、これは他の人に共有したりしないように注意しよう。</p>
+<p>公開鍵<code class="docutils literal notranslate"><span class="pre">id_rsa.pub</span></code>をテキストエディタで開くか、<code class="docutils literal notranslate"><span class="pre">cat</span></code>コマンドで内容を表示し、その内容をコピーする。</p>
+<p>具体的には、<a class="reference external" href="https://github.com/settings">GitHubの設定ページ</a>の左にあるメニューから「SSH and GPG keys」を選び、現れる画面で「New SSH Key」ボタンを押す。すると、SSHキーの公開鍵の内容を入力するテキストボックスが現れるので、ここに先ほどコピーした公開鍵の内容をペーストする。</p>
+<p>ここまで完了したらローカル環境に戻り、シェルを開く。その上で、秘密鍵である<code class="docutils literal notranslate"><span class="pre">id_rsa</span></code>のパーミッション (ファイルに対してどんな操作ができるかを制限する仕組み)を設定する。具体的には、自分以外のユーザは何もできず、自分も読み取りしかできないように設定する。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.ssh/id_rsa
+</pre></div>
+</div>
+<p>これでSSHキーの登録は完了なので、ローカル環境でシェルを開き、</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/id_rsa<span class="w"> </span>git@github.com
+</pre></div>
+</div>
+<p>と、コマンドを打ってEnterを押す。もし、SSH接続に成功すれば以下のメッセージが現れる。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Hi xxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access.
+Connection to github.com closed.
+</pre></div>
+</div>
+<p>もし、上記のようにSSH接続が上手くいかない場合には、GitHubへの公開鍵の登録に失敗している可能性があるので、もう一度内容をよく確認すること。</p>
+</section>
 <section id="id2">
-<h2><span class="section-number">2.3. </span>Gitリポジトリの作成<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.4. </span>Gitリポジトリの作成<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <p>GitHubを用いてバージョン管理を開始するには<strong>リポジトリ</strong>を作成する必要がある。</p>
 <p>本来、リポジトリを作成するには、Gitサーバ上で</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>init<span class="w"> </span>--bare
@@ -470,9 +501,9 @@ document.write(`
 <p>まずは、各自のGitHubのトップページ (<code class="docutils literal notranslate"><span class="pre">https://github.com/[ユーザ名]</span></code>)にアクセスし、右上の「＋」ボタンから「Create New Repository」を選ぶ。</p>
 </section>
 <section id="id3">
-<h2><span class="section-number">2.4. </span>ローカル環境の準備<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.5. </span>ローカル環境の準備<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
 <section id="windows">
-<h3><span class="section-number">2.4.1. </span>Windows<a class="headerlink" href="#windows" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.1. </span>Windows<a class="headerlink" href="#windows" title="Permalink to this heading">#</a></h3>
 <p>Windowsは、初期状態ではGit環境が用意されていないので、別途ソフトウェアをインストールする必要がある。</p>
 <p>最も一般的なものは<a class="reference external" href="https://gitforwindows.org/">Git for Windows</a>なのだが、こちらを使う場合には、Gitコマンドに環境変数のパスを通すなど、余計な設定が必要になるため、インストールの際に注意が必要。</p>
 <p>環境変数のパスを通す設定をし損ねた場合には、自分で環境変数のパスを通すか、(慣れないと使い勝手が悪い)Git Bashというシステムを使うことになる。</p>
@@ -494,11 +525,11 @@ document.write(`
 <p>インストール完了後、PowerShell上で<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">--version</span></code>とタイプしてEnterを押す。正しくコマンドが認識されていれば、現在のGitのバージョンが表示される。</p>
 </section>
 <section id="mac-linux">
-<h3><span class="section-number">2.4.2. </span>Mac / Linux<a class="headerlink" href="#mac-linux" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.2. </span>Mac / Linux<a class="headerlink" href="#mac-linux" title="Permalink to this heading">#</a></h3>
 <p>特に準備をする必要はなく、ターミナルから<code class="docutils literal notranslate"><span class="pre">git</span></code>コマンドが使用できる。念のため、ターミナルを開き <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">--version</span></code>とタイプしてEnterを押す。正しくコマンドが認識されていれば、現在のGitのバージョンが表示される。</p>
 </section>
 <section id="guigit">
-<h3><span class="section-number">2.4.3. </span>GUIを通してGitを使う (非推奨)<a class="headerlink" href="#guigit" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.3. </span>GUIを通してGitを使う (非推奨)<a class="headerlink" href="#guigit" title="Permalink to this heading">#</a></h3>
 <p>もしGUIを用いて、視覚的にバージョン管理を行いたい場合は、<a class="reference external" href="https://desktop.github.com/">GitHub Desktop</a>や<a class="reference external" href="https://www.sourcetreeapp.com/">Sourcetree</a>などを使うと良い。</p>
 <p>しかし、GUIを使っていると、なかなか融通が利かない部分もあり、またGitのコマンドをなかなか覚えないので、基本はターミナルからコマンドを実行することを強く推奨する。</p>
 <div class="note admonition">
@@ -512,20 +543,20 @@ document.write(`
 </section>
 </section>
 <section id="id4">
-<h2><span class="section-number">2.5. </span>Gitの基本コマンド<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.6. </span>Gitの基本コマンド<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
 <p>Gitでまず覚えるべきコマンドは<strong>クローン</strong> (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code>)、<strong>コミット</strong> (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code>)、そして<strong>プッシュ</strong> (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code>)の3つである。</p>
 <section id="id5">
-<h3><span class="section-number">2.5.1. </span>クローン<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.6.1. </span>クローン<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 </section>
 <section id="id6">
-<h3><span class="section-number">2.5.2. </span>コミット<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.6.2. </span>コミット<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 </section>
 <section id="id7">
-<h3><span class="section-number">2.5.3. </span>プッシュ<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.6.3. </span>プッシュ<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
 </section>
 </section>
 <section id="id8">
-<h2><span class="section-number">2.6. </span>ソースコードの編集・管理<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.7. </span>ソースコードの編集・管理<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -595,20 +626,21 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.1. Gitについて</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">2.2. GitHubアカウントの作成</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.3. Gitリポジトリの作成</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.4. ローカル環境の準備</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">2.4.1. Windows</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mac-linux">2.4.2. Mac / Linux</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guigit">2.4.3. GUIを通してGitを使う (非推奨)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ssh">2.3. SSHキーの登録</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.4. Gitリポジトリの作成</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.5. ローカル環境の準備</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">2.5.1. Windows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mac-linux">2.5.2. Mac / Linux</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guigit">2.5.3. GUIを通してGitを使う (非推奨)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.5. Gitの基本コマンド</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.5.1. クローン</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.5.2. コミット</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.5.3. プッシュ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.6. Gitの基本コマンド</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.6.1. クローン</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.6.2. コミット</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.6.3. プッシュ</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.6. ソースコードの編集・管理</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.7. ソースコードの編集・管理</a></li>
 </ul>
   </nav></div>
 

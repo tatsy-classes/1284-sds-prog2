@@ -167,15 +167,15 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">講義内容</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="contents/webpage.html">1. ウェブページの作成</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/scraping.html">2. 正規表現とスクレイピング</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/crawler.html">3. 簡易クローラの作成</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/email.html">4. Eメールの送受信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/encryption.html">5. 暗号化とSSL通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/retrieval.html">6. 情報検索の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/database.html">7. データベースの基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/socket.html">8. ソケット通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/web-server.html">9. 簡易ウェブサーバの実装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/blockchain.html">10. ブロックチェーンの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/regex.html">2. 正規表現の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/request.html">3. HTTPリクエスト</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/crawler.html">4. 簡易クローラの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/email.html">5. Eメールの送受信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/encryption.html">6. 暗号化とSSL通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/retrieval.html">7. 情報検索の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/database.html">8. データベースの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/socket.html">9. ソケット通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/web-server.html">10. 簡易ウェブサーバの実装</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/web-system.html">11. 課題: Webシステムの実装</a></li>
 </ul>
 
@@ -455,7 +455,8 @@ document.write(`
 <h4>講義内で説明<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
 <ol class="arabic simple">
 <li><p><a class="reference internal" href="contents/webpage.html#sec-webpage"><span class="std std-ref">ウェブページの作成</span></a></p></li>
-<li><p><a class="reference internal" href="contents/scraping.html#sec-scraping"><span class="std std-ref">正規表現とスクレイピング</span></a></p></li>
+<li><p><a class="reference internal" href="contents/regex.html#sec-regex"><span class="std std-ref">正規表現の基礎</span></a></p></li>
+<li><p><a class="reference internal" href="contents/request.html#sec-request"><span class="std std-ref">HTTPリクエスト</span></a></p></li>
 <li><p><a class="reference internal" href="contents/crawler.html#sec-crawler"><span class="std std-ref">簡易クローラの作成</span></a></p></li>
 <li><p><a class="reference internal" href="contents/retrieval.html#sec-retrieval"><span class="std std-ref">情報検索の基礎</span></a></p></li>
 <li><p><a class="reference internal" href="contents/encryption.html#sec-encryption"><span class="std std-ref">暗号化とSSL通信</span></a></p></li>
@@ -463,7 +464,6 @@ document.write(`
 <li><p><a class="reference internal" href="contents/database.html#sec-database"><span class="std std-ref">データベースの基礎</span></a></p></li>
 <li><p><a class="reference internal" href="contents/socket.html#sec-socket"><span class="std std-ref">ソケット通信</span></a></p></li>
 <li><p><a class="reference internal" href="contents/web-server.html#sec-web-server"><span class="std std-ref">簡易ウェブサーバの作成</span></a></p></li>
-<li><p><a class="reference internal" href="contents/blockchain.html#sec-blockchain"><span class="std std-ref">ブロックチェーンの基礎</span></a></p></li>
 <li><p><a class="reference internal" href="contents/web-system.html#sec-web-system"><span class="std std-ref">課題:Webシステムの実装</span></a></p></li>
 </ol>
 </section>
@@ -481,46 +481,46 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/blockchain.html"><span class="doc">contents/blockchain</span></a></p></td>
-<td><p>2024-02-05 05:12</p></td>
-<td><p>cache</p></td>
-<td><p>1.62</p></td>
-<td><p>✅</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/crawler.html"><span class="doc">contents/crawler</span></a></p></td>
-<td><p>2024-02-05 06:06</p></td>
-<td><p>cache</p></td>
-<td><p>1.38</p></td>
-<td><p>✅</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/database.html"><span class="doc">contents/database</span></a></p></td>
-<td><p>2024-02-05 06:06</p></td>
-<td><p>cache</p></td>
-<td><p>1.34</p></td>
-<td><p>✅</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/email.html"><span class="doc">contents/email</span></a></p></td>
-<td><p>2024-02-05 05:12</p></td>
-<td><p>cache</p></td>
-<td><p>1.62</p></td>
-<td><p>✅</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/encryption.html"><span class="doc">contents/encryption</span></a></p></td>
-<td><p>2024-02-05 05:12</p></td>
-<td><p>cache</p></td>
-<td><p>1.62</p></td>
-<td><p>✅</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/retrieval.html"><span class="doc">contents/retrieval</span></a></p></td>
+<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/crawler.html"><span class="doc">contents/crawler</span></a></p></td>
 <td><p>2024-02-05 06:06</p></td>
 <td><p>cache</p></td>
 <td><p>1.2</p></td>
 <td><p>✅</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/scraping.html"><span class="doc">contents/scraping</span></a></p></td>
-<td><p>2024-02-06 03:20</p></td>
+<tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/database.html"><span class="doc">contents/database</span></a></p></td>
+<td><p>2024-02-05 06:06</p></td>
 <td><p>cache</p></td>
-<td><p>5.18</p></td>
+<td><p>1.34</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/email.html"><span class="doc">contents/email</span></a></p></td>
+<td><p>2024-02-05 05:12</p></td>
+<td><p>cache</p></td>
+<td><p>1.62</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/encryption.html"><span class="doc">contents/encryption</span></a></p></td>
+<td><p>2024-02-05 05:12</p></td>
+<td><p>cache</p></td>
+<td><p>1.62</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/regex.html"><span class="doc">contents/regex</span></a></p></td>
+<td><p>2024-02-09 14:09</p></td>
+<td><p>cache</p></td>
+<td><p>1.82</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/request.html"><span class="doc">contents/request</span></a></p></td>
+<td><p>2024-02-09 14:09</p></td>
+<td><p>cache</p></td>
+<td><p>2.71</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/retrieval.html"><span class="doc">contents/retrieval</span></a></p></td>
+<td><p>2024-02-05 06:06</p></td>
+<td><p>cache</p></td>
+<td><p>1.2</p></td>
 <td><p>✅</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/setup-git.html"><span class="doc">contents/setup-git</span></a></p></td>
