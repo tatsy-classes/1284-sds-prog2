@@ -43,20 +43,20 @@
 
 #### 事前準備
 1. [Python環境の設定](sec:setup-python)
-1. [Git環境の設定](sec:setup-git)
+2. [Git環境の設定](sec:setup-git)
 
 #### 講義内で説明
 1. [ウェブページの作成](sec:webpage)
-1. [正規表現とスクレイピング](sec:scraping)
-1. [簡易クローラの作成](sec:crawler)
-1. [情報検索の基礎](sec:retrieval)
-1. [暗号化とSSL通信](sec:encryption)
-1. [Eメールの送受信](sec:email)
-1. [データベースの基礎](sec:database)
-1. [ソケット通信](sec:socket)
-1. [簡易ウェブサーバの作成](sec:web-server)
-1. [ブロックチェーンの基礎](sec:blockchain)
-1. [課題:Webシステムの実装](sec:web-system)
+2. [正規表現の基礎](sec:regex)
+3. [HTTPリクエスト](sec:request)
+4. [簡易クローラの作成](sec:crawler)
+5. [情報検索の基礎](sec:retrieval)
+6. [暗号化とSSL通信](sec:encryption)
+7. [Eメールの送受信](sec:email)
+8. [データベースの基礎](sec:database)
+9.  [ソケット通信](sec:socket)
+10. [簡易ウェブサーバの作成](sec:web-server)
+11. [課題:Webシステムの実装](sec:web-system)
 
 ## Build Status
 

@@ -10,7 +10,8 @@ parts:
     numbered: 3
     chapters:
       - file: contents/webpage
-      - file: contents/scraping
+      - file: contents/regex
+      - file: contents/request
       - file: contents/crawler
       - file: contents/email
       - file: contents/encryption
@@ -18,5 +19,4 @@ parts:
       - file: contents/database
       - file: contents/socket
       - file: contents/web-server
-      - file: contents/blockchain
       - file: contents/web-system

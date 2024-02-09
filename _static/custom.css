@@ -17,7 +17,7 @@ h6 {
   font-family: "roboto", "m plus 1p", "noto color emoji", sans-serif;
 }
 
-img {
+.image-reference img {
   border-radius: 0.5rem;
   margin-top: 1rem;
   margin-bottom: 1.5rem;
