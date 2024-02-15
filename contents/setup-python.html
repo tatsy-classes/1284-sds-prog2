@@ -412,18 +412,18 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.2.2. パッケージのインストール・アンインストール</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.2.3. 仮想環境の作成・削除</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.2.3. 仮想開発環境の作成・削除</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1.2.4. 仮想環境の切り替え</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-yaml">1.2.5. environment.yamlの利用</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.3. Pythonの実行</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-lab">1.4. Jupyter Labの利用</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.4.1. 覚えておくと便利なショートカット</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.4.2. ファイルのエクスポート</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.4. スクリプトファイルの実行</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-lab">1.5. Jupyter Labの利用</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.5.1. 覚えておくと便利なショートカット</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">1.5. 練習問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">1.6. 練習問題</a></li>
 </ul>
             </nav>
         </div>
@@ -437,22 +437,16 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="python">
 <span id="sec-setup-python"></span><h1><span class="section-number">1. </span>Python環境の設定<a class="headerlink" href="#python" title="Permalink to this heading">#</a></h1>
-<p>Pythonのプログラミング環境を整えるには、いくつかの方法があり、一口にどれが正解とは言いづらい。最も単純な方法はPythonをインタプリタを直接OSにインストールする方法になる。</p>
-<p>この場合は、Pythonの公式ページからインストーラをダウンロードしてきて、インストーラの指示に従ってインストールを実行すれば良い (<strong>だが、インストールは少し待ってほしい</strong>)。</p>
-<p><strong>Pythonの公式ページ (英語):</strong> <a class="reference external" href="https://www.python.org/">https://www.python.org/</a></p>
-<p>また、MacやLinux (UbuntuやCentOS)等を使っていれば、特に上記のウェブページからインストールをしなくても、ターミナル環境から</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python
-</pre></div>
-</div>
-<p>と入力をすることで、Pythonのインタプリタが立ち上がる。すると、ターミナル上に、</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt;
-</pre></div>
-</div>
-<p>のような、入力受付の記号が現れる。</p>
+<p>Pythonのプログラミング環境を整えるのに、最も単純な方法は<a class="reference external" href="https://www.python.org/downloads/">Pythonのインタプリタ</a>を直接OSにインストールする方法になる。しかし、その他にもPythonプログラミングの環境構築にはいくつかの方法があり、一概にどれが最適とは言いづらい部分がある。</p>
+<p>本資料では、扱いやすく、また現在最も広く使われているといういみで<a class="reference external" href="https://www.anaconda.com/download">Anaconda</a>あるいは<a class="reference external" href="https://docs.anaconda.com/free/miniconda/index.html">Miniconda</a>を用いる。AnacondaとMinicondaの違いについては<a class="reference internal" href="#sec-anaconda-miniconda"><span class="std std-ref">後述</span></a>する。</p>
 <section id="id1">
 <h2><span class="section-number">1.1. </span>仮想開発環境とパッケージ管理<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<p>Pythonを少し使うだけなら、OSに直接インストールするのが一番簡単である。ただ、Python (に限らず他のプログラミング言語でも)には、いくつかのバージョン(例えば、Python 3.6, 3.10)があり、<strong>バージョンによって使えるライブラリが異なる</strong>ことがある。</p>
-<p>そんな時、Pythonの実行環境をOSに直接作ってしまうと、あるプロジェクトAで使うライブラリはPython 3.6で使えていたのに、別のプロジェクトBではPython 3.10でないと動かないライブラリを使いたい、というような状況が発生する。そんな時、<strong>Python 3.6が使える環境と、Python 3.10が使える環境を別々に用意することができれば便利</strong>だろう。</p>
+<p>Pythonを少し使うだけなら、OSに直接インストールするのが一番環境構築が容易である。しかし、Python(に限らず他のプログラミング言語でも)には、いくつかのバージョン(例えば、Python 3.6やPython 3.10)があり、<strong>バージョンによって使えるライブラリや機能が異なる</strong>ことが多くある。</p>
+<p>その際、Pythonの実行環境をOS上に直接作ってしまうと</p>
+<blockquote>
+<div><p>これまでのプロジェクトはPython 3.6で開発していたのでOS上のPythonは3.6のままであったが、別のプロジェクトBで新たにPython 3.10でないと動かないライブラリを使いたい</p>
+</div></blockquote>
+<p>というような状況が発生する。そんな時、<strong>Python 3.6が使える環境と、Python 3.10が使える環境を別々に用意することができれば便利</strong>だろう。</p>
 <p>このように一つのOS上で、複数の異なるバーションのPython(や他のプログラミング言語)を備えた開発環境を管理する仕組みを<strong>仮想開発環境</strong>と呼ぶ。Python用の仮想開発環境を作るソフトウェアは複数あり、代表的な物には、</p>
 <ul class="simple">
 <li><p>virtualenv: <a class="reference external" href="https://virtualenv.pypa.io/en/latest/">https://virtualenv.pypa.io/en/latest/</a></p></li>
@@ -461,20 +455,19 @@ document.write(`
 <li><p>Poetry: <a class="reference external" href="https://python-poetry.org/">https://python-poetry.org/</a></p></li>
 </ul>
 <p>等がある。余談だが、この講義資料の管理には<a class="reference external" href="https://python-poetry.org/">Poetry</a>を利用している。</p>
-<p>ここで注意しないといけないのは、上記の4つの中でvirtualenvは複数の異なる<strong>Pythonのバージョンを管理するための仕組み</strong>であるのに対して、Anaconda, Pipenv, Poetryは仮想開発環境の管理とは別に<strong>パッケージ管理ツール</strong>としての役割も持っている。</p>
-<p>仮想開発環境とは別に、Python向けのパッケージ管理ツールとしては<strong>Pip</strong>があるが、上記の4つの中ではPipenvとPoetryはvirtualenvによる仮想開発環境の管理とPipによるパッケージ管理を同時に行うソフトウェアである。</p>
-<p>本書では、多くの研究プロジェクトで使われており、またPyTorchやTensorFlowといった深層学習用のライブラリの導入を管理しやすいという理由から <strong>Anaconda (Miniconda)</strong> を用いる。</p>
+<p>ここで注意しなければならないのは、上記の4つの中でvirtualenvは<strong>異なるバージョンのPythonを仮想的に管理する仕組み</strong>であるのに対して、Anaconda, Pipenv, Poetryは仮想開発環境の管理とは別に<strong>パッケージ管理ツール</strong>としての側面も持っている。</p>
+<p>Python向けのパッケージ管理ツールには<strong>Pip</strong>があるが、上記の4つの中ではPipenvとPoetryはvirtualenvによる仮想開発環境の管理とPipによるパッケージ管理を組み合わせて利用しているソフトウェアである。</p>
+<p>本書では、多くの研究プロジェクトで使われており、またPyTorchやTensorFlowといった機会学習ライブラリを導入しやすいという理由から <strong>Anaconda (Miniconda)</strong> を用いて仮想開発環境を構築する。</p>
 </section>
 <section id="anacondaminiconda">
-<h2><span class="section-number">1.2. </span>AnacondaとMiniconda<a class="headerlink" href="#anacondaminiconda" title="Permalink to this heading">#</a></h2>
-<p>Anacondaは前述の通り、仮想環境とパッケージの管理を行うソフトウェアだが、類似したソフトウェアに<a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a>がある。</p>
+<span id="sec-anaconda-miniconda"></span><h2><span class="section-number">1.2. </span>AnacondaとMiniconda<a class="headerlink" href="#anacondaminiconda" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://www.anaconda.com/download">Anaconda</a>は、前述の通り、仮想環境とパッケージの管理を行うソフトウェアであるが、類似したソフトウェアに<a class="reference external" href="https://docs.anaconda.com/free/miniconda/index.html">Miniconda</a>がある。</p>
 <p><strong>Anaconda</strong>はPythonのインタプリタの他に、科学技術計算等に一般的に用いられるNumPyをはじめとする大量のライブラリを一緒にインストールしてくれるという点で、<strong>自分で必要なライブラリをチェックしなくても、大体のプロジェクトにおいて使える</strong>という点では優れている。</p>
-<p>その一方で、Anacondaの仮想環境を一つ用意すると、それなりに<strong>ストレージ (HDDやSSDのこと)の容量を圧迫</strong>するため、自分で必要なライブラリのチェックができるようになってしまえば、Minicondaの方が使い勝手が良い。MinicondaはPython
-のインタプリタさえインストールしないことも可能 (だが、そういう使い方をすることは希)で、必要なライブラリと、そのライブラリと依存関係を持つライブラリだけを最小設定でインストールするため、ストレージの無駄遣いが防げる。</p>
-<p>特に、受講者は自分のノートPCで作業をしていることを想定すると、ストレージの容量はそれほど多くないだろうから、Minicondaの方が、その点からも好ましい。</p>
+<p>その一方で、Anacondaの仮想環境を一つ用意すると、それなりに<strong>ストレージ (HDDやSSDのこと)の容量を圧迫</strong>するため、自分で必要なライブラリのチェックができるようになってしまえば、Minicondaの方が使い勝手が良い。MinicondaはPythonのインタプリタさえインストールしないことも可能で、必要なライブラリと、そのライブラリが依存するライブラリだけを最小単位でインストールするため、ストレージの無駄遣いが防げる。</p>
+<p>受講生の多くは自身のノートPCで作業をしていることを想定すると、ストレージの容量はそれほど多くないだろうから、Minicondaの方が必要なストレージ量の観点からも好ましい。</p>
 <section id="miniconda">
 <h3><span class="section-number">1.2.1. </span>Minicondaの導入<a class="headerlink" href="#miniconda" title="Permalink to this heading">#</a></h3>
-<p>Minicondaを導入するには<a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">https://docs.conda.io/en/latest/miniconda.html</a>にアクセスし、自分のOSにあったインストーラをダウンロードしてくる。</p>
+<p>Minicondaを導入するには、まず、 <a class="reference external" href="https://docs.anaconda.com/free/miniconda/">https://docs.anaconda.com/free/miniconda/</a> にアクセスし、自分のOSにあったインストーラをダウンロードする。</p>
 <p>インストーラの選択だが、よほど古いPCを使っていない限り、Windowsなら「Windows 64-bit」を選択すれば良い。macOSの場合は、最近のM1/M2 Macを使っている場合は「macOS Apple M1 64bit bash」を選び、そうでない場合には「macOS Intel x86 64-bit bash」。Linuxの場合には、通常のデスクトップPCであれば「Linux 64-bit」を選べば良い。</p>
 <a class="reference internal image-reference" href="../_images/miniconda_versions.jpg"><img alt="../_images/miniconda_versions.jpg" class="align-center" src="../_images/miniconda_versions.jpg" style="width: 75%;" /></a>
 <section id="windows">
@@ -485,13 +478,19 @@ document.write(`
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>init<span class="w"> </span>powershell
 </pre></div>
 </div>
-<p>すると、<code class="docutils literal notranslate"><span class="pre">conda</span></code>コマンドの各シェルソフトでの利用が可能になる。時折、最初の設定時に<code class="docutils literal notranslate"><span class="pre">conda</span></code>がコマンドとして認識されていない場合があるが、その場合は <code class="docutils literal notranslate"><span class="pre">$HOME/miniconda3/Scritps/conda</span></code>などの絶対パスを指定して実行する。</p>
+<p>すると、<code class="docutils literal notranslate"><span class="pre">conda</span></code>コマンドの各シェルソフトでの利用が可能になる。時折、最初の設定時に<code class="docutils literal notranslate"><span class="pre">conda</span></code>がコマンドとして認識されていない場合があるが、その場合は <code class="docutils literal notranslate"><span class="pre">$HOME/miniconda3/Scritps/conda</span></code>などの絶対パスを指定して</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">$HOME</span>/miniconda3/Scripts/conda<span class="w"> </span>init<span class="w"> </span>powershell
+</pre></div>
+</div>
+<p>のような形で実行する。</p>
 </section>
 <section id="mac-linux">
 <h4>Mac/Linuxの設定<a class="headerlink" href="#mac-linux" title="Permalink to this heading">#</a></h4>
-<p><strong>Mac</strong>や<strong>Linux</strong>であればターミナル環境を立ち上げた後、インストールしてきた<code class="docutils literal notranslate"><span class="pre">*.sh</span></code>ファイルをBashで実行する。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># インストーラのパスは適宜読み替えること</span>
-bash<span class="w"> </span>~/Downloads/Miconda3-xxxx-xxxxx.sh
+<p><strong>Mac</strong>や<strong>Linux</strong>であればBashやZsh等のシェル環境を立ち上げた後、インストールしてきた<code class="docutils literal notranslate"><span class="pre">*.sh</span></code>に実行権限を付与して、ファイルを実行する。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 実行権限の付与</span>
+chmod<span class="w"> </span>+x<span class="w"> </span>~/Downloads/Miniconda3-xxxx-xxxx.sh
+<span class="c1"># インストーラの実行</span>
+~/Downloads/Miconda3-xxxx-xxxxx.sh
 </pre></div>
 </div>
 <p>インストール中、いくつかの質問がなされるが、特別な設定をしたい場合を除き、初期設定のままで問題ない。インストールが完了したら、自分が使っているシェルソフトウェアに合わせて、</p>
@@ -501,27 +500,33 @@ conda<span class="w"> </span>init<span class="w"> </span>bash
 conda<span class="w"> </span>init<span class="w"> </span>zsh
 </pre></div>
 </div>
-<p>等を実行する。なお、自分が使っているシェルソフトが分からない場合には、</p>
+<p>を実行する。なお、自分が使っているシェルソフトが分からない場合には、</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="nv">$SHELL</span>
 </pre></div>
 </div>
 <p>とすると、何を使っているかを調べることができる (特に設定を変えていなければBashのはず)。</p>
+<p>また、時折、<code class="docutils literal notranslate"><span class="pre">conda</span></code>コマンドが認識されない場合があるので、その場合は絶対パスを用いて、</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">$HOME</span>/miniconda3/Scripts/conda<span class="w"> </span>init<span class="w"> </span>bash
+</pre></div>
+</div>
+<p>のように実行する。</p>
 <div class="note admonition">
 <p class="admonition-title">シェル設定のすすめ</p>
-<p>自分でプログラムを書いて実行する場合など、シェルを使うと便利な場合が多い。一方で、シェルを便利に使いこなすには、各自で設定をする必要があり、初学者にはハードルが高いのも事実である。</p>
-<p>Windowsを使っている場合には、オープンソースの<a class="reference external" href="https://github.com/PowerShell/PowerShell">PowerShell</a>を使うと<a class="reference external" href="https://ohmyposh.dev/">Oh My Posh</a>というソフトを使うことで比較的簡単に設定ができる。</p>
-<p>MacやLinuxの場合には、BashやZshに対して<code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>や<code class="docutils literal notranslate"><span class="pre">.zshrc</span></code>といった設定ファイルを書けば良いが、手っ取り早く初期設定がなされたシェルを使いたいのなら<a class="reference external" href="https://fishshell.com/">Fish</a>がおすすめだ。Fishはインストールした段階で、コマンドの補間等の最低限の機能が揃っているため、設定の敷居が低い。こちらも<a class="reference external" href="https://github.com/oh-my-fish/oh-my-fish">Oh My Fish</a>というソフトウェアを使うことで、もう少し気の利いた設定ができる。</p>
-<p>シェルの使いやすさは開発効率にも直結するので、ぜひ上記の設定にもトライしてみてほしい。</p>
+<p>プログラム開発に慣れてくるとシェル環境を使うことで開発効率がアップすることが多い (格好良さそうに見えるからシェルを使っているわけではない)。</p>
+<p>一方で、シェル環境を便利に使いこなすには、各自で設定をする必要があり、初学者にはハードルが高いのも事実である。</p>
+<p>Windowsを使っている場合には、オープンソースの<a class="reference external" href="https://github.com/PowerShell/PowerShell">PowerShell</a>を使うと<a class="reference external" href="https://ohmyposh.dev/">Oh My Posh</a>というソフトを使うことで比較的簡単に設定ができるのでオススメだ。</p>
+<p>また、MacやLinuxを使っている場合には、BashやZshに対して<code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>や<code class="docutils literal notranslate"><span class="pre">.zshrc</span></code>といった設定ファイルを書くことで、より便利にシェル環境を使うことができる。</p>
+<p>しかし、より手っ取り早く初期設定がなされたシェルを使いたいのなら<a class="reference external" href="https://fishshell.com/">Fish</a>がオススメだ。Fishはインストールした段階で、コマンドの補間等の最低限の機能が揃っているため、設定の敷居が低い。こちらも<a class="reference external" href="https://github.com/oh-my-fish/oh-my-fish">Oh My Fish</a>というソフトウェアを使うことで、より細かな設定が可能だが、当分追加の設定は必要ないだろう。</p>
 </div>
 </section>
 </section>
 <section id="id2">
 <h3><span class="section-number">1.2.2. </span>パッケージのインストール・アンインストール<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
-<p>Minicondaをインストールすると、最初から<code class="docutils literal notranslate"><span class="pre">base</span></code>という名前の仮想環境が用意されている。試しに、この環境にNumPyをインストールしてみよう。パッケージのインストールには<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span></code>コマンドを用いる。</p>
+<p>Minicondaをインストールすると、最初から<code class="docutils literal notranslate"><span class="pre">base</span></code>という名前の仮想環境が用意されている。試しに、この環境にNumPyをインストールしてみよう。ライブラリのインストールには<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span></code>コマンドを用いる。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>numpy
 </pre></div>
 </div>
-<p>すると、Minicondaがインストール済みのパッケージと、新しくインストールするパッケージの依存関係をチェックした後に、インストールをして良いかどうかを聞いてくるので「y」を入力してインストールを実行する。</p>
+<p>すると、Minicondaがインストール済みのライブラリと、新しくインストールするライブラリの依存関係をチェックした後に、インストールをして良いかどうかを聞いてくるので「y」を入力してインストールを実行する。</p>
 <p>インストールが完了したら</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python
 </pre></div>
@@ -530,17 +535,17 @@ conda<span class="w"> </span>init<span class="w"> </span>zsh
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
 </pre></div>
 </div>
-<p>としたときにエラーが起こらないことを確認する。また、現在インストールされているパッケージのリストは</p>
+<p>としたときにエラーが起こらないことを確認する。また、現在インストールされているライブラリのリストは</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>list
 </pre></div>
 </div>
 <p>とすることで確認することができる。このリストの中にNumPyが含まれていることも確認しておこう。</p>
-<p>予め、パッケージが存在するかどうかを確認したい場合には<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">search</span></code>を使って</p>
+<p>インストール前に、予め、インストールしたいライブラリが存在するかどうかを確認したい場合には<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">search</span></code>を使って</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">search</span> <span class="n">numpy</span>
 </pre></div>
 </div>
 <p>のようにすれば良い。</p>
-<p>また、Minicondaには<strong>チャネル</strong>という仕組みが用意されており、公式にインストールできるパッケージの他に、有志のユーザが作成したリポジトリからパッケージをインストールすることができる。例えばPyTorchをインストールするためには、<code class="docutils literal notranslate"><span class="pre">pytorch</span></code>という名前のチャネルを指定して、</p>
+<p>また、Minicondaには<strong>チャネル</strong>という仕組みが用意されており、公式にインストールできるライブラリの他に、有志のユーザが作成したリポジトリからライブラリをインストールすることができる。例えば機械学習ライブラリの一つである<a class="reference external" href="https://pytorch.org/">PyTorch</a>をインストールするためには、<code class="docutils literal notranslate"><span class="pre">pytorch</span></code>という名前のチャネルを指定して、</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>pytorch<span class="w"> </span>pytorch
 </pre></div>
 </div>
@@ -551,40 +556,45 @@ conda<span class="w"> </span>init<span class="w"> </span>zsh
 </pre></div>
 </div>
 <p>アンインストールが完了すると <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span></code> がエラーになり、<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">list</span></code>で表示されるリストからNumPyが消えるので確認してみてほしい。</p>
+<p>また、Miniconda環境では、<code class="docutils literal notranslate"><span class="pre">conda</span></code>コマンドを用いてライブラリをインストールする以外にも、Pipを用いてライブラリがインストールできる。ただ、この場合は、Minicondaの依存関係のチェックや、依存するライブラリのアップデート等に問題が生じることがあるので、Pipによるライブラリのインストールは<strong>condaコマンドでインストールできるライブラリを導入し終わった後</strong>にするのが良い。</p>
 <div class="warning admonition">
 <p class="admonition-title">conda-forge利用時の注意</p>
-<p>conda-forgeは大半のパッケージが見つかるという意味で大変便利なのだが、仮想環境の構築時に依存関係を解決するのにかかる時間が大幅に増大する。従って、特別 conda-forgeにしかないパッケージを入れる、という目的以外では、なるべくconda-forgeを使うことは避け、別途Pipなどを用いてパッケージをインストールする方が良い。</p>
+<p>conda-forgeは大半のライブラリが見つかるという意味で大変便利なのだが、用意されているライブラリが多い分、新しいライブラリをインストールする度に依存関係の解決に要する時間が増大する。従って、特別にconda-forgeにしかないパッケージを入れる、という目的以外では、なるべくconda-forgeを使うことは避け、別途Pipなどを用いてパッケージをインストールする方が良い。</p>
 </div>
 </section>
 <section id="id3">
-<h3><span class="section-number">1.2.3. </span>仮想環境の作成・削除<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
-<p>Minicondaで新しく仮想環境を構築するには<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span></code>コマンドを用いる。仮想環境の名前を「advml」のようにする場合には、以下のようにコマンドを実行する。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>advml
+<h3><span class="section-number">1.2.3. </span>仮想開発環境の作成・削除<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>Minicondaで新しく仮想開発環境を構築するには<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span></code>コマンドを用いる。仮想環境の名前を「myenv」のようにする場合には、以下のようにコマンドを実行する。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 仮想開発環境の構築</span>
+conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>myenv
 </pre></div>
 </div>
-<p>このように実行した場合には、Minicondaインストール時の<code class="docutils literal notranslate"><span class="pre">base</span></code>のPythonと同じバージョンのPythonインタプリタがインストールされる。インタプリタのバージョンを指定したい場合には</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>advml<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9
+<p>このように実行した場合には、<code class="docutils literal notranslate"><span class="pre">myenv</span></code>環境に、<code class="docutils literal notranslate"><span class="pre">base</span></code>環境のPythonと同じバージョンのPythonインタプリタがインストールされる。インタプリタのバージョンを指定したい場合には</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># インタプリタのバージョンを指定</span>
+conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>myenv<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9
 </pre></div>
 </div>
-<p>のようにバージョンを指定することもできる。また、予めインストールするパッケージの一部が決まっている場合には、</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>advml<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9<span class="w"> </span>numpy<span class="w"> </span>matplotlib
+<p>のようにバージョンを指定することもできる。また、予めインストールするライブラリの全部または一部が決まっている場合には、</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 仮想開発環境構築時にライブラリもインストールする</span>
+conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>myenv<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9<span class="w"> </span>numpy<span class="w"> </span>matplotlib
 </pre></div>
 </div>
-<p>のようにパッケージを指定することもできる。</p>
-<p>このようにして仮想環境が作成できたら<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">list</span></code>で仮想環境のリストが確認できるので、そこに<code class="docutils literal notranslate"><span class="pre">advml</span></code>が含まれていることを確認しよう。</p>
+<p>のように複数のライブラリを指定することもできる。</p>
+<p>仮想開発環境を作成すると<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">list</span></code>で表示されるリストに作成した仮想開発環境の名前が加わるので確認しておこう。</p>
 <p>また、すでにある仮想環境を削除したい場合には</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>remove<span class="w"> </span>-n<span class="w"> </span>advml
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 仮想開発環境の削除</span>
+conda<span class="w"> </span>env<span class="w"> </span>remove<span class="w"> </span>-n<span class="w"> </span>myenv
 </pre></div>
 </div>
 <p>を実行すれば良い。</p>
 </section>
 <section id="id4">
 <h3><span class="section-number">1.2.4. </span>仮想環境の切り替え<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
-<p>一度環境が構築できたら、</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>advml
+<p>一度、仮想開発環境が作成できたら、</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>myenv
 </pre></div>
 </div>
-<p>とすることで、仮想環境が切り替わる。また、元の環境(<code class="docutils literal notranslate"><span class="pre">base</span></code>環境やOSに直接インストールされたPython)に戻りたい場合には</p>
+<p>とすることで、仮想環境が切り替わる。また、元の環境(<code class="docutils literal notranslate"><span class="pre">base</span></code>環境やOSに直接インストールされたPythonなど)に戻りたい場合には</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>deactivate
 </pre></div>
 </div>
@@ -592,10 +602,11 @@ conda<span class="w"> </span>init<span class="w"> </span>zsh
 </section>
 <section id="environment-yaml">
 <h3><span class="section-number">1.2.5. </span>environment.yamlの利用<a class="headerlink" href="#environment-yaml" title="Permalink to this heading">#</a></h3>
-<p>仮想環境を作る際、逐一、必要なパッケージを指定してインストールすると、別のPCに同じ環境を構築したいときに不便である。こんな時、Minicondaでは<code class="docutils literal notranslate"><span class="pre">environment.yaml</span></code>というファイルを利用して、仮想環境の設定をファイルを通じて行うことができる。</p>
+<p>仮想開発環境を作る際、必要なライブラリをその都度インストールすると、別のコンピュータに同じ環境を構築したいときに不便である。</p>
+<p>その場合、Minicondaでは<code class="docutils literal notranslate"><span class="pre">environment.yaml</span></code>というファイルを利用して、仮想開発環境の定義をファイルを通じて行うことができる。</p>
 <p>一例として、</p>
 <ul class="simple">
-<li><p>名前: advml</p></li>
+<li><p>環境名: myenv</p></li>
 <li><p>必要なパッケージ:</p>
 <ul>
 <li><p>NumPy</p></li>
@@ -603,22 +614,23 @@ conda<span class="w"> </span>init<span class="w"> </span>zsh
 </ul>
 </li>
 </ul>
-<p>といった設定には、以下のようなYAMLファイルを作成すれば良い。</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">advml</span>
+<p>といった設定には、以下のようなYAMLファイルを作成すれば良い (ファイル名は必ずしも<code class="docutils literal notranslate"><span class="pre">environment.yaml</span></code>でなくとも良い)。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myenv</span>
 <span class="nt">dependencies</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">numpy</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">matplotlib</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">environment.yaml</span></code>から仮想環境を作成するには<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">create</span></code> (<code class="docutils literal notranslate"><span class="pre">env</span></code>が入ることに注意)に、以下のようにYAMLファイルを指定すれば良い。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yaml
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># 環境定義のファイルを利用した仮想開発環境の作成</span>
+conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yaml
 </pre></div>
 </div>
-<p>また <code class="docutils literal notranslate"><span class="pre">environment.yaml</span></code>に予め用意されている名前を上書きする形で、</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>myadvml<span class="w"> </span>-f<span class="w"> </span>environment.yaml
+<p>また <code class="docutils literal notranslate"><span class="pre">environment.yaml</span></code>に予め用意されている名前の代わりに、コマンド実行時に環境名を指定することもできる。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># environment.yaml内に列挙されたライブラリを&quot;myenv2&quot;という仮想開発環境にインストールする</span>
+conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>myenv2<span class="w"> </span>-f<span class="w"> </span>environment.yaml
 </pre></div>
 </div>
-<p>とすることもできる。</p>
 <p>environment.yamlを使用する際、公式のパッケージが見つからない時には、チャネルを指定することもできる。この場合には、ファイルを以下のように書き換える。</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">advml</span>
 <span class="nt">channels</span><span class="p">:</span>
@@ -642,8 +654,6 @@ conda<span class="w"> </span>init<span class="w"> </span>zsh
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jupyterlab</span>
 </pre></div>
 </div>
-<p>なお、本講義で用いるパッケージを列挙した<a class="reference external" href="https://github.com/tatsy/1284-sds-ml-advanced/blob/master/environment.yaml">environment.yaml</a>は、講義のGitHubからダウンロードできるので、こちらを利用すると良い。</p>
-<p><a class="github reference external" href="https://github.com/tatsy/1284-sds-ml-advanced/blob/master/environment.yaml">tatsy/1284-sds-ml-advanced</a></p>
 </section>
 </section>
 <section id="id5">
@@ -737,14 +747,44 @@ x = 10
 <p>このように、Pythonのインタプリタ上では簡単な電卓のような機能を使うことができる。多少の使いづらさはあるものの、通常のプログラミング言語にある<strong>if文</strong>や<strong>for文</strong>なども実行できる。</p>
 <div class="note admonition">
 <p class="admonition-title">コンパイラとインタプリタ</p>
-<p>情報科学を体系的に勉強したことがあれば、それほど戸惑わないかもしれないが、ここではインタプリタとコンパイラの違いについて、少し述べておく。</p>
-<p><strong>コンパイラ</strong>というのは人間が理解できるプログラムのソースコードを機械語に翻訳して、コンピュータ上で実行できるようにするためのソフトウェアを指す。例えばC言語であれば、GNU GCCやLLVM Clangなどのコンパイラを用いて、ソースコードを機械語に翻訳する。C言語以外にも、JavaやC#, Go, Rustなどの言語がコンパイラを用いる言語で、これらの言語は一度機械語に翻訳してしまえば、コンピュータが機械語の内容を読み取って次々に処理を実行していくので、一般的に言って計算速度が速い、という特徴がある。</p>
-<p><strong>インタプリタ</strong>は、プログラムのソースコードを1行ずつ読み取って、機械語に変換する。こうすることで、ソースコードを完璧に作り込んでから実行する、という使用法に加え、プログラマがコードを入力しては結果を確認するというインタラクティブな使用が可能となり、簡単なプロトタイプのプログラムを作りたい場合などには、こちらの方が好まれることが多い。最近は、インタプリタを用いる言語 (Pythonの他、RubyやJavaScript)なども、様々な工夫によって実行速度が改善してきてはいるが、それでも、コンパイラを用いる言語と比べて、実行速度は劣る。</p>
-<p>それぞれの特徴を理解した上で使い分けることが重要だ。</p>
+<p>情報科学を体系的に勉強したことがあれば、それほど戸惑わないかもしれないが、ここではインタプリタとコンパイラの違いについて、簡単に紹介する。</p>
+<p><strong>コンパイラ</strong> (compiler)というのは人間が理解できるプログラムのソースコードを機械語に翻訳して、コンピュータ上で実行できるようにするためのソフトウェアを指す。例えばC言語であれば、GNU GCCやLLVM Clangなどのコンパイラを用いて、ソースコードを機械語に翻訳する。C言語以外にも、JavaやC#, Go, Rustなどがコンパイラを用いるプログラミング言語で、これらの言語は一度機械語に翻訳してしまえば、コンピュータが機械語の内容を読み取って次々に処理を実行していくので、一般的に言って計算速度が速い、という特徴がある。</p>
+<p><strong>インタプリタ</strong> (interpreter)は、プログラムのソースコードを1行ずつ読み取って、機械語に変換する。こうすることで、ソースコードを完璧に作り込んでから実行する、という使用法に加え、プログラマがコードを入力しては結果を確認するというインタラクティブな使用が可能となる。そのため、簡単なプロトタイプのプログラムを作りたい場合などには、インタプリタ言語が好まれることが多い。最近は、インタプリタ言語 (Pythonの他、RubyやJavaScript)なども、様々な工夫によって実行速度が改善してきてはいるが、それでも、コンパイラを用いる言語と比べて、一般的には実行速度は劣る。</p>
+</div>
+</section>
+<section id="id6">
+<h2><span class="section-number">1.4. </span>スクリプトファイルの実行<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<p>Pythonでは、シェル環境からインタプリタを起動して1行ずつソースコードを入力する以外にも、実行するプログラムの内容を一通り記述した<strong>スクリプトファイル</strong>からプログラムを実行することができる (むしろ、この使い方の方が一般的)。</p>
+<p>スクリプトファイルは、通常<code class="docutils literal notranslate"><span class="pre">.py</span></code>という拡張子を持つファイルとして作成する。作成したファイルをエディタで開き、プログラム内容を記述していく。今回は以下のプログラムを<code class="docutils literal notranslate"><span class="pre">fib.py</span></code>というファイルに保存して、自身のコンピュータ上で実行してみよう。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># フィボナッチ数の先頭10個を表示</span>
+    <span class="n">fib</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">fib</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">fib</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">fib</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">fib</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">fib</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>上記のスクリプトファイルにおいて <code class="docutils literal notranslate"><span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;</span></code> という条件文はファイルがスクリプトファイルとして実行された時にだけ<code class="docutils literal notranslate"><span class="pre">True</span></code>になるもので、これによりファイル実行時に呼び出される処理の内容を明確にすることができる。</p>
+<p>スクリプトファイルの実行には<code class="docutils literal notranslate"><span class="pre">python</span></code>コマンドにファイル名を引数として与えれば良い。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>fib.py
+</pre></div>
+</div>
+<p>正しく実行できていれば、以下のような実行結果が得られるはずである。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="jupyter-lab">
-<h2><span class="section-number">1.4. </span>Jupyter Labの利用<a class="headerlink" href="#jupyter-lab" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">1.5. </span>Jupyter Labの利用<a class="headerlink" href="#jupyter-lab" title="Permalink to this heading">#</a></h2>
 <p>Jupyterとは、ウェブブラウザ上でインタラクティブにPythonを実行するための開発環境である。Jupyterには以前からある<strong>Jupyter Notebook</strong>の他に、より新しい<strong>Jupyter Lab</strong>があり、後者の方が機能が充実している。</p>
 <p>どちらも起動するには、ターミナルから起動コマンドを呼び出す。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Jupyter Notebookの場合</span>
@@ -758,8 +798,8 @@ jupyter<span class="w"> </span>lab
 <p>ここで、画面左上の「＋」ボタンを押すか、既存の<code class="docutils literal notranslate"><span class="pre">*.ipynb</span></code>ファイルを左側にあるファイルエクスプローラからダブルクリックすると、コードの入力画面に切り替わる。</p>
 <a class="reference internal image-reference" href="../_images/jupyter_notebook.jpg"><img alt="../_images/jupyter_notebook.jpg" class="align-center" src="../_images/jupyter_notebook.jpg" style="width: 90%;" /></a>
 <p>Jupyter環境では、標準でPythonとMarkdownが使えるほか、環境設定を行うことで<strong>R言語</strong>等も使うことができる(余談だが、JupyterとはJulia, Python, Rから来ている造語)。ここでは環境設定の方法は特に紹介しないが、興味のある読者は各自調べて見てほしい。</p>
-<section id="id6">
-<h3><span class="section-number">1.4.1. </span>覚えておくと便利なショートカット<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<section id="id7">
+<h3><span class="section-number">1.5.1. </span>覚えておくと便利なショートカット<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
 <p>Jupyter環境では、いくつかのショートカットキーが用意されており、逐一、セルをマウス等で選択することなく編集を進めるために、これらを覚えておくと良い。なお、現在、セルにコードを入力中なのか、セルが選択されているのかでショートカットキーの挙動が異なるので注意すること。</p>
 <p><strong>セルを選択中</strong></p>
 <ul class="simple">
@@ -779,64 +819,13 @@ jupyter<span class="w"> </span>lab
 </ul>
 <p>この他、Jupyter Lab環境では、メニューの「File」や「Edit」等を開くと、右側に各操作のショートカットキーが書かれているので、こちらを参考にすると良い。</p>
 </section>
-<section id="id7">
-<h3><span class="section-number">1.4.2. </span>ファイルのエクスポート<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
-<p>Jupyter環境で作成した<code class="docutils literal notranslate"><span class="pre">*.ipynb</span></code>ファイルはいくつかのファイル形式でエクスポートすることができる。例えば、現在のコードを通常のPythonスクリプトとして出力したり、HTMLやPDFとして出力することもできる。</p>
-<p>エクスポートのメニューは「File」→「Save and Export Notebook As...」にあるので、ここから、適宜、エクスポートしたいファイル形式を選ぶ。なお、PDFは<strong>LaTeX</strong>環境がインストールされていないと使えない他、日本語を上手く出力できないケースがある。</p>
-<p>PDFファイルのエクスポート時に日本語を使うためには、以下のようなテンプレートファイル (<code class="docutils literal notranslate"><span class="pre">jp_template.tpl</span></code>とする)を用意する。</p>
-<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span>((=- Default to the notebook output style -=))
-((*- if not cell<span class="nb">_</span>style is defined -*))
-    ((* set cell<span class="nb">_</span>style = &#39;style<span class="nb">_</span>jupyter.tex.j2&#39; *))
-((*- endif -*))
-
-((=- Inherit from the specified cell style. -=))
-((* extends cell<span class="nb">_</span>style *))
-
-<span class="c">%===============================================================================</span>
-<span class="c">% Latex Article</span>
-<span class="c">%===============================================================================</span>
-
-((*- block docclass -*))
-<span class="k">\documentclass</span><span class="na">[xelatex,ja=standard]</span><span class="nb">{</span>bxjsarticle<span class="nb">}</span>
-((*- endblock docclass -*))
-</pre></div>
-</div>
-<p>このファイルをJupyterのテンプレートが格納されているディレクトリに保存する。ディレクトリのパスを確認するには、</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>--paths
-</pre></div>
-</div>
-<p>を実行する。一例として、以下のような出力が得られる。</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>config:
-    /Users/tatsuya/.jupyter
-    /Users/tatsuya/.local/etc/jupyter
-    /Users/tatsuya/miniconda3/envs/advml/etc/jupyter
-    /usr/local/etc/jupyter
-    /etc/jupyter
-data:
-    /Users/tatsuya/Library/Jupyter
-    /Users/tatsuya/.local/share/jupyter
-    /Users/tatsuya/miniconda3/envs/advml/share/jupyter
-    /usr/local/share/jupyter
-    /usr/share/jupyter
-runtime:
-    /Users/tatsuya/Library/Jupyter/runtime
-</pre></div>
-</div>
-<p>このリストの中でMiniconda3のパスの中にある<code class="docutils literal notranslate"><span class="pre">/.../miniconda3/envs/advml/share/jupyter</span></code>を開き、このディレクトリ内にある<code class="docutils literal notranslate"><span class="pre">nbconvert/templates/latex</span></code>を開き、上記の<code class="docutils literal notranslate"><span class="pre">jp_template.tpl</span></code>を保存する。</p>
-<p>上記の設定が完了したら、ターミナルから、以下のコマンドを直接実行する。</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>nbconvert<span class="w"> </span>--to<span class="w"> </span>pdf<span class="w"> </span>--template<span class="w"> </span><span class="s2">&quot;latex/jp_template.tpl&quot;</span><span class="w"> </span>notebook.ipynb
-</pre></div>
-</div>
-<p>すると、以下のように日本語が正しく表示されたPDFが作成できる。</p>
-<a class="reference internal image-reference" href="../_images/jupyter_pdf.jpg"><img alt="../_images/jupyter_pdf.jpg" class="align-center" src="../_images/jupyter_pdf.jpg" style="width: 90%;" /></a>
-</section>
 </section>
 <section id="id8">
-<h2><span class="section-number">1.5. </span>練習問題<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">1.6. </span>練習問題<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>自分の計算機にインストールされているターミナル環境を使いやすいように設定してみよう。Windowsなら<a class="reference external" href="https://github.com/PowerShell/PowerShell/releases/tag/v7.3.6">オープンソースのPowerShell</a>、Mac/LinuxならFishを導入して、それぞれ「Oh My Posh」や「Oh My Fish」などのサポートツールを使って設定すると良い。</p></li>
-<li><p>Pythonはインタプリタ型のプログラミング言語であると同時に「動的型付け」を行う言語でもある。C/C++等は静的型付け言語であるが、それぞれの利点と欠点は何だろうか？</p></li>
-<li><p>Pythonで2の100乗などを計算すると、その値が正しく計算される。通常、コンピュータで扱える値は64bit整数 (符号付き整数なら、最大で、<span class="math notranslate nohighlight">\(9 \times 10^{18}\)</span>程度)しか表せないが、なぜこのような計算ができるのだろうか？</p></li>
+<li><p>Pythonはインタプリタ型のプログラミング言語であると同時に「動的型付け」を行う言語でもある。C/C++等は静的型付け言語であるが、それぞれの利点と欠点は何か。</p></li>
+<li><p>Pythonで2の100乗などを計算すると、その値が正しく計算される。通常、コンピュータで扱える値は64bit整数 (符号付き整数なら、最大で、<span class="math notranslate nohighlight">\(9 \times 10^{18}\)</span>程度)しか表せないが、このような計算が可能なのは何故か。</p></li>
 </ol>
 </section>
 </section>
@@ -913,18 +902,18 @@ runtime:
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.2.2. パッケージのインストール・アンインストール</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.2.3. 仮想環境の作成・削除</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.2.3. 仮想開発環境の作成・削除</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1.2.4. 仮想環境の切り替え</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-yaml">1.2.5. environment.yamlの利用</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.3. Pythonの実行</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-lab">1.4. Jupyter Labの利用</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.4.1. 覚えておくと便利なショートカット</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.4.2. ファイルのエクスポート</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.4. スクリプトファイルの実行</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-lab">1.5. Jupyter Labの利用</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.5.1. 覚えておくと便利なショートカット</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">1.5. 練習問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">1.6. 練習問題</a></li>
 </ul>
   </nav></div>
 
