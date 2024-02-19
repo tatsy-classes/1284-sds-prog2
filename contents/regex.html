@@ -404,7 +404,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 正規表現とは？</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.2. 正規表現と決定性有限オートマトン</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.3. 正規表現のシンタックス 初級編</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.3. 正規表現のシンタックス -初級編-</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.3.1. 何らかの1文字</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.3.2. 文字の繰り返し</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.3.3. 文字セット</a></li>
@@ -470,7 +470,7 @@ document.write(`
 <li><p>マッチした文字列を別の文字列で置き換える <code class="docutils literal notranslate"><span class="pre">sub</span></code></p></li>
 </ul>
 <p>などのメソッドが用意されている。</p>
-<p><strong>matchの使用例</strong></p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">match</span></code>の使用例</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Hello, world!&quot;</span>
@@ -505,7 +505,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p><strong>fullmatch</strong>の使用例</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">fullmatch</span></code>の使用例</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Hello, world!&quot;</span>
@@ -540,7 +540,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p><strong>subの使用例</strong></p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">sub</span></code>の使用例</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Hello, world!&quot;</span>
@@ -569,7 +569,7 @@ document.write(`
 <h2><span class="section-number">2.2. </span>正規表現と決定性有限オートマトン<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
 </section>
 <section id="id4">
-<h2><span class="section-number">2.3. </span>正規表現のシンタックス 初級編<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.3. </span>正規表現のシンタックス -初級編-<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
 <p>正規表現は特定の文字列を探すだけでなく、より複雑なパターンを持った文字列を探すことができる。</p>
 <section id="id5">
 <h3><span class="section-number">2.3.1. </span>何らかの1文字<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
@@ -711,6 +711,74 @@ hello :  True
 </section>
 <section id="id8">
 <h3><span class="section-number">2.3.4. </span>最短マッチ、最長マッチ<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>上記のような文字の繰り返しパターンを含むような文字列を検索する場合、特に何もしなければ、マッチする文字列のうち、最長ものが検出される。例えば、<code class="docutils literal notranslate"><span class="pre">t</span></code>から始まって<code class="docutils literal notranslate"><span class="pre">e</span></code>終わるような大文字・小文字アルファベットからなる単語を検索したい場合を考えよう。</p>
+<p>この場合、ここまでの例にならって正規表現のパターンを作成すると以下のようになるだろうか。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[tT].+[e]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>この時、以下のような文字列が与えられたとする。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Take drops into a temple.&quot;</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<p>この文字列に対して、先ほどの正規表現パターンを検索してみると、次のような結果となる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">match</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Take drops into a temple
+</pre></div>
+</div>
+</div>
+</div>
+<p>もちろん、これはこれで正しい挙動であり、実際には正規表現パターンを<code class="docutils literal notranslate"><span class="pre">&quot;[tT][a-z]+[e]&quot;</span></code>のようにするべきだろう。しかし、アルファベット以外にも多くの文字が含まれる場合には、文字セットの定義が複雑になるため、パターンにマッチする最小の文字列を検索できれば便利である。</p>
+<p>このような場合には文字の繰り返しを表す<code class="docutils literal notranslate"><span class="pre">+</span></code>や<code class="docutils literal notranslate"><span class="pre">*</span></code>の後に<code class="docutils literal notranslate"><span class="pre">?</span></code>を付け加えて、以下のように正規表現パターンを定義する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[tT]\S+?[e]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>これを先ほどの文字列<code class="docutils literal notranslate"><span class="pre">text</span></code>から検索すると、結果は次のようになる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">match</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Take
+</pre></div>
+</div>
+</div>
+</div>
+<p>このように、<code class="docutils literal notranslate"><span class="pre">t</span></code> (もしくは<code class="docutils literal notranslate"><span class="pre">T</span></code>)から始まり<code class="docutils literal notranslate"><span class="pre">e</span></code>で終わる部分文字列のうち、最短のものが検索できていることが分かる。なお、このようなパターンに合致する部分文字列を全て取り出したい場合には<code class="docutils literal notranslate"><span class="pre">findall</span></code>を用いる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">matches</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Take&#39;, &#39;temple&#39;]
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="id9">
 <h3><span class="section-number">2.3.5. </span>接頭辞、接尾辞<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
@@ -803,7 +871,7 @@ hello :  True
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 正規表現とは？</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.2. 正規表現と決定性有限オートマトン</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.3. 正規表現のシンタックス 初級編</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.3. 正規表現のシンタックス -初級編-</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.3.1. 何らかの1文字</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.3.2. 文字の繰り返し</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.3.3. 文字セット</a></li>
