@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>8. データベースの基礎 &#8212; プログラミングⅡ</title>
+    <title>9. データベースの基礎 &#8212; プログラミングⅡ</title>
   
   
   
@@ -67,8 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'contents/database';</script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="9. ソケット通信" href="socket.html" />
-    <link rel="prev" title="7. 情報検索の基礎" href="retrieval.html" />
+    <link rel="next" title="10. ソケット通信" href="socket.html" />
+    <link rel="prev" title="8. 情報検索の基礎" href="retrieval.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ja"/>
   </head>
@@ -167,15 +167,16 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="webpage.html">1. ウェブページの作成</a></li>
 <li class="toctree-l1"><a class="reference internal" href="regex.html">2. 正規表現の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="request.html">3. HTTPリクエスト</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request.html">3. HTTP リクエスト</a></li>
 <li class="toctree-l1"><a class="reference internal" href="crawler.html">4. 簡易クローラの作成</a></li>
 <li class="toctree-l1"><a class="reference internal" href="email.html">5. Eメールの送受信</a></li>
 <li class="toctree-l1"><a class="reference internal" href="encryption.html">6. 暗号化とSSL通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="retrieval.html">7. 情報検索の基礎</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. データベースの基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="socket.html">9. ソケット通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-server.html">10. 簡易ウェブサーバの実装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-system.html">11. 課題: Webシステムの実装</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="retrieval.html">8. 情報検索の基礎</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. データベースの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="socket.html">10. ソケット通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-server.html">11. 簡易ウェブサーバの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-system.html">12. 課題: Webシステムの実装</a></li>
 </ul>
 
     </div>
@@ -379,7 +380,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -395,6 +398,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas">9.1. Pandasとの連携</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -405,8 +416,9 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="sec-database">
-<span id="id1"></span><h1><span class="section-number">8. </span>データベースの基礎<a class="headerlink" href="#sec-database" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">9. </span>データベースの基礎<a class="headerlink" href="#sec-database" title="Permalink to this heading">#</a></h1>
 <p>本節では、リレーショナルデータベースの一種であるsqliteをクエリ文により操作する方法を学ぶ。</p>
+<p><a class="reference external" href="https://docs.python.org/ja/3/library/sqlite3.html">https://docs.python.org/ja/3/library/sqlite3.html</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sqlite3</span>
@@ -414,6 +426,51 @@ document.write(`
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbname</span> <span class="o">=</span> <span class="s2">&quot;test.db&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">dbname</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT name FROM sqlite_master WHERE type=&#39;table&#39;;&quot;</span><span class="p">)</span>
+    <span class="n">table_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">table_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">dbname</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;CREATE TABLE IF NOT EXISTS person (id INTEGER PRIMARY KEY, name STRING)&quot;</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">dbname</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO person (name) VALUES (&#39;Alice&#39;)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="pandas">
+<h2><span class="section-number">9.1. </span>Pandasとの連携<a class="headerlink" href="#pandas" title="Permalink to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -452,7 +509,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">前へ</p>
-        <p class="prev-next-title"><span class="section-number">7. </span>情報検索の基礎</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>情報検索の基礎</p>
       </div>
     </a>
     <a class="right-next"
@@ -460,7 +517,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">次へ</p>
-        <p class="prev-next-title"><span class="section-number">9. </span>ソケット通信</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>ソケット通信</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -471,7 +528,20 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas">9.1. Pandasとの連携</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

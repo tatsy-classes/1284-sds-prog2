@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>3. HTTPリクエスト &#8212; プログラミングⅡ</title>
+    <title>3. HTTP リクエスト &#8212; プログラミングⅡ</title>
   
   
   
@@ -167,15 +167,16 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="webpage.html">1. ウェブページの作成</a></li>
 <li class="toctree-l1"><a class="reference internal" href="regex.html">2. 正規表現の基礎</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. HTTPリクエスト</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. HTTP リクエスト</a></li>
 <li class="toctree-l1"><a class="reference internal" href="crawler.html">4. 簡易クローラの作成</a></li>
 <li class="toctree-l1"><a class="reference internal" href="email.html">5. Eメールの送受信</a></li>
 <li class="toctree-l1"><a class="reference internal" href="encryption.html">6. 暗号化とSSL通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="retrieval.html">7. 情報検索の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database.html">8. データベースの基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="socket.html">9. ソケット通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-server.html">10. 簡易ウェブサーバの実装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-system.html">11. 課題: Webシステムの実装</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="retrieval.html">8. 情報検索の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">9. データベースの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="socket.html">10. ソケット通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-server.html">11. 簡易ウェブサーバの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-system.html">12. 課題: Webシステムの実装</a></li>
 </ul>
 
     </div>
@@ -392,7 +393,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>HTTPリクエスト</h1>
+    <h1>HTTP リクエスト</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -403,8 +404,8 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3.1. リクエストとレスポンスの内容</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">3.2. Pythonによるウェブページの取得</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getpost">3.3. GETメソッドとPOSTメソッド</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">3.2. Python によるウェブページの取得</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-post">3.3. GET メソッドと POST メソッド</a></li>
 </ul>
             </nav>
         </div>
@@ -417,28 +418,29 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="http">
-<span id="sec-request"></span><h1><span class="section-number">3. </span>HTTPリクエスト<a class="headerlink" href="#http" title="Permalink to this heading">#</a></h1>
-<p>ウェブ上でデータのやりとりをするためにはプロトコルと呼ばれるデータのやりとりの仕方を定めた規約に従う必要がある。HTTPはHyper Text Transfer Protocolの略で、HTMLで記述された文書をウェブ上でやりとりするためのプロトコルである。</p>
-<p>皆さんが、Google ChromeやFirefox等のウェブブラウザを使ってウェブページを閲覧しているときには、裏で、このHTTPに従ったデータのやりとりがなされている。</p>
-<p>このやりとりは基本的にクライアント (ウェブページを閲覧する側のコンピュータ)から送信されたHTTPリクエストを基に、サーバ (ウェブページを配信する側のコンピュータ)がHTTPレスポンスと呼ばれる応答を返す、という処理が行われている。</p>
+<span id="sec-request"></span><h1><span class="section-number">3. </span>HTTP リクエスト<a class="headerlink" href="#http" title="Permalink to this heading">#</a></h1>
+<p>ウェブ上でデータのやりとりをするためにはプロトコルと呼ばれるデータのやりとりの仕方を定めた規約に従う必要がある。HTTP は Hyper Text Transfer Protocol の略で、HTML で記述された文書をウェブ上でやりとりするためのプロトコルである。</p>
+<p>皆さんが、Google Chrome や Firefox 等のウェブブラウザを使ってウェブページを閲覧しているときには、裏で、この HTTP に従ったデータのやりとりがなされている。</p>
+<p>このやりとりは基本的にクライアント (ウェブページを閲覧する側のコンピュータ)から送信された HTTP リクエストを基に、サーバ (ウェブページを配信する側のコンピュータ)が HTTP レスポンスと呼ばれる応答を返す、という処理が行われている。</p>
 <section id="id1">
 <h2><span class="section-number">3.1. </span>リクエストとレスポンスの内容<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<p>リクエストとレスポンスの内容はプログラムを書かずとも、ウェブブラウザで確認することができる。以下ではGoogle Chromeを使った場合の確認方法を紹介する。</p>
-<p>まずはウェブブラウザを開き、<a class="reference external" href="https://www.google.co.jp">Googleのトップページ</a>にアクセスしてみよう。</p>
+<p>リクエストとレスポンスの内容はプログラムを書かずとも、ウェブブラウザで確認することができる。以下では Google Chrome を使った場合の確認方法を紹介する。</p>
+<p>まずはウェブブラウザを開き、<a class="reference external" href="https://www.google.co.jp">Google のトップページ</a>にアクセスしてみよう。</p>
 <p>ウェブページが開いたら、画面左上の「︙」ボタンをクリックして、設定メニューを開く。この設定メニューの中から「その他のツール」にある「ディベロッパーツール」を開こう。</p>
 <a class="with-border reference internal image-reference" href="../_images/check_http.jpg"><img alt="../_images/check_http.jpg" class="with-border align-center" src="../_images/check_http.jpg" style="width: 60%;" /></a>
 <p>ディベロッパーツールが開いたら、いくつかある項目の七から「Network」を選び、ページをリロードしよう。すると、ディベロッパーツールに以下のような情報が表示されるはずだ。</p>
 <a class="with-border reference internal image-reference" href="../_images/check_http_2.jpg"><img alt="../_images/check_http_2.jpg" class="with-border align-center" src="../_images/check_http_2.jpg" style="width: 60%;" /></a>
 <p>この情報をよく見てみると、「Name」のリストの先頭に「<code class="docutils literal notranslate"><span class="pre">www.google.co.jp</span></code>」という項目があるので、これをクリックする。すると、その右側にどのようなリクエストが送られて、どのようなレスポンスが返ってきているのかが表示される。これらはそれぞれ、ディベロッパーツールの中で「Request Headers」という項目と「Response Headers」という項目から確認できる。</p>
-<p>これらのヘッダ情報には、非常に多くの情報が含まれているが、リクエストヘッダであれば、ウェブページのURLやページを取得する方法 (GETとPOSTがあるが、詳細は後述する)などが含まれており、レスポンスヘッダであれば、</p>
+<p>これらのヘッダ情報には、非常に多くの情報が含まれているが、リクエストヘッダであれば、ウェブページの URL やページを取得する方法 (GET と POST があるが、詳細は後述する)などが含まれており、レスポンスヘッダであれば、</p>
 </section>
 <section id="python">
-<h2><span class="section-number">3.2. </span>Pythonによるウェブページの取得<a class="headerlink" href="#python" title="Permalink to this heading">#</a></h2>
-<p>Pythonでウェブページのデータをサーバーからウェブページを取得するための標準ライブラリに<code class="docutils literal notranslate"><span class="pre">urllib</span></code>がある。まずは、<code class="docutils literal notranslate"><span class="pre">urllib</span></code>の基本関数である<code class="docutils literal notranslate"><span class="pre">urlopen</span></code>を用いて、ウェブページの内容を取得してみよう。</p>
-<p><code class="docutils literal notranslate"><span class="pre">urlopen</span></code>はURLを指定するだけで、そのURLにHTTPリクエストを送付し、それに対応するレスポンスを取得することができる。</p>
+<h2><span class="section-number">3.2. </span>Python によるウェブページの取得<a class="headerlink" href="#python" title="Permalink to this heading">#</a></h2>
+<p>Python でウェブページのデータをサーバーからウェブページを取得するための標準ライブラリに<code class="docutils literal notranslate"><span class="pre">urllib</span></code>がある。まずは、<code class="docutils literal notranslate"><span class="pre">urllib</span></code>の基本関数である<code class="docutils literal notranslate"><span class="pre">urlopen</span></code>を用いて、ウェブページの内容を取得してみよう。</p>
+<p><code class="docutils literal notranslate"><span class="pre">urlopen</span></code>は URL を指定するだけで、その URL に HTTP リクエストを送付し、それに対応するレスポンスを取得することができる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
 
 <span class="c1"># ウェブページのURL</span>
 <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.hit-u.ac.jp/&quot;</span>
@@ -450,7 +452,7 @@ document.write(`
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">urlopen</span></code>の戻り値は<a class="reference external" href="https://docs.python.org/ja/3/library/http.client.html#httpresponse-objects"><code class="docutils literal notranslate"><span class="pre">HTTPResponse</span></code></a>という型を取り、アクセスの可否を表すステータスコード等を取得できる。</p>
-<p><a class="reference external" href="https://developer.mozilla.org/ja/docs/Web/HTTP/Status">ステータスコード</a>には非常に多くの種類があるが、アクセスに成功すれば200、アクセスが拒否されれば403、ページが見つからなければ404、サーバ側でエラーが生じている場合には500、くらいのコードを覚えておけば十分だろう。</p>
+<p><a class="reference external" href="https://developer.mozilla.org/ja/docs/Web/HTTP/Status">ステータスコード</a>には非常に多くの種類があるが、アクセスに成功すれば 200、アクセスが拒否されれば 403、ページが見つからなければ 404、サーバ側でエラーが生じている場合には 500、くらいのコードを覚えておけば十分だろう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ステータスコードの確認</span>
@@ -464,8 +466,8 @@ document.write(`
 </div>
 </div>
 </div>
-<p>実際、上記の例で間違ったURLを用いると、ページが見つからないことを表す404がステータスコードとして返ってくる。</p>
-<p>ただし、<code class="docutils literal notranslate"><span class="pre">urlopen</span></code>はステータスコードが404などの場合に<code class="docutils literal notranslate"><span class="pre">HTTPError</span></code>を例外として返してくるので、以下のソースコードでは、例外の内容からステータスコードを確認している。</p>
+<p>実際、上記の例で間違った URL を用いると、ページが見つからないことを表す 404 がステータスコードとして返ってくる。</p>
+<p>ただし、<code class="docutils literal notranslate"><span class="pre">urlopen</span></code>はステータスコードが 404 などの場合に<code class="docutils literal notranslate"><span class="pre">HTTPError</span></code>を例外として返してくるので、以下のソースコードでは、例外の内容からステータスコードを確認している。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 存在しないページへのアクセス</span>
@@ -483,7 +485,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>ステータスコードが200で正しくウェブページの内容を受信できたら、まずは受信したレスポンスヘッダの内容を確認しよう。レスポンスヘッダの内容は<code class="docutils literal notranslate"><span class="pre">resp.headers</span></code>で確認できる。<code class="docutils literal notranslate"><span class="pre">resp.headers</span></code>はdict型のような形で<code class="docutils literal notranslate"><span class="pre">.items()</span></code>を用いて内容が確認できる。</p>
+<p>ステータスコードが 200 で正しくウェブページの内容を受信できたら、まずは受信したレスポンスヘッダの内容を確認しよう。レスポンスヘッダの内容は<code class="docutils literal notranslate"><span class="pre">resp.headers</span></code>で確認できる。<code class="docutils literal notranslate"><span class="pre">resp.headers</span></code>は dict 型のような形で<code class="docutils literal notranslate"><span class="pre">.items()</span></code>を用いて内容が確認できる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">resp</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -493,7 +495,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              Server: nginx
-                Date: Thu, 15 Feb 2024 14:43:35 GMT
+                Date: Tue, 20 Feb 2024 07:50:03 GMT
         Content-Type: text/html
    Transfer-Encoding: chunked
           Connection: close
@@ -502,9 +504,9 @@ document.write(`
 </div>
 </div>
 </div>
-<p>レスポンスヘッダの内容から取得したファイルが<code class="docutils literal notranslate"><span class="pre">text/html</span></code>、すなわちHTMLファイルであることが確認できた。</p>
+<p>レスポンスヘッダの内容から取得したファイルが<code class="docutils literal notranslate"><span class="pre">text/html</span></code>、すなわち HTML ファイルであることが確認できた。</p>
 <p>ファイルの種類が分かったら、次に取得したファイルの内容を見てみよう。ファイル内容は<code class="docutils literal notranslate"><span class="pre">resp.read()</span></code>により取得できる。</p>
-<p>ただし、ファイルの内容はバイト文字として受け取られるため、そのままでは内容を理解することは難しい。今回はファイルのエンコーディングがUTF-8であるとして、バイト文字列をデコードする。</p>
+<p>ただし、ファイルの内容はバイト文字として受け取られるため、そのままでは内容を理解することは難しい。今回はファイルのエンコーディングが UTF-8 であるとして、バイト文字列をデコードする。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">body</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
@@ -531,7 +533,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>一通り、取得した情報に対する処理が終了したら、<code class="docutils literal notranslate"><span class="pre">resp.close()</span></code>を呼び出してHTTP接続を切断しておく。</p>
+<p>一通り、取得した情報に対する処理が終了したら、<code class="docutils literal notranslate"><span class="pre">resp.close()</span></code>を呼び出して HTTP 接続を切断しておく。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -539,12 +541,12 @@ document.write(`
 </div>
 </div>
 </div>
-<p>なお、上記のコードはファイル入出力を扱う<code class="docutils literal notranslate"><span class="pre">open</span></code>関数などと同様に<code class="docutils literal notranslate"><span class="pre">with</span></code>文を用いてHTTP接続の開閉を自動化することができる。</p>
+<p>なお、上記のコードはファイル入出力を扱う<code class="docutils literal notranslate"><span class="pre">open</span></code>関数などと同様に<code class="docutils literal notranslate"><span class="pre">with</span></code>文を用いて HTTP 接続の開閉を自動化することができる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">resp</span><span class="p">:</span>
     <span class="n">body</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
-    <span class="n">lines</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;[</span><span class="se">\n\r</span><span class="s2">]{1,2}&quot;</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
 </pre></div>
@@ -553,7 +555,6 @@ document.write(`
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;ja&quot;&gt;
-
 &lt;head&gt;
 &lt;meta charset=&quot;UTF-8&quot;&gt;
 &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
@@ -561,13 +562,14 @@ document.write(`
 &lt;meta name=&quot;author&quot; content=&quot;Hitotsubashi University&quot;&gt;
 &lt;meta name=&quot;viewport&quot; content=&quot;width=1440, shrink-to-fit=yes&quot;&gt;
 &lt;meta name=&quot;format-detection&quot; content=&quot;telephone=no&quot;&gt;
+&lt;meta name=&quot;description&quot; content=&quot;一橋大学, 一橋&quot;&gt;
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="getpost">
-<h2><span class="section-number">3.3. </span>GETメソッドとPOSTメソッド<a class="headerlink" href="#getpost" title="Permalink to this heading">#</a></h2>
+<section id="get-post">
+<h2><span class="section-number">3.3. </span>GET メソッドと POST メソッド<a class="headerlink" href="#get-post" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://httpbin.org/post&quot;</span>
@@ -629,406 +631,7 @@ Content-Type : text/xml;charset=UTF-8
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;rss xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot; xmlns:openSearch=&quot;http://a9.com/-/spec/opensearchrss/1.0/&quot; xmlns:dcndl=&quot;http://ndl.go.jp/dcndl/terms/&quot; xmlns:dcmitype=&quot;http://purl.org/dc/dcmitype/&quot; xmlns:dcterms=&quot;http://purl.org/dc/terms/&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:rdfs=&quot;http://www.w3.org/2000/01/rdf-schema#&quot; xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot; version=&quot;2.0&quot;&gt;
-  &lt;channel&gt;
-    &lt;title&gt;桃太郎 - 国立国会図書館サーチ OpenSearch&lt;/title&gt;
-    &lt;link&gt;https://ndlsearch.ndl.go.jp/api/opensearch?title=%E6%A1%83%E5%A4%AA%E9%83%8E&amp;amp;cnt=10&lt;/link&gt;
-    &lt;description&gt;Search results for title=桃太郎 cnt=10&lt;/description&gt;
-    &lt;language&gt;ja&lt;/language&gt;
-    &lt;openSearch:totalResults&gt;3892&lt;/openSearch:totalResults&gt;
-    &lt;openSearch:startIndex&gt;1&lt;/openSearch:startIndex&gt;
-    &lt;openSearch:itemsPerPage&gt;10&lt;/openSearch:itemsPerPage&gt;
-    &lt;item&gt;
-      &lt;title&gt;アートな時間 舞台 門出二人桃太郎 : 勘三郎家の幼い2人が初舞台 一門ゆかりの演目を豪華配役で&lt;/title&gt;
-      &lt;link&gt;https://ndlsearch.ndl.go.jp/books/R000000004-I027835561&lt;/link&gt;
-      &lt;description&gt;&lt;![CDATA[&lt;p&gt;&lt;p&gt;&lt;ul&gt;&lt;li&gt;タイトル：アートな時間 舞台 門出二人桃太郎 : 勘三郎家の幼い2人が初舞台 一門ゆかりの演目を豪華配役で&lt;/li&gt;&lt;li&gt;タイトル（読み）：アート ナ ジカン ブタイ カドデ フタリ モモ タロウ : カン サブロウカ ノ オサナイ 2ニン ガ ハツブタイ イチモンユカリ ノ エンモク オ ゴウカ ハイヤク デ&lt;/li&gt;&lt;li&gt;責任表示：小玉 祥子&lt;/li&gt;&lt;/ul&gt;]]&gt;&lt;/description&gt;
-      &lt;author&gt;小玉 祥子,小玉 祥子&lt;/author&gt;
-      &lt;category&gt;記事&lt;/category&gt;
-      &lt;category&gt;紙&lt;/category&gt;
-      &lt;guid isPermaLink=&quot;true&quot;&gt;https://ndlsearch.ndl.go.jp/books/R000000004-I027835561&lt;/guid&gt;
-      &lt;pubDate&gt;Wed, 18 Jan 2017 20:25:39 +0900&lt;/pubDate&gt;
-      &lt;dc:title&gt;アートな時間 舞台 門出二人桃太郎 : 勘三郎家の幼い2人が初舞台 一門ゆかりの演目を豪華配役で&lt;/dc:title&gt;
-      &lt;dcndl:titleTranscription&gt;アート ナ ジカン ブタイ カドデ フタリ モモ タロウ : カン サブロウカ ノ オサナイ 2ニン ガ ハツブタイ イチモンユカリ ノ エンモク オ ゴウカ ハイヤク デ&lt;/dcndl:titleTranscription&gt;
-      &lt;dc:creator&gt;小玉 祥子&lt;/dc:creator&gt;
-      &lt;dcndl:publicationPlace&gt;JP&lt;/dcndl:publicationPlace&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:NDLBibID&quot;&gt;027835561&lt;/dc:identifier&gt;
-      &lt;dc:subject xsi:type=&quot;dcndl:NDLC&quot;&gt;ZD1&lt;/dc:subject&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://ndlsearch.ndl.go.jp/books/R000000004-I027835561&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://cir.nii.ac.jp/crid/1521417754806008192&quot;/&gt;
-      &lt;dc:description&gt;掲載誌：エコノミスト 3(通号 4484) p.109&lt;/dc:description&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-      &lt;title&gt;愛知 : 奥三河あんねぇおっかさんの語り&lt;/title&gt;
-      &lt;link&gt;https://ndlsearch.ndl.go.jp/books/R100000002-I000007711995&lt;/link&gt;
-      &lt;description&gt;&lt;![CDATA[&lt;p&gt;星の環会,2005,4-89294-414-9&lt;p&gt;&lt;ul&gt;&lt;li&gt;タイトル：愛知 : 奥三河あんねぇおっかさんの語り&lt;/li&gt;&lt;li&gt;タイトル（読み）：アイチ : オクミカワ アンネェ オッカサン ノ カタリ&lt;/li&gt;&lt;li&gt;責任表示：杉浦邦子 編著,米山郁生 さし絵&lt;/li&gt;&lt;li&gt;シリーズ名：ふるさとお話の旅 ; 7&lt;/li&gt;&lt;li&gt;シリーズ名（読み）：フルサト オハナシ ノ タビ&lt;/li&gt;&lt;li&gt;NDC(9)：388.155&lt;/li&gt;&lt;/ul&gt;]]&gt;&lt;/description&gt;
-      &lt;author&gt;杉浦, 邦子, 1943-,米山, 郁生,野村, 純一, 1935-2007,杉浦邦子 編著,米山郁生 さし絵&lt;/author&gt;
-      &lt;category&gt;図書&lt;/category&gt;
-      &lt;category&gt;紙&lt;/category&gt;
-      &lt;guid isPermaLink=&quot;true&quot;&gt;https://ndlsearch.ndl.go.jp/books/R100000002-I000007711995&lt;/guid&gt;
-      &lt;pubDate&gt;Tue, 19 Jul 2022 22:01:37 +0900&lt;/pubDate&gt;
-      &lt;dc:title&gt;愛知 : 奥三河あんねぇおっかさんの語り&lt;/dc:title&gt;
-      &lt;dcndl:titleTranscription&gt;アイチ : オクミカワ アンネェ オッカサン ノ カタリ&lt;/dcndl:titleTranscription&gt;
-      &lt;dc:creator&gt;杉浦, 邦子, 1943-&lt;/dc:creator&gt;
-      &lt;dc:creator&gt;米山, 郁生&lt;/dc:creator&gt;
-      &lt;dc:creator&gt;野村, 純一, 1935-2007&lt;/dc:creator&gt;
-      &lt;dcndl:creatorTranscription&gt;スギウラ, クニコ, 1943-&lt;/dcndl:creatorTranscription&gt;
-      &lt;dcndl:creatorTranscription&gt;ヨネヤマ, イクオ&lt;/dcndl:creatorTranscription&gt;
-      &lt;dcndl:creatorTranscription&gt;ノムラ, ジュンイチ, 1935-2007&lt;/dcndl:creatorTranscription&gt;
-      &lt;dcndl:seriesTitle&gt;ふるさとお話の旅 ; 7&lt;/dcndl:seriesTitle&gt;
-      &lt;dcndl:seriesTitleTranscription&gt;フルサト オハナシ ノ タビ&lt;/dcndl:seriesTitleTranscription&gt;
-      &lt;dcndl:seriesCreator&gt;野村純一 監修&lt;/dcndl:seriesCreator&gt;
-      &lt;dc:publisher&gt;星の環会&lt;/dc:publisher&gt;
-      &lt;dcndl:publicationPlace&gt;JP&lt;/dcndl:publicationPlace&gt;
-      &lt;dc:date xsi:type=&quot;dcterms:W3CDTF&quot;&gt;2005&lt;/dc:date&gt;
-      &lt;dcterms:issued&gt;2005.4&lt;/dcterms:issued&gt;
-      &lt;dcndl:price&gt;1300円&lt;/dcndl:price&gt;
-      &lt;dc:extent&gt;199p&lt;/dc:extent&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:ISBN&quot;&gt;4-89294-414-9&lt;/dc:identifier&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:ISBN13&quot;&gt;4-89294-414-9&lt;/dc:identifier&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:NDLBibID&quot;&gt;000007711995&lt;/dc:identifier&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:JPNO&quot;&gt;20770511&lt;/dc:identifier&gt;
-      &lt;dc:subject&gt;民話--日本&lt;/dc:subject&gt;
-      &lt;dcndl:genre&gt;児童図書&lt;/dcndl:genre&gt;
-      &lt;dcndl:genreTranscription&gt;ジドウ トショ&lt;/dcndl:genreTranscription&gt;
-      &lt;dc:subject xsi:type=&quot;dcndl:NDLC&quot;&gt;Y8&lt;/dc:subject&gt;
-      &lt;dc:subject xsi:type=&quot;dcndl:NDC9&quot;&gt;388.155&lt;/dc:subject&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.iwate.jp/opac/advanced-search&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.apl.pref.akita.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1009810647987&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib.pref.ibaraki.jp/licsxp-kopac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1001001207461&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://kensaku.lib.pref.tochigi.lg.jp/winj/opac/switch-detail-iccap.do?bibid=1100367884&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib.pref.saitama.jp//winj/opac/switch-detail-iccap.do?bibid=1100447402&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://catalog.library.metro.tokyo.lg.jp/winj/opac/switch-detail-iccap.do?bibid=1106496504&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library-archives.pref.fukui.lg.jp/wo/opc_srh/srh_detail/1104507281/&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib.pref.yamanashi.jp/licsxp-opac/WOpacMnuTopInitAction.do&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://www.library.pref.gifu.lg.jp/winj/opac/switch-detail-iccap.do?bibid=1100102410&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.tosyokan.pref.shizuoka.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1000510134532&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://websv.aichi-pref-library.jp/winj/opac/switch-detail-iccap.do?bibid=1160616912&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.city.nagoya.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1009915007234&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.shiga-pref-library.jp/wo/opc_srh/srh_detail/1837482/&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.osaka.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=10005000483032&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://web.oml.city.osaka.lg.jp/webopac_i_ja/0010969216&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib-sakai.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1000500053237&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib-sakai.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1007000601807&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://opacsvr01.library.pref.nara.jp/opac/volume/467121&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://www.library.pref.tottori.jp/winj/opac/switch-detail-iccap.do?bibid=1101235367&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://opac.libnet.pref.okayama.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1009810741661&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://www.library.city.hiroshima.jp/winj/opac/switch-detail-iccap.do?bibid=1102679187&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://id.ndl.go.jp/isbn/4892944149&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://www.lib.pref.fukuoka.jp/winj/opac/switch-detail-iccap.do?bibid=1106184897&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www2.tosyo-saga.jp/kentosyo2/opac/search-detail.do?lang=ja&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://opac.miraionlibrary.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1009810796350&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.kumamoto.jp/winj/opac/switch-detail-iccap.do?bibid=1117476595&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://library.pref.oita.jp/winj/opac/switch-detail-iccap.do?bibid=1100028002&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://ndlsearch.ndl.go.jp/books/R100000002-I000007711995&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://library.sapie.or.jp/cgi-bin/CN1MN1?S00101=J00DTL04&amp;amp;S00222=1093850&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://library.sapie.or.jp/cgi-bin/CN1MN1?S00101=J00DTL04&amp;amp;S00222=1962748&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://library.sapie.or.jp/cgi-bin/CN1MN1?S00101=J00DTL04&amp;amp;S00222=3823198&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://ndlsearch.ndl.go.jp/books/R100000049-I024264711&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://dl.ndl.go.jp/pid/11126494&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.osaka.jp/licsjd-opac/&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://ts-opac.baika.ac.jp/opac/volume/389341&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://ci.nii.ac.jp/ncid/BA71999170&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.books.or.jp/book-details/9784892944147&quot;/&gt;
-      &lt;dc:description&gt; 2005&lt;/dc:description&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-      &lt;title&gt;ＩＴを上手に活用して経営革新を : 県内中小製造業の情報化事例集&lt;/title&gt;
-      &lt;link&gt;https://ndlsearch.ndl.go.jp/books/R100000001-I44111100553910&lt;/link&gt;
-      &lt;description&gt;&lt;![CDATA[&lt;p&gt;大分県産業創造機構,2003,&lt;p&gt;&lt;ul&gt;&lt;li&gt;タイトル：ＩＴを上手に活用して経営革新を : 県内中小製造業の情報化事例集&lt;/li&gt;&lt;li&gt;タイトル（読み）：アイティ　オ　ジョウズ　ニ　カツヨウ　シテ　ケイエイ　カクシン　オ : ケンナイ　チュウショウ　セイゾウギョウ　ノ　ジョウホウカ　ジレイシュウ&lt;/li&gt;&lt;li&gt;責任表示：大分県産業創造機構 〔編〕&lt;/li&gt;&lt;/ul&gt;]]&gt;&lt;/description&gt;
-      &lt;author&gt;大分県産業創造機構,大分県産業創造機構 〔編〕&lt;/author&gt;
-      &lt;category&gt;図書&lt;/category&gt;
-      &lt;category&gt;紙&lt;/category&gt;
-      &lt;guid isPermaLink=&quot;true&quot;&gt;https://ndlsearch.ndl.go.jp/books/R100000001-I44111100553910&lt;/guid&gt;
-      &lt;pubDate&gt;Fri, 30 Nov 2012 12:06:54 +0900&lt;/pubDate&gt;
-      &lt;dc:title&gt;ＩＴを上手に活用して経営革新を : 県内中小製造業の情報化事例集&lt;/dc:title&gt;
-      &lt;dcndl:titleTranscription&gt;アイティ　オ　ジョウズ　ニ　カツヨウ　シテ　ケイエイ　カクシン　オ : ケンナイ　チュウショウ　セイゾウギョウ　ノ　ジョウホウカ　ジレイシュウ&lt;/dcndl:titleTranscription&gt;
-      &lt;dc:creator&gt;大分県産業創造機構&lt;/dc:creator&gt;
-      &lt;dcndl:creatorTranscription&gt;オオイタケンサンギョウソウゾウキコウ&lt;/dcndl:creatorTranscription&gt;
-      &lt;dc:publisher&gt;大分県産業創造機構&lt;/dc:publisher&gt;
-      &lt;dc:date xsi:type=&quot;dcterms:W3CDTF&quot;&gt;2003&lt;/dc:date&gt;
-      &lt;dcterms:issued&gt;２００３．３&lt;/dcterms:issued&gt;
-      &lt;dc:extent&gt;４２ｐ ; ３０ｃｍ&lt;/dc:extent&gt;
-      &lt;dc:description&gt;平成１４年度ＩＴ導入支援事業&lt;/dc:description&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://library.pref.oita.jp/winj/opac/switch-detail-iccap.do?bibid=1100553910&quot;/&gt;
-      &lt;dc:description&gt; 2003&lt;/dc:description&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-      &lt;title&gt;アイヌ史資料集&lt;/title&gt;
-      &lt;link&gt;https://ndlsearch.ndl.go.jp/books/R100000001-I01111009510246021&lt;/link&gt;
-      &lt;description&gt;&lt;![CDATA[&lt;p&gt;第２期　第３巻−［１］,北海道出版企画センター,1984,&lt;p&gt;&lt;ul&gt;&lt;li&gt;タイトル：アイヌ史資料集&lt;/li&gt;&lt;li&gt;タイトル（読み）：アイヌシ　シリョウシュウ&lt;/li&gt;&lt;li&gt;NDC(9)：３８２．１１&lt;/li&gt;&lt;/ul&gt;]]&gt;&lt;/description&gt;
-      &lt;author&gt;吉田‖巌&lt;/author&gt;
-      &lt;category&gt;図書&lt;/category&gt;
-      &lt;category&gt;紙&lt;/category&gt;
-      &lt;guid isPermaLink=&quot;true&quot;&gt;https://ndlsearch.ndl.go.jp/books/R100000001-I01111009510246021&lt;/guid&gt;
-      &lt;pubDate&gt;Fri, 5 Sep 2014 09:00:00 +0900&lt;/pubDate&gt;
-      &lt;dc:title&gt;アイヌ史資料集&lt;/dc:title&gt;
-      &lt;dcndl:titleTranscription&gt;アイヌシ　シリョウシュウ&lt;/dcndl:titleTranscription&gt;
-      &lt;dc:creator&gt;吉田‖巌&lt;/dc:creator&gt;
-      &lt;dcndl:creatorTranscription&gt;ヨシダ，イワオ&lt;/dcndl:creatorTranscription&gt;
-      &lt;dcndl:volume&gt;第２期　第３巻−［１］&lt;/dcndl:volume&gt;
-      &lt;dc:publisher&gt;北海道出版企画センター&lt;/dc:publisher&gt;
-      &lt;dc:date xsi:type=&quot;dcterms:W3CDTF&quot;&gt;1984&lt;/dc:date&gt;
-      &lt;dcterms:issued&gt;１９８４&lt;/dcterms:issued&gt;
-      &lt;dcndl:price&gt;¥１７００&lt;/dcndl:price&gt;
-      &lt;dc:extent&gt;４８ｐ ; ２１ｃｍ&lt;/dc:extent&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:TRCMARCNO&quot;&gt;85-42141&lt;/dc:identifier&gt;
-      &lt;dc:subject&gt;アイヌ&lt;/dc:subject&gt;
-      &lt;dc:subject xsi:type=&quot;dcndl:NDC&quot;&gt;３８９．０８&lt;/dc:subject&gt;
-      &lt;dc:subject xsi:type=&quot;dcndl:NDC9&quot;&gt;３８２．１１&lt;/dc:subject&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://www.library.pref.hokkaido.jp/wo/opc/srh/&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.miyagi.jp/wo/opc_srh/srh_detail/5010098305/&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.apl.pref.akita.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1005010165242&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.chiba.lg.jp//licsxp-iopac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1000000423374&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.nagano.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1005010160329&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.osaka.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=10000000270815&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.hyogo.lg.jp/winj/opac/search-detail.do?lang=ja&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://opac.toshokan.city.fukuoka.lg.jp/licsxp-opac/WOpacTifSchCmpdDispAction.do&quot;/&gt;
-      &lt;dc:description&gt; 1984&lt;/dc:description&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-      &lt;title&gt;愛の旅人&lt;/title&gt;
-      &lt;link&gt;https://ndlsearch.ndl.go.jp/books/R100000002-I000009421314&lt;/link&gt;
-      &lt;description&gt;&lt;![CDATA[&lt;p&gt;3,朝日新聞出版,2008,978-4-02-250460-9&lt;p&gt;&lt;ul&gt;&lt;li&gt;タイトル：愛の旅人&lt;/li&gt;&lt;li&gt;タイトル（読み）：アイ ノ タビビト&lt;/li&gt;&lt;li&gt;責任表示：朝日新聞be編集グループ 編著&lt;/li&gt;&lt;li&gt;NDC(9)：290.9&lt;/li&gt;&lt;/ul&gt;]]&gt;&lt;/description&gt;
-      &lt;author&gt;朝日新聞社,朝日新聞be編集グループ 編著&lt;/author&gt;
-      &lt;category&gt;図書&lt;/category&gt;
-      &lt;category&gt;紙&lt;/category&gt;
-      &lt;guid isPermaLink=&quot;true&quot;&gt;https://ndlsearch.ndl.go.jp/books/R100000002-I000009421314&lt;/guid&gt;
-      &lt;pubDate&gt;Wed, 3 Sep 2008 22:45:06 +0900&lt;/pubDate&gt;
-      &lt;dc:title&gt;愛の旅人&lt;/dc:title&gt;
-      &lt;dcndl:titleTranscription&gt;アイ ノ タビビト&lt;/dcndl:titleTranscription&gt;
-      &lt;dc:creator&gt;朝日新聞社&lt;/dc:creator&gt;
-      &lt;dcndl:creatorTranscription&gt;アサヒ シンブンシャ&lt;/dcndl:creatorTranscription&gt;
-      &lt;dcndl:volume&gt;3&lt;/dcndl:volume&gt;
-      &lt;dc:publisher&gt;朝日新聞出版&lt;/dc:publisher&gt;
-      &lt;dcndl:publicationPlace&gt;JP&lt;/dcndl:publicationPlace&gt;
-      &lt;dc:date xsi:type=&quot;dcterms:W3CDTF&quot;&gt;2008&lt;/dc:date&gt;
-      &lt;dcterms:issued&gt;2008.7&lt;/dcterms:issued&gt;
-      &lt;dcndl:price&gt;1600円&lt;/dcndl:price&gt;
-      &lt;dc:extent&gt;173p&lt;/dc:extent&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:ISBN&quot;&gt;978-4-02-250460-9&lt;/dc:identifier&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:NDLBibID&quot;&gt;000009421314&lt;/dc:identifier&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:JPNO&quot;&gt;21464722&lt;/dc:identifier&gt;
-      &lt;dc:subject&gt;紀行&lt;/dc:subject&gt;
-      &lt;dc:subject xsi:type=&quot;dcndl:NDLC&quot;&gt;GA92&lt;/dc:subject&gt;
-      &lt;dc:subject xsi:type=&quot;dcndl:NDC9&quot;&gt;290.9&lt;/dc:subject&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.city.sapporo.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1008000061568&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.plib.pref.aomori.lg.jp/winj/opac/switch-detail-iccap.do?bibid=1102973526&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.apl.pref.akita.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1000000283990&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://opac.lib.pref.yamagata.jp/winj/opac/switch-detail-iccap.do?bibid=1101757981&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://id.ndl.go.jp/isbn/9784022504609&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib.city.saitama.jp/bookdetail?num=2201951&amp;amp;ctg=1&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://catalog.library.metro.tokyo.lg.jp/winj/opac/switch-detail-iccap.do?bibid=1107580094&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.city.kawasaki.jp/detailsearch&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib.sagamihara.kanagawa.jp/TOSHOW/asp/WwShousaiKen.aspx?FCode=1392164&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://opac.pref-lib.niigata.niigata.jp/winj/opac/switch-detail-iccap.do?bibid=1106275806&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.ishikawa.lg.jp/wo/opc_srh/srh_detail/1100000156802/&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library-archives.pref.fukui.lg.jp/wo/opc_srh/srh_detail/1104773983/&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www2.toshokan.city.shizuoka.jp/winj/opac/switch-detail-iccap.do?bibid=1101494527&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://websv.aichi-pref-library.jp/winj/opac/switch-detail-iccap.do?bibid=1182147602&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.city.nagoya.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1000810082838&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://opac1.library.pref.mie.lg.jp/winj/opac/switch-detail-iccap.do?bibid=1102658313&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.osaka.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=10020801417719&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://web.oml.city.osaka.lg.jp/webopac_i_ja/0011689270&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib-sakai.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1000800368873&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://www.library.pref.tottori.jp/winj/opac/switch-detail-iccap.do?bibid=1101520651&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://opac.libnet.pref.okayama.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1009811098818&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://www.library.city.hiroshima.jp/winj/opac/switch-detail-iccap.do?bibid=1103008799&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://library.pref.yamaguchi.lg.jp//wo/opc_srh/srh_detail/1000560041/&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://alislibopac.bunmori.tokushima.jp/winj/opac/switch-detail-iccap.do?bibid=1102771088&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://opac.toshokan.city.fukuoka.lg.jp/licsxp-opac/WOpacTifSchCmpdDispAction.do&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www2.tosyo-saga.jp/kentosyo2/opac/search-detail.do?lang=ja&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://opac.miraionlibrary.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1000000425262&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www2.library.pref.kagoshima.jp/kento/opac/switch-detail-iccap.do?bibid=1108042144&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://ndlsearch.ndl.go.jp/books/R100000002-I000009421314&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.kanabun.or.jp/CARIN/CARINOPACLINK.HTM?ID=B00182759&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.books.or.jp/book-details/9784022504609&quot;/&gt;
-      &lt;dc:description&gt; 2008&lt;/dc:description&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-      &lt;title&gt;愛の伝道師ANRIさんが桃太郎を書いたら&lt;/title&gt;
-      &lt;link&gt;https://ndlsearch.ndl.go.jp/books/R100000002-I030560825&lt;/link&gt;
-      &lt;description&gt;&lt;![CDATA[&lt;p&gt;文芸社,2020,978-4-286-21785-7&lt;p&gt;&lt;ul&gt;&lt;li&gt;タイトル：愛の伝道師ANRIさんが桃太郎を書いたら&lt;/li&gt;&lt;li&gt;タイトル（読み）：アイ ノ デンドウシ アンリ サン ガ モモタロウ オ カイタラ&lt;/li&gt;&lt;li&gt;責任表示：工ロ口ッキ 作,タナカタケシ 絵&lt;/li&gt;&lt;li&gt;NDC(10)：913.6&lt;/li&gt;&lt;/ul&gt;]]&gt;&lt;/description&gt;
-      &lt;author&gt;工ロ口ッキ,工ロ口ッキ 作,タナカタケシ 絵&lt;/author&gt;
-      &lt;category&gt;図書&lt;/category&gt;
-      &lt;category&gt;紙&lt;/category&gt;
-      &lt;guid isPermaLink=&quot;true&quot;&gt;https://ndlsearch.ndl.go.jp/books/R100000002-I030560825&lt;/guid&gt;
-      &lt;pubDate&gt;Tue, 27 Oct 2020 22:36:56 +0900&lt;/pubDate&gt;
-      &lt;dc:title&gt;愛の伝道師ANRIさんが桃太郎を書いたら&lt;/dc:title&gt;
-      &lt;dcndl:titleTranscription&gt;アイ ノ デンドウシ アンリ サン ガ モモタロウ オ カイタラ&lt;/dcndl:titleTranscription&gt;
-      &lt;dc:creator&gt;工ロ口ッキ&lt;/dc:creator&gt;
-      &lt;dcndl:creatorTranscription&gt;コウロクチッキ&lt;/dcndl:creatorTranscription&gt;
-      &lt;dc:publisher&gt;文芸社&lt;/dc:publisher&gt;
-      &lt;dcndl:publicationPlace&gt;JP&lt;/dcndl:publicationPlace&gt;
-      &lt;dc:date xsi:type=&quot;dcterms:W3CDTF&quot;&gt;2020&lt;/dc:date&gt;
-      &lt;dcterms:issued&gt;2020.9&lt;/dcterms:issued&gt;
-      &lt;dcndl:price&gt;1100円&lt;/dcndl:price&gt;
-      &lt;dc:extent&gt;23p&lt;/dc:extent&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:ISBN&quot;&gt;978-4-286-21785-7&lt;/dc:identifier&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:NDLBibID&quot;&gt;030560825&lt;/dc:identifier&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:JPNO&quot;&gt;23439302&lt;/dc:identifier&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:TOHANMARCNO&quot;&gt;34102729&lt;/dc:identifier&gt;
-      &lt;dc:subject xsi:type=&quot;dcndl:NDLC&quot;&gt;KH971&lt;/dc:subject&gt;
-      &lt;dc:subject xsi:type=&quot;dcndl:NDC10&quot;&gt;913.6&lt;/dc:subject&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://ndlsearch.ndl.go.jp/books/R100000002-I030560825&quot;/&gt;
-      &lt;dc:description&gt; 2020&lt;/dc:description&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-      &lt;title&gt;愛はつきることなく&lt;/title&gt;
-      &lt;link&gt;https://ndlsearch.ndl.go.jp/books/R100000002-I000001272704&lt;/link&gt;
-      &lt;description&gt;&lt;![CDATA[&lt;p&gt;大和書房,1970,&lt;p&gt;&lt;ul&gt;&lt;li&gt;タイトル：愛はつきることなく&lt;/li&gt;&lt;li&gt;タイトル（読み）：アイ ワ ツキル コト ナク&lt;/li&gt;&lt;li&gt;責任表示：ヘレン・トマス 著,西山浅次郎 訳&lt;/li&gt;&lt;/ul&gt;]]&gt;&lt;/description&gt;
-      &lt;author&gt;Thomas, Helen, 1877-1967,西山, 浅次郎, 1926-2021,ヘレン・トマス 著,西山浅次郎 訳&lt;/author&gt;
-      &lt;category&gt;図書&lt;/category&gt;
-      &lt;category&gt;紙&lt;/category&gt;
-      &lt;guid isPermaLink=&quot;true&quot;&gt;https://ndlsearch.ndl.go.jp/books/R100000002-I000001272704&lt;/guid&gt;
-      &lt;pubDate&gt;Thu, 11 Nov 2021 18:23:34 +0900&lt;/pubDate&gt;
-      &lt;dc:title&gt;愛はつきることなく&lt;/dc:title&gt;
-      &lt;dcndl:titleTranscription&gt;アイ ワ ツキル コト ナク&lt;/dcndl:titleTranscription&gt;
-      &lt;dc:creator&gt;Thomas, Helen, 1877-1967&lt;/dc:creator&gt;
-      &lt;dc:creator&gt;西山, 浅次郎, 1926-2021&lt;/dc:creator&gt;
-      &lt;dcndl:creatorTranscription&gt;ニシヤマ, アサジロウ, 1926-2021&lt;/dcndl:creatorTranscription&gt;
-      &lt;dc:publisher&gt;大和書房&lt;/dc:publisher&gt;
-      &lt;dcndl:publicationPlace&gt;JP&lt;/dcndl:publicationPlace&gt;
-      &lt;dc:date xsi:type=&quot;dcterms:W3CDTF&quot;&gt;1970&lt;/dc:date&gt;
-      &lt;dcterms:issued&gt;1970&lt;/dcterms:issued&gt;
-      &lt;dc:extent&gt;231p 図版&lt;/dc:extent&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:NDLBibID&quot;&gt;000001272704&lt;/dc:identifier&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:JPNO&quot;&gt;75027449&lt;/dc:identifier&gt;
-      &lt;dc:subject xsi:type=&quot;dcndl:NDC&quot;&gt;934&lt;/dc:subject&gt;
-      &lt;dc:subject xsi:type=&quot;dcndl:NDLC&quot;&gt;KS172&lt;/dc:subject&gt;
-      &lt;dc:description&gt;原タイトル: As it was&lt;/dc:description&gt;
-      &lt;dc:description&gt;原タイトル: World without end&lt;/dc:description&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.miyagi.jp/wo/opc_srh/srh_detail/5010182066/&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://opac.library.fcs.ed.jp/winj/opac/switch-detail-iccap.do?bibid=1100366135&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://kensaku.lib.pref.tochigi.lg.jp/winj/opac/switch-detail-iccap.do?bibid=1100683574&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www1.library.pref.gunma.jp/winj/opac/switch-detail-iccap.do?bibid=1100336170&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib.pref.saitama.jp/winj/opac/switch-detail-iccap.do?bibid=1123642355&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.chiba.lg.jp//licsxp-iopac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1000000893463&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.city.chiba.jp/licsxp-opac/WOpacTifSchCmpdDispAction.do&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://opac.lib.city.yokohama.lg.jp/opac/OPP1500?SELDATA=TOSHO&amp;amp;SSNO=3-0190165463&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib.pref.yamanashi.jp/licsxp-opac/WOpacMnuTopInitAction.do&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://websv.aichi-pref-library.jp/winj/opac/switch-detail-iccap.do?bibid=1100288439&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.city.nagoya.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1009210071776&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.kyoto.jp/bib/?B10218317&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.osaka.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=10000000293671&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib-sakai.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1000001276701&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www2.library.pref.shimane.lg.jp/opac/switch-detail-iccap.do?bibid=1100414614&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://ndlsearch.ndl.go.jp/books/R100000002-I000001272704&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://dl.ndl.go.jp/pid/12765405&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://ci.nii.ac.jp/ncid/BN05469777&quot;/&gt;
-      &lt;dc:description&gt; 1970&lt;/dc:description&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-      &lt;title&gt;青空たのしのハーモニカ漫談独演会&lt;/title&gt;
-      &lt;link&gt;https://ndlsearch.ndl.go.jp/books/R100000002-I000011085591&lt;/link&gt;
-      &lt;description&gt;&lt;![CDATA[&lt;p&gt;日本コロムビア,2010,&lt;p&gt;&lt;ul&gt;&lt;li&gt;タイトル：青空たのしのハーモニカ漫談独演会&lt;/li&gt;&lt;li&gt;タイトル（読み）：アオゾラ タノシ ノ ハーモニカ マンダン ドクエンカイ&lt;/li&gt;&lt;li&gt;責任表示：青空たのし 演奏・漫談&lt;/li&gt;&lt;/ul&gt;]]&gt;&lt;/description&gt;
-      &lt;author&gt;青空たのし 演奏・漫談&lt;/author&gt;
-      &lt;category&gt;録音資料&lt;/category&gt;
-      &lt;category&gt;記録メディア&lt;/category&gt;
-      &lt;guid isPermaLink=&quot;true&quot;&gt;https://ndlsearch.ndl.go.jp/books/R100000002-I000011085591&lt;/guid&gt;
-      &lt;pubDate&gt;Thu, 24 Feb 2011 19:51:18 +0900&lt;/pubDate&gt;
-      &lt;dc:title&gt;青空たのしのハーモニカ漫談独演会&lt;/dc:title&gt;
-      &lt;dcndl:titleTranscription&gt;アオゾラ タノシ ノ ハーモニカ マンダン ドクエンカイ&lt;/dcndl:titleTranscription&gt;
-      &lt;dc:publisher&gt;日本コロムビア&lt;/dc:publisher&gt;
-      &lt;dcndl:publicationPlace&gt;JP&lt;/dcndl:publicationPlace&gt;
-      &lt;dc:date xsi:type=&quot;dcterms:W3CDTF&quot;&gt;2010&lt;/dc:date&gt;
-      &lt;dcterms:issued&gt;2010.10&lt;/dcterms:issued&gt;
-      &lt;dcndl:price&gt;3000円 (税込)&lt;/dcndl:price&gt;
-      &lt;dc:extent&gt;録音ディスク 1枚&lt;/dc:extent&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:RIS502&quot;&gt;COCP-36499&lt;/dc:identifier&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:NDLBibID&quot;&gt;000011085591&lt;/dc:identifier&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:JPNO&quot;&gt;21884301&lt;/dc:identifier&gt;
-      &lt;dc:subject xsi:type=&quot;dcndl:NDLC&quot;&gt;YMC11&lt;/dc:subject&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://ndlsearch.ndl.go.jp/books/R100000002-I000011085591&quot;/&gt;
-      &lt;dc:description&gt; 2010&lt;/dc:description&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-      &lt;title&gt;青猫 : 幻想童話館&lt;/title&gt;
-      &lt;link&gt;https://ndlsearch.ndl.go.jp/books/R100000002-I000001773289&lt;/link&gt;
-      &lt;description&gt;&lt;![CDATA[&lt;p&gt;東京書籍,1985,4-487-75060-1&lt;p&gt;&lt;ul&gt;&lt;li&gt;タイトル：青猫 : 幻想童話館&lt;/li&gt;&lt;li&gt;タイトル（読み）：アオネコ&lt;/li&gt;&lt;li&gt;責任表示：司修 著&lt;/li&gt;&lt;/ul&gt;]]&gt;&lt;/description&gt;
-      &lt;author&gt;司, 修, 1936-,司修 著&lt;/author&gt;
-      &lt;category&gt;図書&lt;/category&gt;
-      &lt;category&gt;紙&lt;/category&gt;
-      &lt;guid isPermaLink=&quot;true&quot;&gt;https://ndlsearch.ndl.go.jp/books/R100000002-I000001773289&lt;/guid&gt;
-      &lt;pubDate&gt;Fri, 28 Feb 1986 09:00:00 +0900&lt;/pubDate&gt;
-      &lt;dc:title&gt;青猫 : 幻想童話館&lt;/dc:title&gt;
-      &lt;dcndl:titleTranscription&gt;アオネコ&lt;/dcndl:titleTranscription&gt;
-      &lt;dc:creator&gt;司, 修, 1936-&lt;/dc:creator&gt;
-      &lt;dcndl:creatorTranscription&gt;ツカサ, オサム, 1936-&lt;/dcndl:creatorTranscription&gt;
-      &lt;dc:publisher&gt;東京書籍&lt;/dc:publisher&gt;
-      &lt;dcndl:publicationPlace&gt;JP&lt;/dcndl:publicationPlace&gt;
-      &lt;dc:date xsi:type=&quot;dcterms:W3CDTF&quot;&gt;1985&lt;/dc:date&gt;
-      &lt;dcterms:issued&gt;1985.10&lt;/dcterms:issued&gt;
-      &lt;dcndl:price&gt;1500円&lt;/dcndl:price&gt;
-      &lt;dc:extent&gt;113p&lt;/dc:extent&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:ISBN&quot;&gt;4-487-75060-1&lt;/dc:identifier&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:ISBN13&quot;&gt;4-487-75060-1&lt;/dc:identifier&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:NDLBibID&quot;&gt;000001773289&lt;/dc:identifier&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:JPNO&quot;&gt;86012123&lt;/dc:identifier&gt;
-      &lt;dc:subject xsi:type=&quot;dcndl:NDLC&quot;&gt;KH638&lt;/dc:subject&gt;
-      &lt;dc:subject xsi:type=&quot;dcndl:NDC8&quot;&gt;913.6&lt;/dc:subject&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.city.sapporo.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1001000110809&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://opac.library.fcs.ed.jp/winj/opac/switch-detail-iccap.do?bibid=1102236795&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www1.library.pref.gunma.jp/winj/opac/switch-detail-iccap.do?bibid=1100015295&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www1.library.pref.gunma.jp/winj/opac/switch-detail-iccap.do?bibid=1100107318&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib.pref.saitama.jp//winj/opac/switch-detail-iccap.do?bibid=1112320284&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://id.ndl.go.jp/isbn/4487750601&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib.city.saitama.jp/bookdetail?num=627836&amp;amp;ctg=1&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.city.chiba.jp/licsxp-opac/WOpacTifSchCmpdDispAction.do&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://catalog.library.metro.tokyo.lg.jp/winj/opac/switch-detail-iccap.do?bibid=1100406527&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://opac.lib.city.yokohama.lg.jp/opac/OPP1500?SELDATA=TOSHO&amp;amp;SSNO=3-0190203787&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.city.kawasaki.jp/detailsearch&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib.sagamihara.kanagawa.jp/TOSHOW/asp/WwShousaiKen.aspx?FCode=83062&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library-archives.pref.fukui.lg.jp/wo/opc_srh/srh_detail/1103003827/&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www2.toshokan.city.shizuoka.jp/winj/opac/switch-detail-iccap.do?bibid=1100837506&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://websv.aichi-pref-library.jp/winj/opac/switch-detail-iccap.do?bibid=1100304660&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://opac1.library.pref.mie.lg.jp/winj/opac/switch-detail-iccap.do?bibid=1100271994&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.shiga-pref-library.jp/wo/opc_srh/srh_detail/0216600/&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.osaka.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=10000000194300&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://web.oml.city.osaka.lg.jp/webopac_i_ja/0070074468&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib-sakai.jp/licsxp-opac/WOpacMsgNewListToTifTilDetailAction.do?tilcod=1000000786022&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://www.library.city.hiroshima.jp/winj/opac/switch-detail-iccap.do?bibid=1100683166&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://library.pref.yamaguchi.lg.jp//wo/opc_srh/srh_detail/5010137092/&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://alislibopac.bunmori.tokushima.jp/winj/opac/switch-detail-iccap.do?bibid=1100286719&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.ehimetosyokan.jp/winj/opac/switch-detail-iccap.do?bibid=1100189775&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;http://www.lib.pref.fukuoka.jp/winj/opac/switch-detail-iccap.do?bibid=1100109582&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://opac.toshokan.city.fukuoka.lg.jp/licsxp-opac/WOpacTifSchCmpdDispAction.do&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://library.pref.oita.jp/winj/opac/switch-detail-iccap.do?bibid=1109462645&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.lib.pref.miyazaki.lg.jp/winj/opac/switch-detail-iccap.do?bibid=1100474742&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://ndlsearch.ndl.go.jp/books/R100000002-I000001773289&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://dl.ndl.go.jp/pid/12565086&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.library.pref.osaka.jp/licsjd-opac/&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://ci.nii.ac.jp/ncid/BA47760555&quot;/&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://www.books.or.jp/book-details/9784487750603&quot;/&gt;
-      &lt;dc:description&gt; 1985&lt;/dc:description&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-      &lt;title&gt;青柳&lt;/title&gt;
-      &lt;link&gt;https://ndlsearch.ndl.go.jp/books/R100000002-I000008764393&lt;/link&gt;
-      &lt;description&gt;&lt;![CDATA[&lt;p&gt;ビクター,&lt;p&gt;&lt;ul&gt;&lt;li&gt;タイトル：青柳&lt;/li&gt;&lt;li&gt;タイトル（読み）：アオヤギ&lt;/li&gt;&lt;/ul&gt;]]&gt;&lt;/description&gt;
-      &lt;author/&gt;
-      &lt;category&gt;録音資料&lt;/category&gt;
-      &lt;category&gt;記録メディア&lt;/category&gt;
-      &lt;guid isPermaLink=&quot;true&quot;&gt;https://ndlsearch.ndl.go.jp/books/R100000002-I000008764393&lt;/guid&gt;
-      &lt;pubDate&gt;Thu, 26 Jul 2007 08:59:59 +0900&lt;/pubDate&gt;
-      &lt;dc:title&gt;青柳&lt;/dc:title&gt;
-      &lt;dcndl:titleTranscription&gt;アオヤギ&lt;/dcndl:titleTranscription&gt;
-      &lt;dc:publisher&gt;ビクター&lt;/dc:publisher&gt;
-      &lt;dcndl:publicationPlace&gt;JP&lt;/dcndl:publicationPlace&gt;
-      &lt;dcterms:issued&gt;1965&lt;/dcterms:issued&gt;
-      &lt;dc:extent&gt;録音ディスク 1枚&lt;/dc:extent&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:RIS502&quot;&gt;OV-295&lt;/dc:identifier&gt;
-      &lt;dc:identifier xsi:type=&quot;dcndl:NDLBibID&quot;&gt;000008764393&lt;/dc:identifier&gt;
-      &lt;dc:subject xsi:type=&quot;dcndl:NDLC&quot;&gt;YMB&lt;/dc:subject&gt;
-      &lt;rdfs:seeAlso rdf:resource=&quot;https://ndlsearch.ndl.go.jp/books/R100000002-I000008764393&quot;/&gt;
-      &lt;dc:description/&gt;
-    &lt;/item&gt;
-  &lt;/channel&gt;
-&lt;/rss&gt;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print(body.decode(&quot;utf-8&quot;))</span>
 </pre></div>
 </div>
 </div>
@@ -1101,8 +704,8 @@ Content-Type : text/xml;charset=UTF-8
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3.1. リクエストとレスポンスの内容</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">3.2. Pythonによるウェブページの取得</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getpost">3.3. GETメソッドとPOSTメソッド</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">3.2. Python によるウェブページの取得</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-post">3.3. GET メソッドと POST メソッド</a></li>
 </ul>
   </nav></div>
 

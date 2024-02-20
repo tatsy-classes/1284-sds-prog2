@@ -167,15 +167,16 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="webpage.html">1. ウェブページの作成</a></li>
 <li class="toctree-l1"><a class="reference internal" href="regex.html">2. 正規表現の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="request.html">3. HTTPリクエスト</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request.html">3. HTTP リクエスト</a></li>
 <li class="toctree-l1"><a class="reference internal" href="crawler.html">4. 簡易クローラの作成</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Eメールの送受信</a></li>
 <li class="toctree-l1"><a class="reference internal" href="encryption.html">6. 暗号化とSSL通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="retrieval.html">7. 情報検索の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database.html">8. データベースの基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="socket.html">9. ソケット通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-server.html">10. 簡易ウェブサーバの実装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-system.html">11. 課題: Webシステムの実装</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="retrieval.html">8. 情報検索の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">9. データベースの基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="socket.html">10. ソケット通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-server.html">11. 簡易ウェブサーバの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-system.html">12. 課題: Webシステムの実装</a></li>
 </ul>
 
     </div>
@@ -406,6 +407,63 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="e">
 <span id="sec-email"></span><h1><span class="section-number">5. </span>Eメールの送受信<a class="headerlink" href="#e" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">smtplib</span> <span class="kn">import</span> <span class="n">SMTP</span>
+
+<span class="kn">from</span> <span class="nn">email.mime.text</span> <span class="kn">import</span> <span class="n">MIMEText</span>
+<span class="kn">from</span> <span class="nn">email.mime.multipart</span> <span class="kn">import</span> <span class="n">MIMEMultipart</span>
+
+<span class="kn">from</span> <span class="nn">email.utils</span> <span class="kn">import</span> <span class="n">formatdate</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">createMIMEText</span><span class="p">(</span><span class="n">from_addr</span><span class="p">,</span> <span class="n">to_addr</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">subject</span><span class="p">):</span>
+    <span class="c1"># MIMETextを作成</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">MIMEText</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s2">&quot;html&quot;</span><span class="p">)</span>
+    <span class="c1"># msg = MIMEText(message)</span>
+    <span class="c1"># msg = MIMEText(message, &quot;plain&quot;, &#39;utf-8&#39;)</span>
+
+    <span class="n">msg</span><span class="p">[</span><span class="s2">&quot;Subject&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subject</span>
+    <span class="n">msg</span><span class="p">[</span><span class="s2">&quot;From&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_addr</span>
+    <span class="n">msg</span><span class="p">[</span><span class="s2">&quot;To&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_addr</span>
+    <span class="n">msg</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">formatdate</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">msg</span>
+
+
+<span class="c1"># メールの送り主</span>
+<span class="n">from_email</span> <span class="o">=</span> <span class="s2">&quot;source@fuga.com&quot;</span>
+
+<span class="c1"># メール送信先</span>
+<span class="n">to_email</span> <span class="o">=</span> <span class="s2">&quot;tatsy.mail@gmail.com&quot;</span>
+
+<span class="c1"># メール件名とメール本文</span>
+<span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;メール件名&quot;</span>
+<span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;メール本文&quot;</span>
+
+<span class="n">mime</span> <span class="o">=</span> <span class="n">createMIMEText</span><span class="p">(</span><span class="n">from_email</span><span class="p">,</span> <span class="n">to_email</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mime&quot;</span><span class="p">,</span> <span class="n">mime</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mime Content-Type: text/html; charset=&quot;utf-8&quot;
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Subject: =?utf-8?b?44Oh44O844Or5Lu25ZCN?=
+From: source@fuga.com
+To: tatsy.mail@gmail.com
+Date: Tue, 20 Feb 2024 07:49:58 -0000
+
+44Oh44O844Or5pys5paH
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">

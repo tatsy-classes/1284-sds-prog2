@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>9. ソケット通信 &#8212; プログラミングⅡ</title>
+    <title>10. ソケット通信 &#8212; プログラミングⅡ</title>
   
   
   
@@ -67,8 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'contents/socket';</script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="10. 簡易ウェブサーバの実装" href="web-server.html" />
-    <link rel="prev" title="8. データベースの基礎" href="database.html" />
+    <link rel="next" title="11. 簡易ウェブサーバの実装" href="web-server.html" />
+    <link rel="prev" title="9. データベースの基礎" href="database.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ja"/>
   </head>
@@ -167,15 +167,16 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="webpage.html">1. ウェブページの作成</a></li>
 <li class="toctree-l1"><a class="reference internal" href="regex.html">2. 正規表現の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="request.html">3. HTTPリクエスト</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request.html">3. HTTP リクエスト</a></li>
 <li class="toctree-l1"><a class="reference internal" href="crawler.html">4. 簡易クローラの作成</a></li>
 <li class="toctree-l1"><a class="reference internal" href="email.html">5. Eメールの送受信</a></li>
 <li class="toctree-l1"><a class="reference internal" href="encryption.html">6. 暗号化とSSL通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="retrieval.html">7. 情報検索の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database.html">8. データベースの基礎</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. ソケット通信</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-server.html">10. 簡易ウェブサーバの実装</a></li>
-<li class="toctree-l1"><a class="reference internal" href="web-system.html">11. 課題: Webシステムの実装</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="retrieval.html">8. 情報検索の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">9. データベースの基礎</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">10. ソケット通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-server.html">11. 簡易ウェブサーバの実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web-system.html">12. 課題: Webシステムの実装</a></li>
 </ul>
 
     </div>
@@ -379,7 +380,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -395,6 +398,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">10.1. 簡易チャットサーバーの実装</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -405,7 +416,10 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="sec-socket">
-<span id="id1"></span><h1><span class="section-number">9. </span>ソケット通信<a class="headerlink" href="#sec-socket" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">10. </span>ソケット通信<a class="headerlink" href="#sec-socket" title="Permalink to this heading">#</a></h1>
+<section id="id2">
+<h2><span class="section-number">10.1. </span>簡易チャットサーバーの実装<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -444,7 +458,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">前へ</p>
-        <p class="prev-next-title"><span class="section-number">8. </span>データベースの基礎</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>データベースの基礎</p>
       </div>
     </a>
     <a class="right-next"
@@ -452,7 +466,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">次へ</p>
-        <p class="prev-next-title"><span class="section-number">10. </span>簡易ウェブサーバの実装</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>簡易ウェブサーバの実装</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -463,7 +477,20 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">10.1. 簡易チャットサーバーの実装</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
