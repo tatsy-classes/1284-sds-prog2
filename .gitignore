@@ -4,3 +4,5 @@ _build/
 .jupyter_cache/
 .ipynb_checkpoints/
 poetry.lock
+
+*.db

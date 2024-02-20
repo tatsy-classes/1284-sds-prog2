@@ -1,4 +1,8 @@
 {
+  // Markdown
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
   // Python
   "[python]": {
     "editor.tabSize": 4,
@@ -9,6 +13,11 @@
     },
     "editor.defaultFormatter": "ms-python.black-formatter"
   },
+  // Jupyter
+  "notebook.markup.fontSize": 14,
+  "notebook.lineNumbers": "off",
+  "notebook.formatOnSave.enabled": false,
+  "notebook.formatOnCellExecution": true,
   // Live Server
   "liveServer.settings.port": 3000,
   "liveServer.settings.root": "./_build/html/"
