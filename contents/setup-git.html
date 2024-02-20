@@ -408,13 +408,18 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.4. ローカル環境の準備</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">2.4.1. Windows</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mac-linux">2.4.2. Mac / Linux</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guigit">2.4.3. GUIを通してGitを使う (非推奨)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.4.3. ユーザ情報の設定</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guigit">2.4.4. GUIを通してGitを使う (非推奨)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.5. ローカル環境におけるGitリポジトリの作成</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.6. コミットとプッシュ</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.7. Gitサーバ上でのリポジトリの作成</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.8. ソースコードの編集・管理</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.5. サーバ環境の準備</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.6. ローカル環境での操作</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.6.1. リポジトリの作成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.6.2. ソースコードの作成とステージ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.6.3. コミット</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.6.4. プッシュ</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -435,7 +440,7 @@ document.write(`
 <li><p>自分でGitサーバーを立てて使う</p></li>
 </ol>
 <p>の2通りの方法が考えらるが、よほど機密性の高いソースコードを扱う等の場合でなければ、ウェブサービスを使う方法で問題ない。</p>
-<p>本節では、GitHubを用いてGitレポジトリの作成とソースコードの管理を行う方法を紹介する。</p>
+<p>本節では、GitHubを用いてGitレポジトリの作成とソースコードの管理を行う方法を紹介する。以下には非常に簡単なGitの使い方のみを紹介するので、必要に応じてウェブ上のチュートリアル (例えば<a class="reference external" href="https://www.atlassian.com/ja/git">Attlasian社のもの</a>) などを読み込んでほしい。</p>
 <section id="id1">
 <h2><span class="section-number">2.1. </span>Gitについて<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p>Gitは<strong>分散型バージョン管理システム</strong>であり、一つのプロジェクトに関連するコードを複数のユーザが別々に編集することを想定して設計されている。</p>
@@ -501,7 +506,9 @@ Connection to github.com closed.</p>
 <li><p>オープンソース版の<a class="reference external" href="https://github.com/PowerShell/PowerShell/releases/tag/v7.4.1">PowerShell</a>をインストールする。</p></li>
 <li><p>PowerShellを<strong>管理者権限で</strong>開き、<a class="reference external" href="https://chocolatey.org/install#individual">Install Chocolatey</a>のページ中段にある以下のコマンドを実行する。</p></li>
 </ol>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="n">-Scope</span> <span class="k">Process</span> <span class="n">-Force</span><span class="p">;</span> <span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="p">=</span> <span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="o">-bor</span> <span class="n">3072</span><span class="p">;</span> <span class="nb">iex </span><span class="p">((</span><span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s1">&#39;https://community.chocolatey.org/install.ps1&#39;</span><span class="p">))</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="n">-Scope</span> <span class="k">Process</span> <span class="n">-Force</span><span class="p">;</span>
+<span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="p">=</span> <span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="o">-bor</span> <span class="n">3072</span><span class="p">;</span>
+<span class="nb">iex </span><span class="p">((</span><span class="nb">New-ObjectSystem</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s1">&#39;https://community.chocolatey.org/install.ps1&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
@@ -517,8 +524,21 @@ Connection to github.com closed.</p>
 <h3><span class="section-number">2.4.2. </span>Mac / Linux<a class="headerlink" href="#mac-linux" title="Permalink to this heading">#</a></h3>
 <p>特に準備をする必要はなく、ターミナルから<code class="docutils literal notranslate"><span class="pre">git</span></code>コマンドが使用できる。念のため、ターミナルを開き <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">--version</span></code>とタイプしてEnterを押す。正しくコマンドが認識されていれば、現在のGitのバージョンが表示される。</p>
 </section>
+<section id="id3">
+<h3><span class="section-number">2.4.3. </span>ユーザ情報の設定<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>Gitを用いるにあたっては、誰がソースコードの編集を行なったのかを識別するために、ユーザ情報を設定しておく必要がある。</p>
+<p>登録が必要な情報は<strong>ユーザ名</strong>と<strong>メールアドレス</strong>の2つで、これらの登録には<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span></code>コマンドを用いる。</p>
+<p>このユーザ情報はリポジトリごとに別々のものを使用することもできるが、個人で開発を行なう場合には、全てのリポジトリに共通のものを使えば十分なので、<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span></code>コマンドに<code class="docutils literal notranslate"><span class="pre">--global</span></code>オプションを追加して、次のようにする。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># ユーザ名の設定</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;Taro Yamada&quot;</span>
+<span class="c1"># メールアドレスの設定</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;taro.yamada@dokoka.no.daigaku.jp&quot;</span>
+</pre></div>
+</div>
+<p>これらの情報はホームディレクトリ (シェルを実行すると最初に開くディレクトリ)にある <code class="docutils literal notranslate"><span class="pre">.gitconfig</span></code>という名前のファイル内に保存される。</p>
+</section>
 <section id="guigit">
-<h3><span class="section-number">2.4.3. </span>GUIを通してGitを使う (非推奨)<a class="headerlink" href="#guigit" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.4.4. </span>GUIを通してGitを使う (非推奨)<a class="headerlink" href="#guigit" title="Permalink to this heading">#</a></h3>
 <p>もしGUIを用いて、視覚的にバージョン管理を行いたい場合は、<a class="reference external" href="https://desktop.github.com/">GitHub Desktop</a>や<a class="reference external" href="https://www.sourcetreeapp.com/">Sourcetree</a>, <a class="reference external" href="https://www.gitkraken.com/">GitKraken</a>などが比較的使いやすい。</p>
 <p>しかし、GUIを使っていると、なかなか融通が利かない部分もあり、またGitのコマンドをなかなか覚えないので、基本はターミナルからコマンドを実行することを強く推奨する。</p>
 <div class="note admonition">
@@ -531,8 +551,23 @@ Connection to github.com closed.</p>
 </div>
 </section>
 </section>
-<section id="id3">
-<h2><span class="section-number">2.5. </span>ローカル環境におけるGitリポジトリの作成<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<section id="id4">
+<h2><span class="section-number">2.5. </span>サーバ環境の準備<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>Gitを用いてバージョン管理を開始するには<strong>リポジトリ</strong>を作成する必要がある。</p>
+<p>本来、リポジトリを作成するには、Gitサーバ上で<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">init</span> <span class="pre">--bare</span></code>というコマンドを実行する必要があるのだが、GitHubを用いる場合には、ウェブ上の操作によりGitリポジトリを作成することができる。</p>
+<p>まずは、各自のGitHubのトップページ (<code class="docutils literal notranslate"><span class="pre">https://github.com/[ユーザ名]</span></code>)にアクセスし、右上の「＋」ボタンから「New Repository」を選ぶ (下図参照)。</p>
+<a class="with-border reference internal image-reference" href="../_images/create_repo_01.jpg"><img alt="../_images/create_repo_01.jpg" class="with-border align-center" src="../_images/create_repo_01.jpg" style="width: 60%;" /></a>
+<p>すると、以下のような画面が現れるので、まずは適当にリポジトリ名 (Repository name)を決める (ここでは<code class="docutils literal notranslate"><span class="pre">my-first-repo</span></code>とする)。なお、リポジトリ名には英数字と一部の記号しか使うことができないので注意すること。リポジトリの説明文 (Description)は後からでも容易に変更できるので、現時点では特に入力する必要はない。</p>
+<p>次に、画面を少し下にスクロールすると、リポジトリの可視性と初期化オプションを決定する項目がある (下図参照)。</p>
+<a class="with-border reference internal image-reference" href="../_images/create_repo_02.jpg"><img alt="../_images/create_repo_02.jpg" class="with-border align-center" src="../_images/create_repo_02.jpg" style="width: 60%;" /></a>
+<p>リポジトリの可視性は、誰からでもアクセス可能な「Public」と、自分と指定したユーザのみがアクセス可能な「Private」がある。特にこだわりがなければ最初はPrivateにしておいて、ある程度、プログラムの開発が進んだ時点で「Public」にすると良いだろう。</p>
+<p>最後のリポジトリの初期化オプションについては、リポジトリの説明を記述する<code class="docutils literal notranslate"><span class="pre">README.md</span></code>、無視するファイルを設定する<code class="docutils literal notranslate"><span class="pre">.gitignore</span></code>、そしてオープンソース・プロジェクトのライセンスをしていするか否か、を指定できる。それぞれの意味を理解しているなら指定しても構わないが、後からでも変更できるので、取り急ぎ指定する必要はない。</p>
+<p>以上の設定を終了後、「Create repository」のボタンを押すと、リポジトリがGitHub上に作成される。</p>
+</section>
+<section id="id5">
+<h2><span class="section-number">2.6. </span>ローカル環境での操作<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<section id="id6">
+<h3><span class="section-number">2.6.1. </span>リポジトリの作成<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <p>ローカル環境でGitリポジトリを作るには、まず、ソースコードを保存するディレクトリを作成する。ここではディレクトリ名が<code class="docutils literal notranslate"><span class="pre">my-first-repo</span></code>であるとして説明を進める。</p>
 <p>ディレクトリの作成には<code class="docutils literal notranslate"><span class="pre">mkdir</span></code>コマンドを用いる。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># ディレクトリの作成</span>
@@ -548,26 +583,74 @@ git<span class="w"> </span>init
 </div>
 <p>すると、ディレクトリ内に隠しフォルダとして<code class="docutils literal notranslate"><span class="pre">.git</span></code>というディレクトリが作られるので<code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-a</span></code>コマンドで、ディレクトリの存在を確認しておこう。</p>
 </section>
-<section id="id4">
-<h2><span class="section-number">2.6. </span>コミットとプッシュ<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
-<p>Gitでまず覚えるべきコマンドは<strong>コミット</strong> (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code>)と<strong>プッシュ</strong>がある。まずは、このそれぞれについて、操作の内容とコマンドについて見ていこう。</p>
+<section id="id7">
+<h3><span class="section-number">2.6.2. </span>ソースコードの作成とステージ<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>ローカル環境にGitリポジトリが作成できたら、次は実際にソースコードを作成しよう。上記の<code class="docutils literal notranslate"><span class="pre">my-first-repo</span></code>ディレクトリを開き、その中に<code class="docutils literal notranslate"><span class="pre">main.py</span></code>という名前のファイルを作成する。内容は以下のようなもので良いだろう。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>上記の内容をファイルに書き込んだら、保存をしてシェル環境に戻ろう。</p>
+<p>このファイルをGitリポジトリの管理対象に含めるには<strong>ステージ</strong>という操作が必要になる。まずは<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code>コマンドで、現在のリポジトリの状態がどうなっているかを確認しよう。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>status
+</pre></div>
+</div>
+<p>すると、以下のように<code class="docutils literal notranslate"><span class="pre">main.py</span></code>がGitの管理対象に入っていないことを示すコメントが表示される。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Untracked<span class="w"> </span>files:
+<span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git add &lt;file&gt;...&quot;</span><span class="w"> </span>to<span class="w"> </span>include<span class="w"> </span><span class="k">in</span><span class="w"> </span>what<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>committed<span class="o">)</span>
+<span class="w">        </span>main.py
+</pre></div>
+</div>
+<p>このコメントを注意深く読んでみると、ファイルをGitの管理対象に含めるには<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code>というコマンドを使えば良いことが分かこのコメントに従い、次のコマンドで<code class="docutils literal notranslate"><span class="pre">main.py</span></code>を管理対象に含めよう。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>main.py
+</pre></div>
+</div>
+<p>このコマンドを実行後、再度 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code> で現在のリポジトリの状態を確認すると、今度は次のようなコメントが表示される。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Changes<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>committed:
+<span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git rm --cached &lt;file&gt;...&quot;</span><span class="w"> </span>to<span class="w"> </span>unstage<span class="o">)</span>
+<span class="w">        </span>new<span class="w"> </span>file:<span class="w"> </span>main.py
+</pre></div>
+</div>
+<p>コメントには<code class="docutils literal notranslate"><span class="pre">&quot;Changes</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">committed&quot;</span></code>とあり、ここで次に説明するコミットを実行すると、ファイルの状態がGitリポジトリ上で管理されるであろうことが確認できる。</p>
+</section>
+<section id="id8">
+<h3><span class="section-number">2.6.3. </span>コミット<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>ファイルがステージできたら、これをローカル環境でファイルの変更をに反映する必要があるのだが、これを実行するコマンドが<strong>コミット</strong> (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code>)である。</p>
 <p><strong>コミット</strong>はローカル環境で行ったソースコードの更新をローカル環境の上に記録する操作を指す。この際、コミットは何回にも分けることができ、コミットを行うごとに、その時のソースコードの状態 (より具体的に言えば、直前のコミットからの差分情報) が保存される。</p>
+<p>また、各コミットにはコメントをつけることができ、そのコメントによって、ファイルに対して行なった編集がどのようなものかを判別可能にできる。コミットとコメントの付与を同時にシェル環境で実行するには、<code class="docutils literal notranslate"><span class="pre">-m</span></code> (<code class="docutils literal notranslate"><span class="pre">m</span></code>はmessageの頭文字)をオプションに指定して、次のようにする。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;This is the first commit on this repo.&quot;</span>
+</pre></div>
+</div>
+<p>もし、ここまでのコマンドを正しく実行できていれば、コミットが完了した旨のメッセージが表示される。コミットが正しく実行されているかを確認するには、</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>log
+</pre></div>
+</div>
+<p>を実行する。<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span></code>はこれまでのコミットの履歴を確認するコマンドであり、今行なったコミットの内容が先頭に表示されるはずだ。</p>
 </section>
-<section id="id5">
-<h2><span class="section-number">2.7. </span>Gitサーバ上でのリポジトリの作成<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
-<p>GitHubを用いてバージョン管理を開始するには<strong>リポジトリ</strong>を作成する必要がある。</p>
-<p>本来、リポジトリを作成するには、Gitサーバ上で<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">init</span> <span class="pre">--bare</span></code>というコマンドを実行する必要があるのだが、GitHubを用いる場合には、ウェブ上の操作によりGitリポジトリを作成することができる。</p>
-<p>まずは、各自のGitHubのトップページ (<code class="docutils literal notranslate"><span class="pre">https://github.com/[ユーザ名]</span></code>)にアクセスし、右上の「＋」ボタンから「New Repository」を選ぶ (下図参照)。</p>
-<a class="with-border reference internal image-reference" href="../_images/create_repo_01.jpg"><img alt="../_images/create_repo_01.jpg" class="with-border align-center" src="../_images/create_repo_01.jpg" style="width: 60%;" /></a>
-<p>すると、以下のような画面が現れるので、まずは適当にリポジトリ名 (Repository name)を決める。なお、リポジトリ名には英数字しか使うことができないので注意すること。リポジトリの説明文 (Description)は後からでも容易に変更できるので、現時点では特に入力する必要はない。</p>
-<p>次に、画面を少し下にスクロールすると、リポジトリの可視性と初期化オプションを決定する項目がある (下図参照)。</p>
-<a class="with-border reference internal image-reference" href="../_images/create_repo_02.jpg"><img alt="../_images/create_repo_02.jpg" class="with-border align-center" src="../_images/create_repo_02.jpg" style="width: 60%;" /></a>
-<p>リポジトリの可視性は、誰からでもアクセス可能な「Public」と、自分と指定したユーザのみがアクセス可能な「Private」がある。特にこだわりがなければ最初はPrivateにしておいて、ある程度、プログラムの開発が進んだ時点で「Public」にすると良いだろう。</p>
-<p>最後のリポジトリの初期化オプションについては、リポジトリの説明を記述する<code class="docutils literal notranslate"><span class="pre">README.md</span></code>、無視するファイルを設定する<code class="docutils literal notranslate"><span class="pre">.gitignore</span></code>、そしてオープンソース・プロジェクトのライセンスをしていするか否か、を指定できる。それぞれの意味を理解しているなら指定しても構わないが、後からでも変更できるので、取り急ぎ指定する必要はない。</p>
-<p>以上の設定を終了後、「Create repository」のボタンを押すと、リポジトリがGitHub上に作成される。</p>
+<section id="id9">
+<h3><span class="section-number">2.6.4. </span>プッシュ<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p>コミットが完了したら、次はコミットの内容をリモートのGitサーバに反映する。そのためのコマンドが<strong>プッシュ</strong> (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code>)である。</p>
+<p>プッシュを行なうには、まず、リモートサーバのURLに名前をつける必要がある。通常は、サーバ名を<code class="docutils literal notranslate"><span class="pre">origin</span></code>とすることが多く、<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span></code>コマンドを用いて、次のようにサーバURLを設定する。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gitサーバにoriginという名前をつけてURLを設定</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com/XXXX/my-first-repo.git
+</pre></div>
+</div>
+<p>次に、プッシュ先の<strong>ブランチ</strong>を決める必要がある。ブランチというのは、Gitリポジトリ下におけるソースコードの管理を分割する仕組みで、例えば、とあるブランチに置かれているソースコードは正しく実行できるものとしておき、ソースコードの改変を伴う開発は別のブランチで行なう、というような使い方ができる。</p>
+<p>ただし、個人で開発を行なっている場合には、それほど意識する必要はなくブランチを1つだけ使って開発を進めても、それほど大きな問題はない。通常、更新対象のメインとなるブランチは<code class="docutils literal notranslate"><span class="pre">main</span></code>あるいは<code class="docutils literal notranslate"><span class="pre">master</span></code>という名前をつけられることが多く、ローカル環境ではそのいずれかのブランチがすでに作成されている。</p>
+<p>現在のブランチを確認するには、次のコマンドを実行する。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>branch
+</pre></div>
+</div>
+<p>すると、現在、更新対象となっているブランチにはアスタリスクがついていることが確認できる。このブランチの名前を覚えておこう。</p>
+<p>ブランチの名前が分かったら、リモートサーバの名前とブランチ名の両方を指定して、次のプッシュコマンドを実行する。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master
+</pre></div>
+</div>
+<p>これでプッシュは完了で、正しく実行できていれば、GitHubのリポジトリページにソースコードがアップロードできていることが確認できる。</p>
 </section>
-<section id="id6">
-<h2><span class="section-number">2.8. </span>ソースコードの編集・管理<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -641,13 +724,18 @@ git<span class="w"> </span>init
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.4. ローカル環境の準備</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">2.4.1. Windows</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mac-linux">2.4.2. Mac / Linux</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guigit">2.4.3. GUIを通してGitを使う (非推奨)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.4.3. ユーザ情報の設定</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guigit">2.4.4. GUIを通してGitを使う (非推奨)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.5. ローカル環境におけるGitリポジトリの作成</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.6. コミットとプッシュ</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.7. Gitサーバ上でのリポジトリの作成</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.8. ソースコードの編集・管理</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.5. サーバ環境の準備</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.6. ローカル環境での操作</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.6.1. リポジトリの作成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.6.2. ソースコードの作成とステージ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.6.3. コミット</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.6.4. プッシュ</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
