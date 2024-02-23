@@ -937,7 +937,48 @@ hello :  True
 </section>
 <section id="id14">
 <h3><span class="section-number">2.4.3. </span>日本語の取り扱い<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
-<p>日本語のひらがなやカタカナは、Unicode という数字コードによって整理されており、例えば「あ」の Unicode は 16 進数で<code class="docutils literal notranslate"><span class="pre">0x3042</span></code>である。これを調べるためには、文字を 10 進数の Unicode に変換する関数である<code class="docutils literal notranslate"><span class="pre">ord</span></code>と 10 進数の数字を 16 進数を表す文字列へと変換する関数である<code class="docutils literal notranslate"><span class="pre">hex</span></code>を組み合わせて、次のようにすれば良い。</p>
+<p>結論から言うと、<strong>日本語を取り扱うために意識しなければならないことはほとんどない</strong>。例えば、とある日本語の文章に「こ」から始まり「は」で終わる5文字の言葉が含まれているかどうかを知りたいとする。</p>
+<p>ここまでの復習的な内容だが、「こ」や「は」が日本語の文字であるということを特別視しなければ、上記の条件に合う正規表現を導くことは容易だろう。正解は以下のようになる (初期状態ではセルを非表示にしてある)。</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;こ.</span><span class="si">{3}</span><span class="s2">は&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;こんにちは こんばんわ こんばんは&quot;</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;こんにちは&#39;, &#39;こんばんは&#39;]
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p>しかし、日本語と英語が混じった文章もあるかもしれない。次のような場合はどうだろうか？</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;こ.</span><span class="si">{3}</span><span class="s2">は&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;こんにちは。あのこ、AIは得意だって。&quot;</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;こんにちは&#39;, &#39;こ、AIは&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>もちろん、上記のような動作を想定して正規表現を使っているかもしれないが、日本語だけ、もっというとひらがなだけで構成された「こ」で始まり、「は」で終わる5文字の言葉を探したいかもしれない。</p>
+<p>実は、日本語のひらがなやカタカナは、Unicode という数字コードによって整理されており、これを用いると、英数字なのか平仮名なのか、といった文字種を判別することができる。とはいえUnicodeという言葉に耳慣れない読者もいるだろう。</p>
+<p>例えば「あ」の Unicode は 16 進数で<code class="docutils literal notranslate"><span class="pre">0x3042</span></code>であり、これを調べるためには、文字を 10 進数の Unicode に変換する関数である<code class="docutils literal notranslate"><span class="pre">ord</span></code>と 10 進数の数字を 16 進数を表す文字列へと変換する関数である<code class="docutils literal notranslate"><span class="pre">hex</span></code>を組み合わせて、次のようにすれば良い。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uni</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="s2">&quot;あ&quot;</span><span class="p">))</span>
@@ -951,29 +992,23 @@ hello :  True
 </div>
 </div>
 </div>
-<p>反対に 16 進数の Unicode から対応する文字を調べたい場合には、<code class="docutils literal notranslate"><span class="pre">chr</span></code>関数を用いる。</p>
+<p>反対に16進数のUnicodeから対応する文字を調べたい場合には、<code class="docutils literal notranslate"><span class="pre">chr</span></code>関数を用いる。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">chr</span><span class="p">(</span><span class="mh">0x3042</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uni</span> <span class="o">=</span> <span class="mh">0x3051</span>
+<span class="n">c</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">uni</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Character with Unicode </span><span class="si">{</span><span class="n">uni</span><span class="si">:</span><span class="s2">x</span><span class="si">}</span><span class="s2"> is &#39;</span><span class="si">{</span><span class="n">c</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;あ&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Character with Unicode 3051 is &#39;け&#39;
 </pre></div>
 </div>
 </div>
 </div>
-<p>Unicode 上のひらがなは小文字の「ぁ」(<code class="docutils literal notranslate"><span class="pre">0x3041</span></code>)から「ゔ」(<code class="docutils literal notranslate"><span class="pre">0x3094</span></code>)までに定義されていて、一覧にすると以下のようになる。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mh">0x3041</span><span class="p">,</span> <span class="mh">0x3094</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
+<p>Unicode上のひらがなは小文字の「ぁ」(<code class="docutils literal notranslate"><span class="pre">0x3041</span></code>)から「ゔ」(<code class="docutils literal notranslate"><span class="pre">0x3094</span></code>)までに定義されていて、一覧にすると以下のようになる。</p>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ぁあぃいぅうぇえぉお
 かがきぎくぐけげこご
@@ -988,16 +1023,8 @@ hello :  True
 </div>
 </div>
 </div>
-<p>同じようにカタカナは「ァ」(<code class="docutils literal notranslate"><span class="pre">0x30A1</span></code>)から「ヴ」(<code class="docutils literal notranslate"><span class="pre">0x30F4</span></code>)までに定義されており、</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mh">0x30A1</span><span class="p">,</span> <span class="mh">0x30F4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
+<p>同じようにカタカナは「ァ」(<code class="docutils literal notranslate"><span class="pre">0x30A1</span></code>)から「ヴ」(<code class="docutils literal notranslate"><span class="pre">0x30F4</span></code>)までに定義されており、一覧にすると以下のようになる。</p>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ァアィイゥウェエォオ
 カガキギクグケゲコゴ
@@ -1012,17 +1039,43 @@ hello :  True
 </div>
 </div>
 </div>
-<div class="cell docutils container">
+<p>このUnicodeを用いると、ひらがな全体を表す文字セットは<code class="docutils literal notranslate"><span class="pre">[\u3041-\u3094]</span></code>のように表すことができる。先ほどまでは16進数であることを表すために<code class="docutils literal notranslate"><span class="pre">0x</span></code>という接頭辞を用いていたが、正規表現中では代わりに<code class="docutils literal notranslate"><span class="pre">\u</span></code>という接頭辞を使う。</p>
+<p>この例では、文字セットが、ある意味で<strong>数値の範囲</strong>として表されているわけだが、ここで何か気がつくことはあるだろうか。</p>
+<p>C言語やC++になじみのある読者はASCII文字が<code class="docutils literal notranslate"><span class="pre">char</span></code>という符号付き8bit整数の正の値、すなわち0から127に対応していることを知っているかも知れないが、実は、<code class="docutils literal notranslate"><span class="pre">[A-Z]</span></code>のような文字セットも<code class="docutils literal notranslate"><span class="pre">A</span></code>や<code class="docutils literal notranslate"><span class="pre">Z</span></code>などを符号付き8bit整数としてUnicodeの範囲を示す数字として扱っていたに過ぎないのである。</p>
+<p>さて、ここまでを踏まえて冒頭の話に戻ろう。Unicodeを用いれば、「こ」で始まり「は」で始まるひらがな5文字の言葉を探す正規表現は以下のようになる。</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Hello日本&quot;</span>
-<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;.</span><span class="si">{6}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">match</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">match</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;こ[</span><span class="se">\u3041</span><span class="s2">-</span><span class="se">\u3094</span><span class="s2">]</span><span class="si">{3}</span><span class="s2">は&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;こんにちは。あのこ、AIは得意だって。&quot;</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;re.Match object; span=(0, 6), match=&#39;Hello日&#39;&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;こんにちは&#39;]
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p>この際、Pythonの文字列は<strong>そもそもとして文字列中の各文字をUnicodeで扱っている</strong>ので、ひらがなやカタカナそれ自体を文字セットの下限と上限を指定するのに用いても問題ない。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;こ[ぁ-ゔ]</span><span class="si">{3}</span><span class="s2">は&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;こんにちは。あのこ、AIは得意だって。&quot;</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;こんにちは&#39;]
 </pre></div>
 </div>
 </div>
@@ -1031,10 +1084,31 @@ hello :  True
 </section>
 <section id="id15">
 <h2><span class="section-number">2.5. </span>演習<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h2>
-<p>正規表現を用いて、HTML タグから、タグ名、id、class の情報を取り出すプログラムを作成せよ。その際、id と class の指定順序は順不同であるほか、それ以外の属性値 (<code class="docutils literal notranslate"><span class="pre">align=&quot;center&quot;</span></code>など)が指定されている場合もあることに注意せよ。</p>
-<p>入力: <code class="docutils literal notranslate"><span class="pre">&lt;div</span> <span class="pre">id=&quot;container&quot;</span> <span class="pre">class=&quot;main&quot;&gt;</span></code><br />
-出力: tag=div, id=container, class=main</p>
-<p>日本語と英語の混じった文章が与えられたとき、半角英数字は 1 文字、全角の仮名文字や漢字は 2 文字として文書の長さを計算するプログラムを作成せよ。</p>
+<aside class="topic">
+<p class="topic-title">問1</p>
+<p>正規表現を用いて、HTML タグから、タグ名、id、class の情報を取り出す関数を作成せよ。その際、id と class の指定順序は順不同であるほか、それ以外の属性値 (<code class="docutils literal notranslate"><span class="pre">align=&quot;center&quot;</span></code>など)が指定されている場合もあることに注意せよ。</p>
+</aside>
+<ul class="simple">
+<li><p><strong>入力例1:</strong> <span class="output text_plain">'&lt;div id=&quot;container&quot; class=&quot;main&quot;&gt;'</span></p></li>
+<li><p><strong>出力例1:</strong> <span class="output text_plain">('div', 'container', 'main')</span></p></li>
+</ul>
+<ul class="simple">
+<li><p><strong>入力例2:</strong> <span class="output text_plain">'&lt;div class=&quot;form&quot;&gt;'</span></p></li>
+<li><p><strong>出力例2:</strong> <span class="output text_plain">('div', None, 'form')</span></p></li>
+</ul>
+<aside class="topic">
+<p class="topic-title">問2</p>
+<p>日本語の文章が与えられたとき、漢字の四字熟語だけを正規表現を用いて取り出す関数を作成せよ。ただし、一般的な漢字は「一」(<code class="docutils literal notranslate"><span class="pre">0x4E00</span></code>)から「鿿」(<code class="docutils literal notranslate"><span class="pre">0x9FFF</span></code>)の範囲にある約2万文字がCJK統合漢字としてまとめられている。</p>
+<p>この際、四字より多い感じから構成される熟語 (例: 日常茶飯事、日々是好日)を取り出さないようにすること。</p>
+</aside>
+<ul class="simple">
+<li><p><strong>入力例1:</strong> <span class="output text_plain">'だんだんと暖かくなってきました。これが三寒四温というやつですね。'</span></p></li>
+<li><p><strong>出力例1:</strong> <span class="output text_plain">['三寒四温']</span></p></li>
+</ul>
+<ul class="simple">
+<li><p><strong>入力例2:</strong> <span class="output text_plain">'彼の遅刻は日常茶飯事ですよ。'</span></p></li>
+<li><p><strong>出力例2:</strong> <span class="output text_plain">[]</span></p></li>
+</ul>
 </section>
 </section>
 
