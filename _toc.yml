@@ -11,12 +11,11 @@ parts:
     chapters:
       - file: contents/webpage
       - file: contents/regex
-      - file: contents/request
-      - file: contents/crawler
-      - file: contents/email
-      - file: contents/encryption
-      - file: contents/retrieval
-      - file: contents/database
-      - file: contents/socket
-      - file: contents/web-server
-      - file: contents/web-system
+      # - file: contents/request
+      # - file: contents/crawler
+      # - file: contents/encryption
+      # - file: contents/retrieval
+      # - file: contents/compression
+      # - file: contents/socket
+      # - file: contents/web-server
+      # - file: contents/web-system

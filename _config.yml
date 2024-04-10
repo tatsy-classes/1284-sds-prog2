@@ -33,9 +33,9 @@ html:
   use_issues_button: true
 
 # Interact link settings
-launch_buttons:
-  notebook_interface: "jupyterlab"
-  colab_url: "https://colab.research.google.com"
+# launch_buttons:
+#   notebook_interface: "jupyterlab"
+#   colab_url: "https://colab.research.google.com"
 
 # Launch button settings
 repository:
@@ -63,6 +63,8 @@ sphinx:
         ["html", "text/latex", 90],
         ["html", "text/plain", 100],
       ]
+    html_theme_options:
+      use_download_button: false
 
 bibtex_bibfiles:
   - "references.bib"
