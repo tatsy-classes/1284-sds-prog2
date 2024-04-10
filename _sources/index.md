@@ -25,8 +25,8 @@
 
 ## 講義について
 
-- 実施時限: 春夏学期 第1限
-- 教室: XXX
+- 実施時限: 春夏学期 木曜日 第1限
+- 教室: 東1号館 1101
 
 ### 講義形式
 
@@ -50,13 +50,12 @@
 2. [正規表現の基礎](sec:regex)
 3. [HTTPリクエスト](sec:request)
 4. [簡易クローラの作成](sec:crawler)
-5. [情報検索の基礎](sec:retrieval)
-6. [暗号化とSSL通信](sec:encryption)
-7. [Eメールの送受信](sec:email)
-8. [データベースの基礎](sec:database)
-9.  [ソケット通信](sec:socket)
-10. [簡易ウェブサーバの作成](sec:web-server)
-11. [課題:Webシステムの実装](sec:web-system)
+5. [暗号化とSSL通信](sec:encryption)
+6. [情報検索の基礎](sec:retrieval)
+7. [情報圧縮の基礎](sec:compression)
+8.  [ソケット通信](sec:socket)
+9.  [簡易ウェブサーバの作成](sec:web-server)
+10. [課題:Webシステムの実装](sec:web-system)
 
 ## Build Status
 
