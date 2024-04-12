@@ -351,8 +351,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>この例から分かるように、バックスラッシュを入力するには文字列中で<code class="docutils literal notranslate"><span class="pre">&quot;\\&quot;</span></code>のように表記する必要があり、単体のバックスラッシュである<code class="docutils literal notranslate"><span class="pre">&quot;\&quot;</span></code>はタブ文字 (<code class="docutils literal notranslate"><span class="pre">\t</span></code>)や改行文字(<code class="docutils literal notranslate"><span class="pre">\n</span></code>)のような特殊文字を表すのに使われている。</p>
-<p>では、これを正規表現に用いようとすると何が起こるだろうか？以下のバックスラッシュとタブ文字を含む文字列に正規表現を使ってみよう。</p>
+<p>この例から分かるように、バックスラッシュを入力するには文字列中で<code class="docutils literal notranslate"><span class="pre">&quot;\\&quot;</span></code>のように表記する必要があり、単体のバックスラッシュである<code class="docutils literal notranslate"><span class="pre">&quot;\&quot;</span></code>はタブ文字 (<code class="docutils literal notranslate"><span class="pre">\t</span></code>)や改行文字(<code class="docutils literal notranslate"><span class="pre">\n</span></code>)のような特殊文字を表すのに使われている。では、これを正規表現に用いようとすると何が起こるだろうか？以下のバックスラッシュとタブ文字を含む文字列に正規表現を使ってみよう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;this</span><span class="se">\\</span><span class="s2">is</span><span class="se">\t\t</span><span class="s2">a</span><span class="se">\\</span><span class="s2">table&quot;</span>
@@ -386,6 +385,9 @@ document.write(`
 </div>
 </div>
 </div>
+<p>この結果をみると、少々、予想と外れているように見えるかもしれない。特に、2番目の結果にある<code class="docutils literal notranslate"><span class="pre">&quot;\\t&quot;</span></code>がタブ文字とマッチしているのは不可解に見える。しかし、これは文字列の評価と正規表現の評価が二重で行なわれることに起因する現象である。</p>
+<p>まず、<code class="docutils literal notranslate"><span class="pre">re.compile</span></code>の引数に文字列として<code class="docutils literal notranslate"><span class="pre">&quot;\\t&quot;</span></code>が与えられると、これが文字列として<code class="docutils literal notranslate"><span class="pre">&quot;\&quot;</span></code>と<code class="docutils literal notranslate"><span class="pre">&quot;t&quot;</span></code>の2文字である、と認識される。その後、この2文字が正規表現の評価に使われるので、<code class="docutils literal notranslate"><span class="pre">compile</span></code>関数は<code class="docutils literal notranslate"><span class="pre">&quot;\t&quot;</span></code>という2文字をタブ文字として解釈する。</p>
+<p>このような、文字列評価の二重性を正しく理解していれば、上記の結果は予想の範囲内ではあるものの、より複雑な正規表現を書く場合には、特にバックスラッシュを多用することになるため、混乱が起きやすい。以上の理由から、Pythonでは、正規表現のコンパイル時にはraw文字列リテラルを用いることが強く推奨されている。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># raw文字列リテラルの場合</span>
