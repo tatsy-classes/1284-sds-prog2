@@ -1,4 +1,8 @@
 {
+  // Bibtex
+  "[bibtex]": {
+    "editor.formatOnSave": true
+  },
   // Markdown
   "[markdown]": {
     "editor.formatOnSave": false

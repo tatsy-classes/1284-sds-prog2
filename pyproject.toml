@@ -38,6 +38,9 @@ pytest = "^7.4.0"
 ffmpeg = "^1.4"
 japanize-matplotlib = "^1.1.3"
 colorama = "^0.4.6"
+regex = "^2023.12.25"
+automathon = "^0.0.15"
+docutils = "0.17.1"
 
 [tool.poetry.group.dev.dependencies]
 pyproject-flake8 = "^6.0.0"
@@ -61,12 +64,12 @@ length_sort = "True"
 line_length = 99
 
 [tool.mypy]
-python_version = 3.9
+python_version = "3.9"
 follow_imports = "silent"
-disallow_any_generics = "True"
-strict_optional = "True"
-check_untyped_defs = "True"
-allow_redefinition = "True"
+disallow_any_generics = true
+strict_optional = true
+check_untyped_defs = true
+allow_redefinition = true
 
 [tool.flake8]
 max-line-length = 99

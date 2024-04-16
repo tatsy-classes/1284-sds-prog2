@@ -10,7 +10,7 @@ parts:
     numbered: 3
     chapters:
       - file: contents/webpage
-      # - file: contents/regex
+      - file: contents/regex
       # - file: contents/request
       # - file: contents/crawler
       # - file: contents/encryption
