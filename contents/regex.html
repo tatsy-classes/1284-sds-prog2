@@ -873,12 +873,18 @@ HELLO : None
 <h3><span class="section-number">2.3.1. </span>有限オートマトン<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
 <p><strong>オートマトン</strong>とは、計算機を単純化したモデルの一つであり、<strong>状態</strong>と、状態遷移を表す<strong>規則</strong>からなる。オートマトンは、この状態と規則を元に入力の文字列を読み取る動作を定義する。</p>
 <p>例えば、aとbからなる<em>何らかの</em>文字列を読み取るオートマトンは次のように定義される。</p>
+<figure class="align-default" id="auto01">
+<a class="reference internal image-reference" href="../_images/4b01cdeacf2a4c1e7515103d4f04acd03535670e0551d532e2f1d079a7bc03ed.svg"><img alt="../_images/4b01cdeacf2a4c1e7515103d4f04acd03535670e0551d532e2f1d079a7bc03ed.svg" src="../_images/4b01cdeacf2a4c1e7515103d4f04acd03535670e0551d532e2f1d079a7bc03ed.svg" width="50%" /></a>
+<figcaption>
+<p><span class="caption-number">図 2.1 </span><span class="caption-text">有限オートマトンの例</span><a class="headerlink" href="#auto01" title="この画像へのパーマリンク">#</a></p>
+</figcaption>
+</figure>
 <p>このオートマトンは<code class="docutils literal notranslate"><span class="pre">q0</span></code>と<code class="docutils literal notranslate"><span class="pre">q1</span></code>の2つの状態を持ち、文字<code class="docutils literal notranslate"><span class="pre">a</span></code>あるいは<code class="docutils literal notranslate"><span class="pre">b</span></code>を読み取ると、二つの状態の間で遷移が起こる。初期状態は<code class="docutils literal notranslate"><span class="pre">q0</span></code>であり、このオートマトンは<code class="docutils literal notranslate"><span class="pre">ababa...</span></code>のような<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>が交互に現れるような文字列を読み取る。</p>
 <p>オートマトンには受理状態と呼ばれる最終状態を定義することができ、以下のように二重丸で示した状態を受理状態であると見なす。</p>
 <figure class="align-default" id="auto02">
-<a class="reference internal image-reference" href="../_images/e52364cf3724c38f534db2fbbd9f9a7bb5e2b25b71f622816e6e7f769b2e4bf2.svg"><img alt="../_images/e52364cf3724c38f534db2fbbd9f9a7bb5e2b25b71f622816e6e7f769b2e4bf2.svg" src="../_images/e52364cf3724c38f534db2fbbd9f9a7bb5e2b25b71f622816e6e7f769b2e4bf2.svg" width="50%" /></a>
+<a class="reference internal image-reference" href="../_images/00367fd073e3c61cc680ae96fcbc07b3492e8b9e2580a05c842a3c2427b4e756.svg"><img alt="../_images/00367fd073e3c61cc680ae96fcbc07b3492e8b9e2580a05c842a3c2427b4e756.svg" src="../_images/00367fd073e3c61cc680ae96fcbc07b3492e8b9e2580a05c842a3c2427b4e756.svg" width="50%" /></a>
 <figcaption>
-<p><span class="caption-number">図 2.1 </span><span class="caption-text">受理状態を持つ有限オートマトン</span><a class="headerlink" href="#auto02" title="この画像へのパーマリンク">#</a></p>
+<p><span class="caption-number">図 2.2 </span><span class="caption-text">受理状態を持つ有限オートマトン</span><a class="headerlink" href="#auto02" title="この画像へのパーマリンク">#</a></p>
 </figcaption>
 </figure>
 <p>この例では状態<code class="docutils literal notranslate"><span class="pre">q1</span></code>が受理状態であり、文字列の終端まで読み取った時に状態が<code class="docutils literal notranslate"><span class="pre">q1</span></code>であれば文字列が受理される。従って、このオートマトンでは<code class="docutils literal notranslate"><span class="pre">ababab</span></code>という文字列は受理されるが、<code class="docutils literal notranslate"><span class="pre">ababa</span></code>という文字列は棄却される。</p>
@@ -889,17 +895,17 @@ HELLO : None
 <p><a class="reference internal" href="#auto02"><span class="std std-ref">先ほどの例</span></a>に示したオートマトンは入力が与えられると決定論的に文字列が読み取られていくという特徴があり、入力文字列に対して状態遷移が一意に決まる。このような動作が決定的な有限オートマトンのことを<strong>決定性有限オートマトン</strong> (DFA, deterministic finite automaton)と呼ぶ。</p>
 <p>DFAのより複雑な例として、<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>だけからなる文字列(今回は<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>が繰り返しても良い)を受理するとDFAは以下のように表せる。</p>
 <figure class="align-default" id="auto03">
-<a class="reference internal image-reference" href="../_images/846a17417a1f6c3ee4d5016820e5011837996d8fa29c179f9d669e860bf6532d.svg"><img alt="../_images/846a17417a1f6c3ee4d5016820e5011837996d8fa29c179f9d669e860bf6532d.svg" src="../_images/846a17417a1f6c3ee4d5016820e5011837996d8fa29c179f9d669e860bf6532d.svg" width="50%" /></a>
+<a class="reference internal image-reference" href="../_images/b8bce1707e8e6addf835363d24640c188c20881a104c4069813a4726cfb9b757.svg"><img alt="../_images/b8bce1707e8e6addf835363d24640c188c20881a104c4069813a4726cfb9b757.svg" src="../_images/b8bce1707e8e6addf835363d24640c188c20881a104c4069813a4726cfb9b757.svg" width="50%" /></a>
 <figcaption>
-<p><span class="caption-number">図 2.2 </span><span class="caption-text">より複雑な決定性有限オートマトン</span><a class="headerlink" href="#auto03" title="この画像へのパーマリンク">#</a></p>
+<p><span class="caption-number">図 2.3 </span><span class="caption-text">より複雑な決定性有限オートマトン</span><a class="headerlink" href="#auto03" title="この画像へのパーマリンク">#</a></p>
 </figcaption>
 </figure>
 <p>一方で、入力の文字列に対して、状態遷移が一意に定まらない有限オートマトンもあり、これを<strong>非決定性有限オートマトン</strong> (NFA, non-deterministic finite automaton)と呼ぶ。最も代表的な例は、後ろから何番目かに特定の文字が存在するかどうかを調べる有限オートマトンである。</p>
 <p>今、文字列が<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>の2文字から構成されていて、最後から3番目に<code class="docutils literal notranslate"><span class="pre">b</span></code>が存在するかどうかを調べる有限オートマトンを考える。この有限オートマトンは以下のように表現できる。</p>
 <figure class="align-default" id="auto04">
-<a class="reference internal image-reference" href="../_images/e5a751e49aa323d3575bf6d6095355a6590c79f480cc982b07f059bca171944a.svg"><img alt="../_images/e5a751e49aa323d3575bf6d6095355a6590c79f480cc982b07f059bca171944a.svg" src="../_images/e5a751e49aa323d3575bf6d6095355a6590c79f480cc982b07f059bca171944a.svg" width="90%" /></a>
+<a class="reference internal image-reference" href="../_images/da3f1a54cd1aa9ae607d913aa65a7f0ea69ef42ad5fabeb2f04b9f5a500434f1.svg"><img alt="../_images/da3f1a54cd1aa9ae607d913aa65a7f0ea69ef42ad5fabeb2f04b9f5a500434f1.svg" src="../_images/da3f1a54cd1aa9ae607d913aa65a7f0ea69ef42ad5fabeb2f04b9f5a500434f1.svg" width="90%" /></a>
 <figcaption>
-<p><span class="caption-number">図 2.3 </span><span class="caption-text">非決定性有限オートマトンの例</span><a class="headerlink" href="#auto04" title="この画像へのパーマリンク">#</a></p>
+<p><span class="caption-number">図 2.4 </span><span class="caption-text">非決定性有限オートマトンの例</span><a class="headerlink" href="#auto04" title="この画像へのパーマリンク">#</a></p>
 </figcaption>
 </figure>
 <p>この有限オートマトンは、一度、文字<code class="docutils literal notranslate"><span class="pre">b</span></code>が読み取られて状態が<code class="docutils literal notranslate"><span class="pre">q1</span></code>に遷移すると、そこから<code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>のいずれかの文字を2文字読み取って受理状態である<code class="docutils literal notranslate"><span class="pre">q3</span></code>に遷移する。従って、<code class="docutils literal notranslate"><span class="pre">b</span></code>という文字が後ろから3番目にある文字列が受理されることが分かる。</p>
