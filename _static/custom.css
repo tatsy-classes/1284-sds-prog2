@@ -2,8 +2,12 @@
 @import url("https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap");
 
+:root {
+  --default-font-family: "roboto", "m plus 1p", "noto color emoji", sans-serif;
+}
+
 body {
-  font-family: "roboto", "m plus 1p", "noto color emoji", sans-serif;
+  font-family: var(--default-font-family);
   font-size: 18px;
   line-height: 1.5;
 }
@@ -14,7 +18,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "roboto", "m plus 1p", "noto color emoji", sans-serif;
+  font-family: var(--default-font-family);
 }
 
 .image-reference img {
@@ -29,4 +33,14 @@ img.with-border {
 
 .caption-number {
   font-style: normal !important;
+  font-weight: bold;
+  font-family: var(--default-font-family);
+}
+
+.caption-text {
+  font-family: var(--default-font-family);
+}
+
+.pasted-text {
+  font-weight: normal !important;
 }

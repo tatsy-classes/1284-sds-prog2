@@ -1,0 +1,1378 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>2. 正規表現の基礎 &#8212; プログラミングⅡ</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'contents/regex';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="prev" title="1. ウェブページの作成" href="webpage.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">プログラミングⅡ</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">事前準備</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="setup-python.html">1. Python環境の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup-git.html">2. Git環境の設定</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">講義内容</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="webpage.html">1. ウェブページの作成</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. 正規表現の基礎</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>正規表現の基礎</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 正規表現とは？</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raw">2.1.1. raw文字列リテラル</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.1.2. 正規表現の基本的な使い方</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.2. 正規表現のシンタックス</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.2.1. 何らかの1文字</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.2.2. 文字の繰り返し</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.2.3. 繰り返し回数の制限</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.2.4. 複数の文字列のいずれか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.2.5. 文字クラス</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.2.6. 接頭辞、接尾辞</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.2.7. 最短マッチ、最長マッチ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.2.8. メタ文字</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.2.9. 特殊文字のエスケープ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.3. 非決定性有限オートマトン</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">2.3.1. 有限オートマトン</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">2.3.2. 決定性と非決定性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">2.3.3. 正規表現との関係</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">2.4. サブグループ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">2.4.1. 名前付きサブグループ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">2.4.2. 文字列の置き換え</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">2.5. 日本語の取り扱い</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">2.6. 練習問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">2.7. 参考文献</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="sec-regex">
+<span id="id1"></span><h1><span class="section-number">2. </span>正規表現の基礎<a class="headerlink" href="#sec-regex" title="Permalink to this heading">#</a></h1>
+<p>何らかのテキストが与えられた時、その中に、含まれる文字列を検索することは、テキストエディタの基本的な機能となっている。このような検索機能においては、単純に<code class="docutils literal notranslate"><span class="pre">&quot;Hello&quot;</span></code>という文字が含まれるか、という単純なものではなく、<code class="docutils literal notranslate"><span class="pre">&quot;H&quot;</span></code>から始まる5文字の単語を検索したい、といったような少々曖昧な検索を行いたい場合もあるだろう。</p>
+<p>このような場合に使うことができる<strong>検索パターンの表現</strong>の一種が<strong>正規表現</strong>である。本節では、正規表現をPythonプログラムの中で使用する方法について学ぶ。</p>
+<section id="id2">
+<h2><span class="section-number">2.1. </span>正規表現とは？<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p><strong>正規表現</strong> (regular expression)とは、少し複雑な言い方をすれば<strong>正規言語</strong>に基づく文字表現のことを指す。正規表現の考え方は元々、神経科学分野で発生したもので、それを数学者のStephen Kleeneが<strong>正規集合</strong>として明確な定義を与えた。</p>
+<p>その後、1968年になってKen Thompsonが自身の論文の中で、彼が作成したUNIX上のテキストエディタである<strong>qed</strong>に実装された正規表現を実現するコンパイラの仕組みについて紹介した。これが、UNIX上の文字列検索システムである<strong>grep</strong> (global regular expression)や<strong>sed</strong>へと発展した <span id="id3">[<a class="reference internal" href="#id27" title="新屋 良磨, 鈴木 勇介, and 高田 謙. 正規表現 技術入門. 技術評論社, 2015. ISBN 978-4-7741-7270-5.">1</a>]</span>。</p>
+<p>現在では、多くのテキストエディタで正規表現を用いた文字列検索を使用できるほか、Pythonを含むほとんどのプログラミング言語で正規表現を用いるためのライブラリが用意されている。</p>
+<p>Pythonにおいては標準ライブラリの<code class="docutils literal notranslate"><span class="pre">re</span></code>を通して正規表現を用いることができる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>使用方法の一例として、以下に<code class="docutils literal notranslate"><span class="pre">&quot;Hello,</span> <span class="pre">world!&quot;</span></code>という文字列の中に<code class="docutils literal notranslate"><span class="pre">&quot;Hello&quot;</span></code>という文字列が含まれるかどうかを調べるプログラムを示す (これだけなら正規表現を使う必要はないが...)。</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Hello, world!&quot;</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">pat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Match&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Not match&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="raw">
+<h3><span class="section-number">2.1.1. </span>raw文字列リテラル<a class="headerlink" href="#raw" title="Permalink to this heading">#</a></h3>
+<p>正規表現を定義する場合、Vim等のテキストエディタやPerl等の他のプログラミング言語では<code class="docutils literal notranslate"><span class="pre">/.../</span></code>のようにスラッシュで区切られた文字列(=<strong>正規表現リテラル</strong>)を用いる。一方、Pythonには正規表現リテラルに類する概念はなく、通常の文字列の他、<strong>raw文字列リテラル</strong>によって定義することが推奨されている。</p>
+<p>raw文字列リテラルは<code class="docutils literal notranslate"><span class="pre">r&quot;...&quot;</span></code>のように、クオーテーションの前に<code class="docutils literal notranslate"><span class="pre">r</span></code>を伏した文字列で定義される。まずは通常の文字列との違いを確認するために、以下の例を見てみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1: &#39;</span><span class="se">\\</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2: &#39;</span><span class="se">\t</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3: &#39;</span><span class="se">\\\t</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3: &#39;</span><span class="se">\\\\</span><span class="s2">t&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1: &#39;\&#39;
+2: &#39;	&#39;
+3: &#39;\	&#39;
+3: &#39;\\t&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>この例から分かるように、バックスラッシュを入力するには文字列中で<code class="docutils literal notranslate"><span class="pre">&quot;\\&quot;</span></code>のように表記する必要があり、単体のバックスラッシュである<code class="docutils literal notranslate"><span class="pre">&quot;\&quot;</span></code>はタブ文字 (<code class="docutils literal notranslate"><span class="pre">\t</span></code>)や改行文字(<code class="docutils literal notranslate"><span class="pre">\n</span></code>)のような特殊文字を表すのに使われている。では、これを正規表現に用いようとすると何が起こるだろうか？以下のバックスラッシュとタブ文字を含む文字列に正規表現を使ってみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;this</span><span class="se">\\</span><span class="s2">is</span><span class="se">\t\t</span><span class="s2">a</span><span class="se">\\</span><span class="s2">table&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>this\is		a\table
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>文字列リテラルを使う場合</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 文字列リテラルの場合</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># タブ文字</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>  <span class="c1"># -&gt; タブ文字とマッチ</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">t&quot;</span><span class="p">)</span>  <span class="c1"># これもタブ文字</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>  <span class="c1"># -&gt; タブ文字とマッチ</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">t&quot;</span><span class="p">)</span>  <span class="c1"># &quot;\&quot;と&quot;t&quot;の2文字</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>  <span class="c1"># -&gt; &quot;\\t&quot;とマッチ</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;re.Match object; span=(7, 8), match=&#39;\t&#39;&gt;
+&lt;re.Match object; span=(7, 8), match=&#39;\t&#39;&gt;
+&lt;re.Match object; span=(10, 12), match=&#39;\\t&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>この結果をみると、少々、予想と外れているように見えるかもしれない。特に、2番目の結果にある<code class="docutils literal notranslate"><span class="pre">&quot;\\t&quot;</span></code>がタブ文字とマッチしているのは不可解に見える。しかし、これは文字列の評価と正規表現の評価が二重で行なわれることに起因する現象である。</p>
+<p>まず、<code class="docutils literal notranslate"><span class="pre">re.compile</span></code>の引数に文字列として<code class="docutils literal notranslate"><span class="pre">&quot;\\t&quot;</span></code>が与えられると、これが文字列として<code class="docutils literal notranslate"><span class="pre">&quot;\&quot;</span></code>と<code class="docutils literal notranslate"><span class="pre">&quot;t&quot;</span></code>の2文字である、と認識される。その後、この2文字が正規表現の評価に使われるので、<code class="docutils literal notranslate"><span class="pre">compile</span></code>関数は<code class="docutils literal notranslate"><span class="pre">&quot;\t&quot;</span></code>という2文字をタブ文字として解釈する。</p>
+<p>このような、文字列評価の二重性を正しく理解していれば、上記の結果は予想の範囲内ではあるものの、より複雑な正規表現を書く場合には、特にバックスラッシュを多用することになるため、混乱が起きやすい。以上の理由から、Pythonでは、正規表現のコンパイル時にはraw文字列リテラルを用いることが強く推奨されている。</p>
+<p><strong>raw文字列リテラルを使う場合</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># raw文字列リテラルの場合</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\t&quot;</span><span class="p">)</span>  <span class="c1"># タブ文字</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>  <span class="c1"># -&gt; タブ文字とマッチ</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">t&quot;</span><span class="p">)</span>  <span class="c1"># &quot;\&quot;と&quot;t&quot;の2文字</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>  <span class="c1"># -&gt; &quot;\\t&quot;とマッチ</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">t&quot;</span><span class="p">)</span>  <span class="c1"># &quot;\&quot;と”\&quot;と&quot;t&quot;の3文字</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>  <span class="c1"># マッチしない</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;re.Match object; span=(7, 8), match=&#39;\t&#39;&gt;
+&lt;re.Match object; span=(10, 12), match=&#39;\\t&#39;&gt;
+None
+</pre></div>
+</div>
+</div>
+</div>
+<p>raw文字列リテラルを用いると、正規表現の<code class="docutils literal notranslate"><span class="pre">re.compile</span></code>関数に文字列がそのまま評価されるため、バックスラッシュの解釈がより単純になっていることが分かる。従って、特段の理由がない限りはraw文字列リテラルを用いて正規表現パターンを定義するのが良い。</p>
+</section>
+<section id="id4">
+<h3><span class="section-number">2.1.2. </span>正規表現の基本的な使い方<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>正規表現のパターン文字列である<code class="docutils literal notranslate"><span class="pre">pat</span></code>には指定した文字列の中に正規表現とマッチする文字列が存在するかを調べる<code class="docutils literal notranslate"><span class="pre">search</span></code>の他にも</p>
+<ul class="simple">
+<li><p>文字列が正規表現と完全にマッチするかを調べる <code class="docutils literal notranslate"><span class="pre">fullmatch</span></code></p></li>
+<li><p>マッチする全ての文字列を取り出す <code class="docutils literal notranslate"><span class="pre">findall</span></code></p></li>
+<li><p>マッチする文字列を別の文字列に置き換える <code class="docutils literal notranslate"><span class="pre">sub</span></code></p></li>
+<li><p>マッチする文字列で文章を区切る <code class="docutils literal notranslate"><span class="pre">split</span></code></p></li>
+</ul>
+<p>などのメソッドが用意されている。このそれぞれについて、簡単に使い方を見てみよう。</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">fullmatch</span></code>の使用例</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Hello, world!&quot;</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Match&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Not match&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Not match
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong><code class="docutils literal notranslate"><span class="pre">findall</span></code>の使用例</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Hello, world! Hello, Japan!&quot;</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="n">n_match</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pat</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;There are </span><span class="si">{</span><span class="n">n_match</span><span class="si">:</span><span class="s1">d</span><span class="si">}</span><span class="s1"> &quot;Hello&quot;s.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 2 &quot;Hello&quot;s.
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong><code class="docutils literal notranslate"><span class="pre">sub</span></code>の使用例</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Hello, world! Hello, Japan!&quot;</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;Bonjour&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bonjour, world! Bonjour, Japan!
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong><code class="docutils literal notranslate"><span class="pre">split</span></code>の使い方</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Hello, world! Hello, Japan!&quot;</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Hello,&#39;, &#39;world!&#39;, &#39;Hello,&#39;, &#39;Japan!&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">正規表現の基本</p>
+<ul class="simple">
+<li><p>正規表現は特定の文字パターンに合致する文字列を探すのに用いる</p></li>
+<li><p>Pythonにおいては標準ライブラリの<code class="docutils literal notranslate"><span class="pre">re</span></code>を用いる</p></li>
+<li><p>正規表現を定義するときは、raw文字列リテラルを用いる</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="id5">
+<h2><span class="section-number">2.2. </span>正規表現のシンタックス<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<p>ここまでの例では単純に何らかの文字列が、別の文字列に含まれるかどうかを調べてきたが、Pythonであれば、このような動作は、単純に</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Hello, world!&quot;</span>
+<span class="k">if</span> <span class="s2">&quot;Hello&quot;</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Match&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Not match&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>のように書けば十分である。</p>
+<p>正規表現の有効性は、特定の文字列を探すことではなく、より複雑なパターンにマッチする文字列を探すことにある。以下では、正規表現パターンを定義するためのシンタックスについて基本的なものをいくつか紹介する。一方で、正規表現のシンタックスは非常に多岐に渡るため、より詳しく知りたい読者はPythonの<a class="reference external" href="https://docs.python.org/ja/3/library/re.html">公式ドキュメント</a>を参照すると良い。</p>
+<section id="id6">
+<h3><span class="section-number">2.2.1. </span>何らかの1文字<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>何らかの1文字が存在することを表したい場合には、<code class="docutils literal notranslate"><span class="pre">a.c</span></code>のように<code class="docutils literal notranslate"><span class="pre">.</span></code>を用いる。この正規表現は例えば<code class="docutils literal notranslate"><span class="pre">abc</span></code>や<code class="docutils literal notranslate"><span class="pre">adc</span></code>など、<code class="docutils literal notranslate"><span class="pre">.</span></code>の部分に何らかの1文字がはいるような文字列とはマッチするが、<code class="docutils literal notranslate"><span class="pre">abdc</span></code>のように<code class="docutils literal notranslate"><span class="pre">.</span></code>に対応する場所に2文字以上の文字が存在する場合とはマッチしない。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;a.c&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PATTERN:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;abc&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;adc&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;abdc&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PATTERN: re.compile(&#39;a.c&#39;)
+abc : &lt;re.Match object; span=(0, 3), match=&#39;abc&#39;&gt;
+adc : &lt;re.Match object; span=(0, 3), match=&#39;adc&#39;&gt;
+abdc : None
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3><span class="section-number">2.2.2. </span>文字の繰り返し<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>何らかの文字が繰り返しているかを調べたい場合には、文字の繰り返しを表す<code class="docutils literal notranslate"><span class="pre">*</span></code>あるいは<code class="docutils literal notranslate"><span class="pre">+</span></code>を用いる。例えば、<code class="docutils literal notranslate"><span class="pre">aaabcccc</span></code>のような文字列とマッチさせたい場合<code class="docutils literal notranslate"><span class="pre">a+bc+</span></code>のように繰り返したい文字の後に<code class="docutils literal notranslate"><span class="pre">+</span></code>あるいは<code class="docutils literal notranslate"><span class="pre">*</span></code>をつける。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;a+bc+&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PATTERN:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;aaabcccc&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;aabbcc&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PATTERN: re.compile(&#39;a+bc+&#39;)
+aaabcccc : &lt;re.Match object; span=(0, 8), match=&#39;aaabcccc&#39;&gt;
+aabbcc : None
+</pre></div>
+</div>
+</div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">「*」と「+」の違い</p>
+<p>文字の繰り返しを表す<code class="docutils literal notranslate"><span class="pre">+</span></code>と<code class="docutils literal notranslate"><span class="pre">*</span></code>は、その繰り返し回数の見方に違いがある。</p>
+<p><code class="docutils literal notranslate"><span class="pre">+</span></code>は直前の文字が<strong>1回以上繰り返す</strong>場合にのみマッチするのに対し、<code class="docutils literal notranslate"><span class="pre">*</span></code>は<strong>0回以上の繰り返し</strong>にもマッチする。従って、</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ab+</span></code>というパターンは<code class="docutils literal notranslate"><span class="pre">a</span></code>にはマッチせず、<code class="docutils literal notranslate"><span class="pre">ab</span></code>にはマッチする</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ab*</span></code>というパターンは<code class="docutils literal notranslate"><span class="pre">a</span></code>にマッチし、なおかつ<code class="docutils literal notranslate"><span class="pre">ab</span></code>にもマッチする</p></li>
+</ul>
+<p>という動作の違いがある。これらの違いについては、ぜひ読者自身で確認してみてほしい。</p>
+</div>
+</section>
+<section id="id8">
+<h3><span class="section-number">2.2.3. </span>繰り返し回数の制限<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">*</span></code>や<code class="docutils literal notranslate"><span class="pre">+</span></code>は繰り返し回数が無制限であったが、回数を制限した繰り返しを定義することもできる。例えば、<code class="docutils literal notranslate"><span class="pre">aabb</span></code>は検出したいが、<code class="docutils literal notranslate"><span class="pre">aaabb</span></code>のように<code class="docutils literal notranslate"><span class="pre">a</span></code>が3回以上繰り返す場合は検出したくない、という場合、繰り返し回数を2回以下に制限して、<code class="docutils literal notranslate"><span class="pre">a{1,2}b+</span></code>のような文字パターンを定義することができる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;a{1,2}b+&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PATTERN:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;aabb&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;aaabb&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PATTERN: re.compile(&#39;a{1,2}b+&#39;)
+aabb : &lt;re.Match object; span=(0, 4), match=&#39;aabb&#39;&gt;
+aaabb : None
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h3><span class="section-number">2.2.4. </span>複数の文字列のいずれか<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p>続いては、複数の文字列のいずれかにマッチする正規表現を紹介する。例えば、<code class="docutils literal notranslate"><span class="pre">&quot;Hello&quot;</span></code>と<code class="docutils literal notranslate"><span class="pre">&quot;Bonjour&quot;</span></code>のいずれかにマッチする正規表現は、これらの文字列を<code class="docutils literal notranslate"><span class="pre">|</span></code>で結んで<code class="docutils literal notranslate"><span class="pre">Hello|Bonjour</span></code>のように定義できる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;Hello|Bonjour&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PATTERN&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;Hello, world!&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;Bonjour, le monde!&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;Hallo, welt!&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PATTERN re.compile(&#39;Hello|Bonjour&#39;)
+Hello, world! : &lt;re.Match object; span=(0, 5), match=&#39;Hello&#39;&gt;
+Bonjour, le monde! : &lt;re.Match object; span=(0, 7), match=&#39;Bonjour&#39;&gt;
+Hallo, welt! : None
+</pre></div>
+</div>
+</div>
+</div>
+<p>この表現は3つ以上の文字列のいずれかにマッチさせたい場合にも使用することができ、その場合は<code class="docutils literal notranslate"><span class="pre">Hello|Bonjour|Hallo</span></code>のように複数の文字列を<code class="docutils literal notranslate"><span class="pre">|</span></code>で結べば良い。</p>
+<p>しかし、<code class="docutils literal notranslate"><span class="pre">|</span></code>は、正規表現を処理するアルゴリズムの性質上、少々計算に時間がかかる(現実的な長さの文字列ならあまり気にしなくて良いが...)ため、他の正規表現を用いて同様の表現を定義できないか考えることが大事である。</p>
+</section>
+<section id="id10">
+<h3><span class="section-number">2.2.5. </span>文字クラス<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<p>ここまでの例では、<code class="docutils literal notranslate"><span class="pre">+</span></code>や<code class="docutils literal notranslate"><span class="pre">*</span></code>といった文字の繰り返しは直前の1文字にしか適用していなかったが、<strong>文字クラス</strong>用いることでクラス内の任意の文字の繰り返しを定義することができる。例えば、a, b, cの三文字だけで構成された文字かどうかを調べたい場合<code class="docutils literal notranslate"><span class="pre">[abc]+</span></code>のように繰り返しに含めたい文字を<code class="docutils literal notranslate"><span class="pre">[...]</span></code>の内側に入れることで文字クラスを定義する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[abc]+&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;aabbccaa&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;aaddccaa&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>aabbccaa : &lt;re.Match object; span=(0, 8), match=&#39;aabbccaa&#39;&gt;
+aaddccaa : None
+</pre></div>
+</div>
+</div>
+</div>
+<p>また、Python の正規表現ではUnicodeの番号が連続する文字種を用いて範囲指定できるため、例えば<code class="docutils literal notranslate"><span class="pre">[a-z]</span></code>のように書くと、小文字のアルファベット全てにマッチする文字クラスを定義することができる。</p>
+<p>この場合、<code class="docutils literal notranslate"><span class="pre">[a-z]</span></code>のように書くと、<strong>小文字アルファベット1文字</strong>にマッチする文字クラスが定義され、これに繰り返しを表す<code class="docutils literal notranslate"><span class="pre">*</span></code>や<code class="docutils literal notranslate"><span class="pre">+</span></code>を追加し、<code class="docutils literal notranslate"><span class="pre">[a-z]+</span></code>のように書くことで、小文字アルファベットのみからなる文字列を検索することができる。</p>
+<p>文字クラス内の範囲指定は複数のものを連続して書けるため、大文字小文字の全てのアルファベットにマッチさせたい場合は<code class="docutils literal notranslate"><span class="pre">[a-zA-Z]</span></code>と書けば良い。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[a-zA-Z]+&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PATTERN:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;Hi?&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PATTERN: re.compile(&#39;[a-zA-Z]+&#39;)
+Hello : &lt;re.Match object; span=(0, 5), match=&#39;Hello&#39;&gt;
+Hi? : None
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>除外文字クラス</strong></p>
+<p>文字クラスは、<strong>そのクラスに含まれない全ての文字</strong>に対してマッチさせることもできる。このような除外文字のクラスを定義するには、文字クラスの先頭に<code class="docutils literal notranslate"><span class="pre">^</span></code>を付与して<code class="docutils literal notranslate"><span class="pre">[^a-z]</span></code>とする。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[^a-z]+&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PATTERN:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;HELLO&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PATTERN: re.compile(&#39;[^a-z]+&#39;)
+Hello : None
+HELLO : &lt;re.Match object; span=(0, 5), match=&#39;HELLO&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id11">
+<h3><span class="section-number">2.2.6. </span>接頭辞、接尾辞<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<p>文字列の先頭から特定のパターンが出現するかどうかを調べるには、正規表現の最初に<code class="docutils literal notranslate"><span class="pre">^</span></code>を追加する。反対に、文字列の末尾に特定のパターンが出現するかどうかを調べるには、正規表現の最後に<code class="docutils literal notranslate"><span class="pre">$</span></code>を追加する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 接頭辞のチェック</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;^[A-Z]+.*&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PATTERN:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PATTERN: re.compile(&#39;^[A-Z]+.*&#39;)
+Hello : &lt;re.Match object; span=(0, 5), match=&#39;Hello&#39;&gt;
+hello : None
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 接尾辞のチェック</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;.*[a-z]+$&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PATTERN:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;HELLO&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PATTERN: re.compile(&#39;.*[a-z]+$&#39;)
+Hello : &lt;re.Match object; span=(0, 5), match=&#39;Hello&#39;&gt;
+HELLO : None
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id12">
+<h3><span class="section-number">2.2.7. </span>最短マッチ、最長マッチ<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<p>文字の繰り返しを含む文字列を検索する場合、初期動作としては、<strong>マッチする文字列のうち最長ものが検出される</strong>。</p>
+<p>例えば、<code class="docutils literal notranslate"><span class="pre">t</span></code>から始まって<code class="docutils literal notranslate"><span class="pre">e</span></code>終わるような大文字・小文字アルファベットからなる単語を検索したい場合を考えよう。この場合、正規表現のパターンを作成すると以下のようになるだろう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;t.+e&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>この時、以下のような文字列が与えられたとする。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;I take a cup of tea.&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>この文字列に対して、先ほどの正規表現パターンを検索してみると、次のような結果となる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">pat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;re.Match object; span=(2, 18), match=&#39;take a cup of te&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>これは<strong>tから始まりeで終わる最長の文字列</strong>を検出しているが、本来、検出したい文字列は通常<code class="docutils literal notranslate"><span class="pre">take</span></code>だろう。このように、マッチするパターンのうち、より短いパターンを検出したい場合には、繰り返しを表す<code class="docutils literal notranslate"><span class="pre">+</span></code>や<code class="docutils literal notranslate"><span class="pre">*</span></code>の後に<code class="docutils literal notranslate"><span class="pre">?</span></code>を付け加えて正規表現を定義する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;t.+?e&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;re.Match object; span=(2, 6), match=&#39;take&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id13">
+<h3><span class="section-number">2.2.8. </span>メタ文字<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
+<p>プログラミング言語によって若干の違いはあるが、正規表現には事前に定義された<strong>メタ文字</strong>が用意されている。例えば、<code class="docutils literal notranslate"><span class="pre">\s</span></code>というメタ文字は、半角スペース (<code class="docutils literal notranslate"> </code>)、タブ (<code class="docutils literal notranslate"><span class="pre">\t</span></code>)、キャリッジリターン (<code class="docutils literal notranslate"><span class="pre">\r</span></code>)、改ページ (<code class="docutils literal notranslate"><span class="pre">\f</span></code>)、垂直タブ (<code class="docutils literal notranslate"><span class="pre">\v</span></code>)の全てにマッチする。</p>
+<p>このようなメタ文字は、文字セットによって代替することも可能だが、数字やスペース記号は頻繁に用いる文字セットであり、メタ文字を使う方が、正規表現パターンをより短い文字列で表せるという点で優れている。</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>メタ文字</p></th>
+<th class="text-left head"><p>等価な正規表現</p></th>
+<th class="text-left head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">\d</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[0-9]</span></code></p></td>
+<td class="text-left"><p>全ての数字にマッチする</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">\D</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[^0-9]</span></code></p></td>
+<td class="text-left"><p>数字以外の全ての文字にマッチする</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">\s</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">\t\n\r\f\v]</span></code></p></td>
+<td class="text-left"><p>全てのスペース記号とマッチする</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">\S</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[^</span> <span class="pre">\t\n\r\f\v]</span></code></p></td>
+<td class="text-left"><p>全てのスペース記号でない文字とマッチする</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">\w</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[a-zA-Z0-9_]</span></code></p></td>
+<td class="text-left"><p>全ての英数字とアンダースコアとマッチする</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">\W</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[^a-zA-Z0-9_]</span></code></p></td>
+<td class="text-left"><p>英数字とアンダースコア以外の全ての文字とマッチする</p></td>
+</tr>
+</tbody>
+</table>
+<p>一例として、連続するスペースやタブ文字で文字列を分解するコードは頻出である。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Hello  world!</span><span class="se">\t</span><span class="s2">Hello,       Japan!&quot;</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pat</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Hello&#39;, &#39;world!&#39;, &#39;Hello,&#39;, &#39;Japan!&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id14">
+<h3><span class="section-number">2.2.9. </span>特殊文字のエスケープ<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<p>上記の通り、正規表現では、<code class="docutils literal notranslate"><span class="pre">*</span></code>や<code class="docutils literal notranslate"><span class="pre">+</span></code>の他、<code class="docutils literal notranslate"><span class="pre">[]</span></code>や<code class="docutils literal notranslate"><span class="pre">{}</span></code>が、特殊な意味を持つことが分かる。このような特殊文字を文字列から検索するためには、バックスラッシュにより<strong>エスケープ</strong>する必要がある。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;1+1=2&quot;</span>
+
+<span class="c1"># エスケープなし</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[0-9]++[0-9]+&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>  <span class="c1"># マッチしない</span>
+
+<span class="c1"># エスケープあり</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[0-9]+\+[0-9]+&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>  <span class="c1"># マッチ</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>None
+&lt;re.Match object; span=(0, 3), match=&#39;1+1&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>各文字がエスケープを必要とするかどうかは文字をエスケープした文字(=<code class="docutils literal notranslate"><span class="pre">re.escape</span></code>を使う)と元の文字が同じになるかどうかをチェックすれば良い。エスケープが必要な文字のリストは以下の通り。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># $ &amp; ( ) 
+* + - . ? 
+[ \ ] ^ { 
+| } ~ 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">正規表現のシンタックス</p>
+<ul class="simple">
+<li><p>正規表現には複雑な文字パターンを定義するために様々なシンタックスが存在する</p></li>
+<li><p>文字クラスを用いると、複数の文字のいずれか一つを表すことができる</p></li>
+<li><p>文字クラスと繰り返し記号(<code class="docutils literal notranslate"><span class="pre">*</span></code>や<code class="docutils literal notranslate"><span class="pre">+</span></code>)を用いると、特定の文字種のみからなる文字列を検索できる</p></li>
+<li><p>正規表現の定義に用いられる特殊文字を検索したい場合にはエスケープをする必要がある</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="id15">
+<h2><span class="section-number">2.3. </span>非決定性有限オートマトン<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h2>
+<p>現在、正規表現を処理するための仕組みには大きく分けて<strong>非決定性有限オートマトン</strong> (NFA, non-deterministic finite automaton)に基づく<strong>NFA型</strong>と、<strong>バックトラッキング法</strong>に基づく<strong>VM型</strong> (VMはVirtual Machineの略)の2つがある。現在、多くの言語では、表現の柔軟性から後者のVM型の正規表現解析法が使われており、Pythonの正規表現もVM型を採用している <span id="id16">[<a class="reference internal" href="#id29" title="Félix López and Víctor Romero. Understanding Python Regular Expressions. O'Reilly, 2014. ISBN 978-1-78328-315-6.">2</a>]</span>。</p>
+<p>その一方、前述のThompsonによる正規表現はNFA型を採用していたこともあり、正規表現を理解する上でNFAの理解は避けては通れない。ここでは、NFAを用いた正規表現の解析法について、簡単に紹介する。</p>
+<section id="id17">
+<h3><span class="section-number">2.3.1. </span>有限オートマトン<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
+<p><strong>オートマトン</strong>とは、計算機を単純化したモデルの一つであり、<strong>状態</strong>と、状態遷移を表す<strong>規則</strong>からなる。オートマトンは、この状態と規則を元に入力の文字列を読み取る動作を定義する。</p>
+<p>例えば、aとbからなる<em>何らかの</em>文字列を読み取るオートマトンは次のように定義される。</p>
+<p>このオートマトンは<code class="docutils literal notranslate"><span class="pre">q0</span></code>と<code class="docutils literal notranslate"><span class="pre">q1</span></code>の2つの状態を持ち、文字<code class="docutils literal notranslate"><span class="pre">a</span></code>あるいは<code class="docutils literal notranslate"><span class="pre">b</span></code>を読み取ると、二つの状態の間で遷移が起こる。初期状態は<code class="docutils literal notranslate"><span class="pre">q0</span></code>であり、このオートマトンは<code class="docutils literal notranslate"><span class="pre">ababa...</span></code>のような<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>が交互に現れるような文字列を読み取る。</p>
+<p>オートマトンには受理状態と呼ばれる最終状態を定義することができ、以下のように二重丸で示した状態を受理状態であると見なす。</p>
+<figure class="align-default" id="auto02">
+<a class="reference internal image-reference" href="../_images/e52364cf3724c38f534db2fbbd9f9a7bb5e2b25b71f622816e6e7f769b2e4bf2.svg"><img alt="../_images/e52364cf3724c38f534db2fbbd9f9a7bb5e2b25b71f622816e6e7f769b2e4bf2.svg" src="../_images/e52364cf3724c38f534db2fbbd9f9a7bb5e2b25b71f622816e6e7f769b2e4bf2.svg" width="50%" /></a>
+<figcaption>
+<p><span class="caption-number">図 2.1 </span><span class="caption-text">受理状態を持つ有限オートマトン</span><a class="headerlink" href="#auto02" title="この画像へのパーマリンク">#</a></p>
+</figcaption>
+</figure>
+<p>この例では状態<code class="docutils literal notranslate"><span class="pre">q1</span></code>が受理状態であり、文字列の終端まで読み取った時に状態が<code class="docutils literal notranslate"><span class="pre">q1</span></code>であれば文字列が受理される。従って、このオートマトンでは<code class="docutils literal notranslate"><span class="pre">ababab</span></code>という文字列は受理されるが、<code class="docutils literal notranslate"><span class="pre">ababa</span></code>という文字列は棄却される。</p>
+<p>オートマトンのうち状態の数が有限であるものを特に<strong>有限オートマトン</strong>と呼ぶ。</p>
+</section>
+<section id="id18">
+<h3><span class="section-number">2.3.2. </span>決定性と非決定性<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h3>
+<p><a class="reference internal" href="#auto02"><span class="std std-ref">先ほどの例</span></a>に示したオートマトンは入力が与えられると決定論的に文字列が読み取られていくという特徴があり、入力文字列に対して状態遷移が一意に決まる。このような動作が決定的な有限オートマトンのことを<strong>決定性有限オートマトン</strong> (DFA, deterministic finite automaton)と呼ぶ。</p>
+<p>DFAのより複雑な例として、<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>だけからなる文字列(今回は<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>が繰り返しても良い)を受理するとDFAは以下のように表せる。</p>
+<figure class="align-default" id="auto03">
+<a class="reference internal image-reference" href="../_images/846a17417a1f6c3ee4d5016820e5011837996d8fa29c179f9d669e860bf6532d.svg"><img alt="../_images/846a17417a1f6c3ee4d5016820e5011837996d8fa29c179f9d669e860bf6532d.svg" src="../_images/846a17417a1f6c3ee4d5016820e5011837996d8fa29c179f9d669e860bf6532d.svg" width="50%" /></a>
+<figcaption>
+<p><span class="caption-number">図 2.2 </span><span class="caption-text">より複雑な決定性有限オートマトン</span><a class="headerlink" href="#auto03" title="この画像へのパーマリンク">#</a></p>
+</figcaption>
+</figure>
+<p>一方で、入力の文字列に対して、状態遷移が一意に定まらない有限オートマトンもあり、これを<strong>非決定性有限オートマトン</strong> (NFA, non-deterministic finite automaton)と呼ぶ。最も代表的な例は、後ろから何番目かに特定の文字が存在するかどうかを調べる有限オートマトンである。</p>
+<p>今、文字列が<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>の2文字から構成されていて、最後から3番目に<code class="docutils literal notranslate"><span class="pre">b</span></code>が存在するかどうかを調べる有限オートマトンを考える。この有限オートマトンは以下のように表現できる。</p>
+<figure class="align-default" id="auto04">
+<a class="reference internal image-reference" href="../_images/e5a751e49aa323d3575bf6d6095355a6590c79f480cc982b07f059bca171944a.svg"><img alt="../_images/e5a751e49aa323d3575bf6d6095355a6590c79f480cc982b07f059bca171944a.svg" src="../_images/e5a751e49aa323d3575bf6d6095355a6590c79f480cc982b07f059bca171944a.svg" width="90%" /></a>
+<figcaption>
+<p><span class="caption-number">図 2.3 </span><span class="caption-text">非決定性有限オートマトンの例</span><a class="headerlink" href="#auto04" title="この画像へのパーマリンク">#</a></p>
+</figcaption>
+</figure>
+<p>この有限オートマトンは、一度、文字<code class="docutils literal notranslate"><span class="pre">b</span></code>が読み取られて状態が<code class="docutils literal notranslate"><span class="pre">q1</span></code>に遷移すると、そこから<code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>のいずれかの文字を2文字読み取って受理状態である<code class="docutils literal notranslate"><span class="pre">q3</span></code>に遷移する。従って、<code class="docutils literal notranslate"><span class="pre">b</span></code>という文字が後ろから3番目にある文字列が受理されることが分かる。</p>
+<p>この例で注目すべきは、上記の有限オートマトンが状態<code class="docutils literal notranslate"><span class="pre">q0</span></code>において文字<code class="docutils literal notranslate"><span class="pre">a</span></code>が与えられた時に、状態<code class="docutils literal notranslate"><span class="pre">q0</span></code>自身への遷移と状態<code class="docutils literal notranslate"><span class="pre">q1</span></code>への遷移が存在する、という点である。このように、特定の文字列に対して複数の遷移が存在するのが非決定性有限オートマトンの特徴である。</p>
+</section>
+<section id="id19">
+<h3><span class="section-number">2.3.3. </span>正規表現との関係<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h3>
+<p>先ほどの<a class="reference internal" href="#auto04"><span class="std std-ref">NFAの例</span></a>のように、最後から3番目に文字<code class="docutils literal notranslate"><span class="pre">b</span></code>が存在するかどうかを調べる正規表現は<code class="docutils literal notranslate"><span class="pre">[ab]*b[ab][ab]</span></code>のように書ける。</p>
+<p>実際のところ、正規表現パターンのうち<code class="docutils literal notranslate"><span class="pre">|</span></code>と<code class="docutils literal notranslate"><span class="pre">*</span></code>だけを含むようなものは非決定性有限オートマトンと等価である。これは<code class="docutils literal notranslate"><span class="pre">a|b</span></code>のような正規表現が<code class="docutils literal notranslate"><span class="pre">a</span></code>あるいは<code class="docutils literal notranslate"><span class="pre">b</span></code>を読み取って自身以外の状態へと遷移する動作を、<code class="docutils literal notranslate"><span class="pre">a*</span></code>のような正規表現が文字<code class="docutils literal notranslate"><span class="pre">a</span></code>を読み取って自身へと遷移する動作を表すことを考えれば自然である。</p>
+<p>また、より複雑な正規表現も、実は<code class="docutils literal notranslate"><span class="pre">|</span></code>と<code class="docutils literal notranslate"><span class="pre">*</span></code>だけを使えば表すことができ、<code class="docutils literal notranslate"><span class="pre">a+</span></code>は<code class="docutils literal notranslate"><span class="pre">aa*</span></code>と等価であるし、<code class="docutils literal notranslate"><span class="pre">[ab]*</span></code>は<code class="docutils literal notranslate"><span class="pre">(a|b)*</span></code>と等価である。以上から、正規表現と非決定性有限オートマトンの等価性が伺える。</p>
+<p>しかし、ここまでの議論は演繹的な議論であり、より厳密に等価性を議論するには、数学的に有限オートマトンを定義する必要がある。詳細に興味のある読者は参考文献に挙げた資料を参照してみてほしい。</p>
+<div class="note admonition">
+<p class="admonition-title">正規表現と非決定性有限オートマトン</p>
+<ul class="simple">
+<li><p>現在の正規表現エンジンには非決定有限オートマトンに基づくNFA型とバックトラック法に基づくVM型がある</p></li>
+<li><p>有限オートマトンには決定性有限オートマトンと非決定性有限オートマトンがある</p></li>
+<li><p>決定性と非決定性は、特定の文字列が与えられた時の遷移先が一意に決まるか否かで決まる</p></li>
+<li><p>正規表現は非決定性有限オートマトンと等価なものとして定義できる</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="id20">
+<h2><span class="section-number">2.4. </span>サブグループ<a class="headerlink" href="#id20" title="Permalink to this heading">#</a></h2>
+<p>正規表現でマッチした文字列の全体及び一部を取り出す方法に<strong>サブグループ</strong>を用いる方法がある。サブグループは正規表現内で括弧<code class="docutils literal notranslate"><span class="pre">(...)</span></code>を使うことで定義でき、その内部に記述した正規表現とマッチしたサブグループには、先頭から順に1から番号が振られる。</p>
+<p>サブグループに対応する文字列は<code class="docutils literal notranslate"><span class="pre">search</span></code>や<code class="docutils literal notranslate"><span class="pre">fullmatch</span></code>の戻り値である<code class="docutils literal notranslate"><span class="pre">Match</span></code>型の変数に対して、サブグループの番号を与えることで取得できる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&lt;a href=&quot;http://www.google.com&quot; alt=&quot;google&quot;&gt;Google&lt;/a&gt;&#39;</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;a .*href=&quot;(\S+?)&quot;.*&gt;(\S+?)&lt;/a&gt;&#39;</span><span class="p">)</span>
+<span class="n">match</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;full: </span><span class="si">{</span><span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sub#1: </span><span class="si">{</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sub#2: </span><span class="si">{</span><span class="n">match</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>full: &lt;a href=&quot;http://www.google.com&quot; alt=&quot;google&quot;&gt;Google&lt;/a&gt;
+sub#1: http://www.google.com
+sub#2: Google
+</pre></div>
+</div>
+</div>
+</div>
+<p>上記の例では、ハイパーリンクを定義したHTMLタグから、リンク先のURLとリンク文字列を抜き出している。この例で、<code class="docutils literal notranslate"><span class="pre">href=&quot;(\S+.)&quot;</span></code>の部分でリンク先のURLを、<code class="docutils literal notranslate"><span class="pre">&lt;a</span> <span class="pre">...&gt;(\S+?)&lt;/a&gt;</span></code>の部分でリンク文字列を、それぞれ取り出している。</p>
+<section id="id21">
+<h3><span class="section-number">2.4.1. </span>名前付きサブグループ<a class="headerlink" href="#id21" title="Permalink to this heading">#</a></h3>
+<p>より複雑な例を扱う場合には、それぞれのサブグループに名前をつけることもできる。サブグループに名前をつけるには、サブグループを定義する括弧<code class="docutils literal notranslate"><span class="pre">(...)</span></code>の先頭に<code class="docutils literal notranslate"><span class="pre">(?P&lt;name&gt;...)</span></code>のように名前の定義を記述する。上記の例で各サブグループに名前をつけると以下のようになる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&lt;a href=&quot;http://www.google.com&quot; alt=&quot;google&quot;&gt;Google&lt;/a&gt;&#39;</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;a .*href=&quot;(?P&lt;url&gt;\S+?)&quot;.*&gt;(?P&lt;text&gt;\S+?)&lt;/a&gt;&#39;</span><span class="p">)</span>
+<span class="n">match</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;full: </span><span class="si">{</span><span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;url: </span><span class="si">{</span><span class="n">match</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;text: </span><span class="si">{</span><span class="n">match</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>full: &lt;a href=&quot;http://www.google.com&quot; alt=&quot;google&quot;&gt;Google&lt;/a&gt;
+url: http://www.google.com
+text: Google
+</pre></div>
+</div>
+</div>
+</div>
+<p>また、かなり複雑な例にはなるが、サブグループは階層的に定義することもできて、以下の例のように、HTMLタグの属性の書式が正しいかを調べることができる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&lt;a href=&quot;http://www.google.com&quot; alt=&quot;google&quot;&gt;Google&lt;/a&gt;&#39;</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+    <span class="sa">r</span><span class="s1">&#39;&lt;a(\s*(?P&lt;field&gt;\S+?)=&quot;(?P&lt;value&gt;\S+?)&quot;)*&gt;(?P&lt;text&gt;.+?)&lt;/a&gt;&#39;</span><span class="p">)</span>
+<span class="n">match</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;full: </span><span class="si">{</span><span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>full: &lt;a href=&quot;http://www.google.com&quot; alt=&quot;google&quot;&gt;Google&lt;/a&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>ただし、サブグループはマッチした最後の文字列を取り出すため、上記の例では<code class="docutils literal notranslate"><span class="pre">href=&quot;...&quot;</span></code>の部分を取り出すことはできず、名前付きサブグループで該当する文字列を取り出すと、<code class="docutils literal notranslate"><span class="pre">alt=&quot;...&quot;</span></code>の部分だけが取り出される。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">groupdict</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;field&#39;: &#39;alt&#39;, &#39;value&#39;: &#39;google&#39;, &#39;text&#39;: &#39;Google&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id22">
+<h3><span class="section-number">2.4.2. </span>文字列の置き換え<a class="headerlink" href="#id22" title="Permalink to this heading">#</a></h3>
+<p>サブグループは、文字列の置き換えにおいても強力なツールである。例えば、英語から日本語の書き換えの際に、<code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">1</span></code>という文字列を<code class="docutils literal notranslate"><span class="pre">第1節</span></code>のように書き換えたいとする。</p>
+<p>この場合、<code class="docutils literal notranslate"><span class="pre">Section</span> <span class="pre">1</span></code>に対応する正規表現は<code class="docutils literal notranslate"><span class="pre">[Ss]ection\s*?([0-9]+)</span></code>のような書式になる。この正規表現パターンに対して<code class="docutils literal notranslate"><span class="pre">sub</span></code>関数を用いて文字列の置き換えを行う場合、マッチしたサブグループは<code class="docutils literal notranslate"><span class="pre">\1</span></code>のように<strong>バックスラッシュ+数字</strong>のような形で参照できる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[Ss]ection\s*?([0-9]+?)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;Section 1&quot;</span><span class="p">,</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;第\1節&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;section99&quot;</span><span class="p">,</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;第\1節&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Section 1 -&gt; 第1節
+section99 -&gt; 第9節9
+</pre></div>
+</div>
+</div>
+</div>
+<p>名前付きサブグループを使う場合には、<code class="docutils literal notranslate"><span class="pre">\g&lt;name&gt;</span></code>のように書いてサブグループの名前を指定できる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[Ss]ection\s*?(?P&lt;index&gt;[0-9]+)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span> <span class="o">:=</span> <span class="s2">&quot;section  123&quot;</span><span class="p">,</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">pat</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;第\g&lt;index&gt;節&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>section  123 -&gt; 第123節
+</pre></div>
+</div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">サブグループ</p>
+<ul class="simple">
+<li><p>正規表現の中で <code class="docutils literal notranslate"><span class="pre">(...)</span></code>のように書くことでサブグループを定義できる</p></li>
+<li><p>サブグループ内の正規表現にマッチした文字列は<code class="docutils literal notranslate"><span class="pre">match[1]</span></code>のような形で取り出せる</p></li>
+<li><p>サブグループには<code class="docutils literal notranslate"><span class="pre">(?P&lt;name&gt;...)</span></code>のような形で名前をつけることもできる</p></li>
+<li><p>サブグループにマッチした文字列は<code class="docutils literal notranslate"><span class="pre">\1</span></code>や<code class="docutils literal notranslate"><span class="pre">\g&lt;name&gt;</span></code>のような形で文字列の置き換えにも利用できる</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="id23">
+<h2><span class="section-number">2.5. </span>日本語の取り扱い<a class="headerlink" href="#id23" title="Permalink to this heading">#</a></h2>
+<p>結論から言うと、<strong>日本語を取り扱うために意識しなければならないことはほとんどない</strong>。例えば、とある日本語の文章に「こ」から始まり「は」で終わる5文字の言葉が含まれているかどうかを知りたいとする。</p>
+<p>ここまでの復習的な内容だが、「こ」や「は」が日本語の文字であるということを特別視しなければ、上記の条件に合う正規表現を導くことは容易だろう。正解は以下のようになる (初期状態ではセルを非表示にしてある)。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;こ.</span><span class="si">{3}</span><span class="s2">は&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;こんにちは こんばんわ こんばんは&quot;</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;こんにちは&#39;, &#39;こんばんは&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>しかし、日本語と英語が混じった文章もあるかもしれない。次のような場合はどうだろうか？</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;こ.</span><span class="si">{3}</span><span class="s2">は&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;こんにちは。あのこ、AIは得意だって。&quot;</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;こんにちは&#39;, &#39;こ、AIは&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>もちろん、上記のような動作を想定して正規表現を使っているかもしれないが、日本語だけ、もっというとひらがなだけで構成された「こ」で始まり、「は」で終わる5文字の言葉を探したいかもしれない。</p>
+<p>実は、日本語のひらがなやカタカナは、Unicodeによって整理されており、これを用いると、英数字なのか平仮名なのか、といった文字種を判別することができる。Unicode上のひらがなは小文字の「ぁ」(<code class="docutils literal notranslate"><span class="pre">0x3041</span></code>)から「ゔ」(<code class="docutils literal notranslate"><span class="pre">0x3094</span></code>)までに定義されていて、一覧にすると以下のようになる。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ぁあぃいぅうぇえぉお
+かがきぎくぐけげこご
+さざしじすずせぜそぞ
+ただちぢっつづてでと
+どなにぬねのはばぱひ
+びぴふぶぷへべぺほぼ
+ぽまみむめもゃやゅゆ
+ょよらりるれろゎわゐ
+ゑをんゔ
+</pre></div>
+</div>
+</div>
+</div>
+<p>同じようにカタカナは「ァ」(<code class="docutils literal notranslate"><span class="pre">0x30A1</span></code>)から「ヴ」(<code class="docutils literal notranslate"><span class="pre">0x30F4</span></code>)までに定義されており、一覧にすると以下のようになる。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ァアィイゥウェエォオ
+カガキギクグケゲコゴ
+サザシジスズセゼソゾ
+タダチヂッツヅテデト
+ドナニヌネノハバパヒ
+ビピフブプヘベペホボ
+ポマミムメモャヤュユ
+ョヨラリルレロヮワヰ
+ヱヲンヴ
+</pre></div>
+</div>
+</div>
+</div>
+<p>Unicodeを用いると、ひらがな全体を表す文字クラスは<code class="docutils literal notranslate"><span class="pre">[\u3041-\u3094]</span></code>のように表すことができる。先ほどまでは16進数であることを表すために<code class="docutils literal notranslate"><span class="pre">0x</span></code>という接頭辞を用いていたが、正規表現中では代わりに<code class="docutils literal notranslate"><span class="pre">\u</span></code>という接頭辞を使う。</p>
+<p>この例では、文字クラスが、ある意味で<strong>数値の範囲</strong>として表されているわけだが、ここで何か気がつくことはあるだろうか。実は、<code class="docutils literal notranslate"><span class="pre">[A-Z]</span></code>のような文字クラスも<code class="docutils literal notranslate"><span class="pre">A</span></code>や<code class="docutils literal notranslate"><span class="pre">Z</span></code>などを符号付き8bit整数としてUnicodeの範囲を示す数字として扱っていたに過ぎないのである。</p>
+<p>ここまでを踏まえると、Unicodeを用いれば、「こ」で始まり「は」で始まるひらがな5文字の言葉を探す正規表現は以下のようになる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;こ[\u3041-\u3094]</span><span class="si">{3}</span><span class="s2">は&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;こんにちは。あのこ、AIは得意だって。&quot;</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;こんにちは&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>この際、Pythonの文字列は<strong>そもそもとして文字列中の各文字をUnicodeで扱っている</strong>ので、ひらがなやカタカナそれ自体を文字セットの下限と上限を指定するのに用いても問題ない。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;こ[ぁ-ゔ]</span><span class="si">{3}</span><span class="s2">は&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;こんにちは。あのこ、AIは得意だって。&quot;</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;こんにちは&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>また、一般的な漢字は「一」(<code class="docutils literal notranslate"><span class="pre">0x4E00</span></code>)から「鿿」(<code class="docutils literal notranslate"><span class="pre">0x9FFF</span></code>)の範囲にある約2万文字がCJK統合漢字としてまとめられている。従って、日本語に使われうる文字を全て検出するには、<code class="docutils literal notranslate"><span class="pre">[\u3041-\u3094\u30A1-\u30F4\u4E00-\u9FFF]</span></code>のような文字クラスを用いれば良い。</p>
+<p>しかし、このような日本語文字のUnicodeや文字の範囲を覚えるのはなかなか大変である。実は、Pythonの<code class="docutils literal notranslate"><span class="pre">re</span></code>と互換性のあるサードバーティ製のライブラリに<code class="docutils literal notranslate"><span class="pre">regex</span></code>があり、このライブラリを用いると、ひらがな、カタカナ、漢字を含む文字クラスはそれぞれ以下のようになる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">regex</span>
+
+<span class="n">hira</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\p</span><span class="si">{Hiragana}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">kata</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\p</span><span class="si">{Katakana}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">kanji</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\p</span><span class="si">{Han}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>実際に<code class="docutils literal notranslate"><span class="pre">regex</span></code>ライブラリを用いて、上記の「こ、から始まり、は、で終わる5文字の単語」を取り出してみる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;こ\p</span><span class="si">{Hiragana}{3}</span><span class="s2">は&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;こんにちは。あのこ、AIは得意だって。&quot;</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;こんにちは&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>こちらのライブラリはサードパーティ製なので、別途インストールが必要ではあるものの、Unicodeの範囲を指定するよりは、表記も分かりやすいだろう。</p>
+<div class="note admonition">
+<p class="admonition-title">日本語の取り扱い</p>
+<ul class="simple">
+<li><p>Pythonでは日本語を扱うために特別意識することはない</p></li>
+<li><p>ただし、ひらがなだけ、カタカナだけ、といった場合を扱うには文字クラスの定義が必要</p></li>
+<li><p>日本語を扱う文字クラスはUnicodeで範囲を指定して定義する</p></li>
+<li><p>サードパーティ製の<code class="docutils literal notranslate"><span class="pre">regex</span></code>ライブラリを用いると簡単に文字クラスが定義できる。</p></li>
+</ul>
+</div>
+</section>
+<section id="id24">
+<h2><span class="section-number">2.6. </span>練習問題<a class="headerlink" href="#id24" title="Permalink to this heading">#</a></h2>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-header docutils">
+<p class="sd-card-text"><strong>問1</strong></p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">正規表現を用いて、HTML タグから、タグ名、id、class の情報を取り出す関数を作成せよ。その際、id と class の指定順序は順不同であるほか、それ以外の属性値 (<code class="docutils literal notranslate"><span class="pre">align=&quot;center&quot;</span></code>など)が指定されている場合もあることに注意せよ。</p>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>入力例1:</strong> <span class="pasted-text">&lt;div id=&quot;container&quot; class=&quot;main&quot;&gt;</span></p></li>
+<li><p><strong>出力例1:</strong> <span class="pasted-text">('div', 'container', 'main')</span></p></li>
+</ul>
+<ul class="simple">
+<li><p><strong>入力例2:</strong> <span class="pasted-text">&lt;div class=&quot;form&quot; align=&quot;center&quot;&gt;</span></p></li>
+<li><p><strong>出力例2:</strong> <span class="pasted-text">('div', None, 'form')</span></p></li>
+</ul>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-header docutils">
+<p class="sd-card-text"><strong>問2</strong></p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">日本語の文章が与えられたとき、漢字の四字熟語だけを正規表現を用いて取り出す関数を作成せよ。この際、四字より多い感じから構成される熟語 (例: 日常茶飯事、日々是好日)を取り出さないようにすること。</p>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>入力例1:</strong> <span class="output text_plain">'だんだんと暖かくなってきました。これが三寒四温ですね。'</span></p></li>
+<li><p><strong>出力例1:</strong> <span class="output text_plain">['三寒四温']</span></p></li>
+</ul>
+<ul class="simple">
+<li><p><strong>入力例2:</strong> <span class="output text_plain">'彼の遅刻は日常茶飯事です。'</span></p></li>
+<li><p><strong>出力例2:</strong> <span class="output text_plain">[]</span></p></li>
+</ul>
+</section>
+<section id="id25">
+<h2><span class="section-number">2.7. </span>参考文献<a class="headerlink" href="#id25" title="Permalink to this heading">#</a></h2>
+<div class="docutils container" id="id26">
+<dl class="citation">
+<dt class="label" id="id27"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
+<dd><p>新屋 良磨, 鈴木 勇介, and 高田 謙. <em>正規表現 技術入門</em>. 技術評論社, 2015. ISBN 978-4-7741-7270-5.</p>
+</dd>
+<dt class="label" id="id29"><span class="brackets"><a class="fn-backref" href="#id16">2</a></span></dt>
+<dd><p>Félix López and Víctor Romero. <em>Understanding Python Regular Expressions</em>. O'Reilly, 2014. ISBN 978-1-78328-315-6.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./contents"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="webpage.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>ウェブページの作成</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1. 正規表現とは？</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raw">2.1.1. raw文字列リテラル</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.1.2. 正規表現の基本的な使い方</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.2. 正規表現のシンタックス</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.2.1. 何らかの1文字</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.2.2. 文字の繰り返し</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.2.3. 繰り返し回数の制限</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.2.4. 複数の文字列のいずれか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.2.5. 文字クラス</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.2.6. 接頭辞、接尾辞</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.2.7. 最短マッチ、最長マッチ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.2.8. メタ文字</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.2.9. 特殊文字のエスケープ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.3. 非決定性有限オートマトン</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">2.3.1. 有限オートマトン</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">2.3.2. 決定性と非決定性</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">2.3.3. 正規表現との関係</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">2.4. サブグループ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">2.4.1. 名前付きサブグループ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">2.4.2. 文字列の置き換え</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">2.5. 日本語の取り扱い</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">2.6. 練習問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">2.7. 参考文献</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 Tatsuya Yatagawa
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright CC BY-NC-SA 4.0, 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
