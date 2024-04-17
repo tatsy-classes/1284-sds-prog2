@@ -11,7 +11,7 @@ parts:
     chapters:
       - file: contents/webpage
       - file: contents/regex
-      # - file: contents/request
+      - file: contents/request
       # - file: contents/crawler
       # - file: contents/encryption
       # - file: contents/retrieval
