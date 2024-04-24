@@ -67,6 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'contents/regex';</script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="3. HTTPリクエスト" href="request.html" />
     <link rel="prev" title="1. ウェブページの作成" href="webpage.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ja"/>
@@ -166,6 +167,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="webpage.html">1. ウェブページの作成</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">2. 正規表現の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request.html">3. HTTPリクエスト</a></li>
 </ul>
 
     </div>
@@ -315,7 +317,7 @@ document.write(`
 <section id="id2">
 <h2><span class="section-number">2.1. </span>正規表現とは？<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <p><strong>正規表現</strong> (regular expression)とは、少し複雑な言い方をすれば<strong>正規言語</strong>に基づく文字表現のことを指す。正規表現の考え方は元々、神経科学分野で発生したもので、それを数学者のStephen Kleeneが<strong>正規集合</strong>として明確な定義を与えた。</p>
-<p>その後、1968年になってKen Thompsonが自身の論文の中で、彼が作成したUNIX上のテキストエディタである<strong>qed</strong>に実装された正規表現を実現するコンパイラの仕組みについて紹介した。これが、UNIX上の文字列検索システムである<strong>grep</strong> (global regular expression)や<strong>sed</strong>へと発展した <span id="id3">[<a class="reference internal" href="#id27" title="新屋 良磨, 鈴木 勇介, and 高田 謙. 正規表現 技術入門. 技術評論社, 2015. ISBN 978-4-7741-7270-5.">1</a>]</span>。</p>
+<p>その後、1968年になってKen Thompsonが自身の論文の中で、彼が作成したUNIX上のテキストエディタである<strong>qed</strong>に実装された正規表現を実現するコンパイラの仕組みについて紹介した。これが、UNIX上の文字列検索システムである<strong>grep</strong> (global regular expression)や<strong>sed</strong>へと発展した <span id="id3">[<a class="reference internal" href="#id27" title="新屋 良磨, 鈴木 勇介, 高田 謙. 正規表現 技術入門. 技術評論社, 2015. ISBN 978-4-77417-270-5.">2-1</a>]</span>。</p>
 <p>現在では、多くのテキストエディタで正規表現を用いた文字列検索を使用できるほか、Pythonを含むほとんどのプログラミング言語で正規表現を用いるためのライブラリが用意されている。</p>
 <p>Pythonにおいては標準ライブラリの<code class="docutils literal notranslate"><span class="pre">re</span></code>を通して正規表現を用いることができる。</p>
 <div class="cell docutils container">
@@ -347,7 +349,7 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1: &#39;</span><span class="se">\\</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2: &#39;</span><span class="se">\t</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3: &#39;</span><span class="se">\\\t</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3: &#39;</span><span class="se">\\\\</span><span class="s2">t&#39;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;4: &#39;</span><span class="se">\\\\</span><span class="s2">t&#39;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -355,7 +357,7 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1: &#39;\&#39;
 2: &#39;	&#39;
 3: &#39;\	&#39;
-3: &#39;\\t&#39;
+4: &#39;\\t&#39;
 </pre></div>
 </div>
 </div>
@@ -867,14 +869,14 @@ HELLO : None
 </section>
 <section id="id15">
 <h2><span class="section-number">2.3. </span>非決定性有限オートマトン<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h2>
-<p>現在、正規表現を処理するための仕組みには大きく分けて<strong>非決定性有限オートマトン</strong> (NFA, non-deterministic finite automaton)に基づく<strong>NFA型</strong>と、<strong>バックトラッキング法</strong>に基づく<strong>VM型</strong> (VMはVirtual Machineの略)の2つがある。現在、多くの言語では、表現の柔軟性から後者のVM型の正規表現解析法が使われており、Pythonの正規表現もVM型を採用している <span id="id16">[<a class="reference internal" href="#id29" title="Félix López and Víctor Romero. Understanding Python Regular Expressions. O'Reilly, 2014. ISBN 978-1-78328-315-6.">2</a>]</span>。</p>
+<p>現在、正規表現を処理するための仕組みには大きく分けて<strong>非決定性有限オートマトン</strong> (NFA, non-deterministic finite automaton)に基づく<strong>NFA型</strong>と、<strong>バックトラッキング法</strong>に基づく<strong>VM型</strong> (VMはVirtual Machineの略)の2つがある。現在、多くの言語では、表現の柔軟性から後者のVM型の正規表現解析法が使われており、Pythonの正規表現もVM型を採用している <span id="id16">[<a class="reference internal" href="#id29" title="Félix López and Víctor Romero. Understanding Python Regular Expressions. O'Reilly, 2014. ISBN 978-1-78328-315-6.">2-2</a>]</span>。</p>
 <p>その一方、前述のThompsonによる正規表現はNFA型を採用していたこともあり、正規表現を理解する上でNFAの理解は避けては通れない。ここでは、NFAを用いた正規表現の解析法について、簡単に紹介する。</p>
 <section id="id17">
 <h3><span class="section-number">2.3.1. </span>有限オートマトン<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
 <p><strong>オートマトン</strong>とは、計算機を単純化したモデルの一つであり、<strong>状態</strong>と、状態遷移を表す<strong>規則</strong>からなる。オートマトンは、この状態と規則を元に入力の文字列を読み取る動作を定義する。</p>
 <p>例えば、aとbからなる<em>何らかの</em>文字列を読み取るオートマトンは次のように定義される。</p>
 <figure class="align-default" id="auto01">
-<a class="reference internal image-reference" href="../_images/4b01cdeacf2a4c1e7515103d4f04acd03535670e0551d532e2f1d079a7bc03ed.svg"><img alt="../_images/4b01cdeacf2a4c1e7515103d4f04acd03535670e0551d532e2f1d079a7bc03ed.svg" src="../_images/4b01cdeacf2a4c1e7515103d4f04acd03535670e0551d532e2f1d079a7bc03ed.svg" width="50%" /></a>
+<a class="reference internal image-reference" href="../_images/938e2efc9105b32f7d581391c993277e1ee03f444b98bb6f9e96744e0081f4f9.svg"><img alt="../_images/938e2efc9105b32f7d581391c993277e1ee03f444b98bb6f9e96744e0081f4f9.svg" src="../_images/938e2efc9105b32f7d581391c993277e1ee03f444b98bb6f9e96744e0081f4f9.svg" width="50%" /></a>
 <figcaption>
 <p><span class="caption-number">図 2.1 </span><span class="caption-text">有限オートマトンの例</span><a class="headerlink" href="#auto01" title="この画像へのパーマリンク">#</a></p>
 </figcaption>
@@ -895,7 +897,7 @@ HELLO : None
 <p><a class="reference internal" href="#auto02"><span class="std std-ref">先ほどの例</span></a>に示したオートマトンは入力が与えられると決定論的に文字列が読み取られていくという特徴があり、入力文字列に対して状態遷移が一意に決まる。このような動作が決定的な有限オートマトンのことを<strong>決定性有限オートマトン</strong> (DFA, deterministic finite automaton)と呼ぶ。</p>
 <p>DFAのより複雑な例として、<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>だけからなる文字列(今回は<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>が繰り返しても良い)を受理するとDFAは以下のように表せる。</p>
 <figure class="align-default" id="auto03">
-<a class="reference internal image-reference" href="../_images/b8bce1707e8e6addf835363d24640c188c20881a104c4069813a4726cfb9b757.svg"><img alt="../_images/b8bce1707e8e6addf835363d24640c188c20881a104c4069813a4726cfb9b757.svg" src="../_images/b8bce1707e8e6addf835363d24640c188c20881a104c4069813a4726cfb9b757.svg" width="50%" /></a>
+<a class="reference internal image-reference" href="../_images/6254671b278bc0ccdc3aae57e9877a9a462a5a97e03a3c464adb9905a2872149.svg"><img alt="../_images/6254671b278bc0ccdc3aae57e9877a9a462a5a97e03a3c464adb9905a2872149.svg" src="../_images/6254671b278bc0ccdc3aae57e9877a9a462a5a97e03a3c464adb9905a2872149.svg" width="50%" /></a>
 <figcaption>
 <p><span class="caption-number">図 2.3 </span><span class="caption-text">より複雑な決定性有限オートマトン</span><a class="headerlink" href="#auto03" title="この画像へのパーマリンク">#</a></p>
 </figcaption>
@@ -903,13 +905,13 @@ HELLO : None
 <p>一方で、入力の文字列に対して、状態遷移が一意に定まらない有限オートマトンもあり、これを<strong>非決定性有限オートマトン</strong> (NFA, non-deterministic finite automaton)と呼ぶ。最も代表的な例は、後ろから何番目かに特定の文字が存在するかどうかを調べる有限オートマトンである。</p>
 <p>今、文字列が<code class="docutils literal notranslate"><span class="pre">a</span></code>と<code class="docutils literal notranslate"><span class="pre">b</span></code>の2文字から構成されていて、最後から3番目に<code class="docutils literal notranslate"><span class="pre">b</span></code>が存在するかどうかを調べる有限オートマトンを考える。この有限オートマトンは以下のように表現できる。</p>
 <figure class="align-default" id="auto04">
-<a class="reference internal image-reference" href="../_images/da3f1a54cd1aa9ae607d913aa65a7f0ea69ef42ad5fabeb2f04b9f5a500434f1.svg"><img alt="../_images/da3f1a54cd1aa9ae607d913aa65a7f0ea69ef42ad5fabeb2f04b9f5a500434f1.svg" src="../_images/da3f1a54cd1aa9ae607d913aa65a7f0ea69ef42ad5fabeb2f04b9f5a500434f1.svg" width="90%" /></a>
+<a class="reference internal image-reference" href="../_images/e703932eaf1c4c265b6919a9e076f8ecbb30d539cb69996ba4c432422be346bb.svg"><img alt="../_images/e703932eaf1c4c265b6919a9e076f8ecbb30d539cb69996ba4c432422be346bb.svg" src="../_images/e703932eaf1c4c265b6919a9e076f8ecbb30d539cb69996ba4c432422be346bb.svg" width="90%" /></a>
 <figcaption>
 <p><span class="caption-number">図 2.4 </span><span class="caption-text">非決定性有限オートマトンの例</span><a class="headerlink" href="#auto04" title="この画像へのパーマリンク">#</a></p>
 </figcaption>
 </figure>
 <p>この有限オートマトンは、一度、文字<code class="docutils literal notranslate"><span class="pre">b</span></code>が読み取られて状態が<code class="docutils literal notranslate"><span class="pre">q1</span></code>に遷移すると、そこから<code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>のいずれかの文字を2文字読み取って受理状態である<code class="docutils literal notranslate"><span class="pre">q3</span></code>に遷移する。従って、<code class="docutils literal notranslate"><span class="pre">b</span></code>という文字が後ろから3番目にある文字列が受理されることが分かる。</p>
-<p>この例で注目すべきは、上記の有限オートマトンが状態<code class="docutils literal notranslate"><span class="pre">q0</span></code>において文字<code class="docutils literal notranslate"><span class="pre">a</span></code>が与えられた時に、状態<code class="docutils literal notranslate"><span class="pre">q0</span></code>自身への遷移と状態<code class="docutils literal notranslate"><span class="pre">q1</span></code>への遷移が存在する、という点である。このように、特定の文字列に対して複数の遷移が存在するのが非決定性有限オートマトンの特徴である。</p>
+<p>この例で注目すべきは、上記の有限オートマトンが状態<code class="docutils literal notranslate"><span class="pre">q0</span></code>において文字<code class="docutils literal notranslate"><span class="pre">b</span></code>が与えられた時に、状態<code class="docutils literal notranslate"><span class="pre">q0</span></code>自身への遷移と状態<code class="docutils literal notranslate"><span class="pre">q1</span></code>への遷移が存在する、という点である。このように、特定の文字列に対して複数の遷移が存在するのが非決定性有限オートマトンの特徴である。</p>
 </section>
 <section id="id19">
 <h3><span class="section-number">2.3.3. </span>正規表現との関係<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h3>
@@ -1230,10 +1232,10 @@ section99 -&gt; 第9節9
 <h2><span class="section-number">2.7. </span>参考文献<a class="headerlink" href="#id25" title="Permalink to this heading">#</a></h2>
 <div class="docutils container" id="id26">
 <dl class="citation">
-<dt class="label" id="id27"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
-<dd><p>新屋 良磨, 鈴木 勇介, and 高田 謙. <em>正規表現 技術入門</em>. 技術評論社, 2015. ISBN 978-4-7741-7270-5.</p>
+<dt class="label" id="id27"><span class="brackets"><a class="fn-backref" href="#id3">2-1</a></span></dt>
+<dd><p>新屋 良磨, 鈴木 勇介, 高田 謙. <em>正規表現 技術入門</em>. 技術評論社, 2015. ISBN 978-4-77417-270-5.</p>
 </dd>
-<dt class="label" id="id29"><span class="brackets"><a class="fn-backref" href="#id16">2</a></span></dt>
+<dt class="label" id="id29"><span class="brackets"><a class="fn-backref" href="#id16">2-2</a></span></dt>
 <dd><p>Félix López and Víctor Romero. <em>Understanding Python Regular Expressions</em>. O'Reilly, 2014. ISBN 978-1-78328-315-6.</p>
 </dd>
 </dl>
@@ -1279,6 +1281,15 @@ section99 -&gt; 第9節9
         <p class="prev-next-subtitle">前へ</p>
         <p class="prev-next-title"><span class="section-number">1. </span>ウェブページの作成</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="request.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>HTTPリクエスト</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
