@@ -12,7 +12,7 @@ parts:
       - file: contents/webpage
       - file: contents/regex
       - file: contents/request
-      # - file: contents/crawler
+      - file: contents/crawler
       # - file: contents/encryption
       # - file: contents/retrieval
       # - file: contents/compression
