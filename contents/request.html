@@ -67,6 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'contents/request';</script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="4. 簡易クローラの作成" href="crawler.html" />
     <link rel="prev" title="2. 正規表現の基礎" href="regex.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ja"/>
@@ -167,6 +168,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="webpage.html">1. ウェブページの作成</a></li>
 <li class="toctree-l1"><a class="reference internal" href="regex.html">2. 正規表現の基礎</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">3. HTTPリクエスト</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crawler.html">4. 簡易クローラの作成</a></li>
 </ul>
 
     </div>
@@ -389,33 +391,33 @@ document.write(`
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_4cbff_row0_col0, #T_4cbff_row0_col1, #T_4cbff_row1_col0, #T_4cbff_row1_col1, #T_4cbff_row2_col0, #T_4cbff_row2_col1, #T_4cbff_row3_col0, #T_4cbff_row3_col1, #T_4cbff_row4_col0, #T_4cbff_row4_col1 {
+#T_c19bc_row0_col0, #T_c19bc_row0_col1, #T_c19bc_row1_col0, #T_c19bc_row1_col1, #T_c19bc_row2_col0, #T_c19bc_row2_col1, #T_c19bc_row3_col0, #T_c19bc_row3_col1, #T_c19bc_row4_col0, #T_c19bc_row4_col1 {
   text-align: left;
 }
 </style>
-<table id="T_4cbff">
+<table id="T_c19bc">
   <thead>
   </thead>
   <tbody>
     <tr>
-      <td id="T_4cbff_row0_col0" class="data row0 col0" >Date</td>
-      <td id="T_4cbff_row0_col1" class="data row0 col1" >Wed, 24 Apr 2024 08:13:48 GMT</td>
+      <td id="T_c19bc_row0_col0" class="data row0 col0" >Date</td>
+      <td id="T_c19bc_row0_col1" class="data row0 col1" >Tue, 30 Apr 2024 06:32:01 GMT</td>
     </tr>
     <tr>
-      <td id="T_4cbff_row1_col0" class="data row1 col0" >Expires</td>
-      <td id="T_4cbff_row1_col1" class="data row1 col1" >-1</td>
+      <td id="T_c19bc_row1_col0" class="data row1 col0" >Expires</td>
+      <td id="T_c19bc_row1_col1" class="data row1 col1" >-1</td>
     </tr>
     <tr>
-      <td id="T_4cbff_row2_col0" class="data row2 col0" >Cache-Control</td>
-      <td id="T_4cbff_row2_col1" class="data row2 col1" >private, max-age=0</td>
+      <td id="T_c19bc_row2_col0" class="data row2 col0" >Cache-Control</td>
+      <td id="T_c19bc_row2_col1" class="data row2 col1" >private, max-age=0</td>
     </tr>
     <tr>
-      <td id="T_4cbff_row3_col0" class="data row3 col0" >Content-Type</td>
-      <td id="T_4cbff_row3_col1" class="data row3 col1" >text/html; charset=Shift_JIS</td>
+      <td id="T_c19bc_row3_col0" class="data row3 col0" >Content-Type</td>
+      <td id="T_c19bc_row3_col1" class="data row3 col1" >text/html; charset=Shift_JIS</td>
     </tr>
     <tr>
-      <td id="T_4cbff_row4_col0" class="data row4 col0" >Content-Security-Policy-Report-Only</td>
-      <td id="T_4cbff_row4_col1" class="data row4 col1" >object-src 'none';base-uri 'self';script-src 'nonce-ZGWM6gXz_YLs6HuBRtNzlg' 'strict-dynamic' 'report-sample' 'unsafe-eval' 'unsafe-inline' https: http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp</td>
+      <td id="T_c19bc_row4_col0" class="data row4 col0" >Content-Security-Policy-Report-Only</td>
+      <td id="T_c19bc_row4_col1" class="data row4 col1" >object-src 'none';base-uri 'self';script-src 'nonce-exzpuXyGLWruO0iFCsvAaA' 'strict-dynamic' 'report-sample' 'unsafe-eval' 'unsafe-inline' https: http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp</td>
     </tr>
   </tbody>
 </table>
@@ -782,11 +784,11 @@ Content-Type : application/json
 <span class="w">    </span><span class="nt">&quot;Content-Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/x-www-form-urlencoded&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;Host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;httpbin.org&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;User-Agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Mozilla/5.0&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;X-Amzn-Trace-Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Root=1-6628bf3d-30250dc779eb81210f5b9924&quot;</span>
+<span class="w">    </span><span class="nt">&quot;X-Amzn-Trace-Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Root=1-66309063-16c9a8803ed3527a680ec9e0&quot;</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">&quot;json&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;172.177.75.80&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;172.177.131.80&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://httpbin.org/anything&quot;</span>
 <span class="p">}</span>
 </pre></div>
@@ -858,11 +860,11 @@ Content-Type : application/json
 <span class="w">    </span><span class="nt">&quot;Content-Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image/png&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;Host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;httpbin.org&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;User-Agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Mozilla/5.0&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;X-Amzn-Trace-Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Root=1-6628bf3e-1cd1dd1f3056f68c3a63de76&quot;</span>
+<span class="w">    </span><span class="nt">&quot;X-Amzn-Trace-Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Root=1-66309063-09d68e580d3ca85f7bb9a928&quot;</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">&quot;json&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;172.177.75.80&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;172.177.131.80&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://httpbin.org/anything&quot;</span>
 <span class="p">}</span>
 </pre></div>
@@ -1026,12 +1028,12 @@ Content-Type : application/json
 <p>なお、このHTTPエラーに含まれるヘッダ情報は以下のようになっている。</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Date: Wed, 24 Apr 2024 08:13:51 GMT
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Date: Tue, 30 Apr 2024 06:32:04 GMT
 Content-Type: text/html; charset=utf-8
 Content-Length: 0
 Connection: close
 Server: gunicorn/19.9.0
-WWW-Authenticate: Digest realm=&quot;me@kennethreitz.com&quot;, nonce=&quot;734ea92224d65e57b3967a6743358192&quot;, qop=&quot;auth&quot;, opaque=&quot;b6db5356c7b1fb058a0caf4f4ad5531a&quot;, algorithm=MD5, stale=FALSE
+WWW-Authenticate: Digest realm=&quot;me@kennethreitz.com&quot;, nonce=&quot;b593380cb4c4583ef63036fc1c985d0a&quot;, qop=&quot;auth&quot;, opaque=&quot;4968cb3804091340406e9839a2ee8058&quot;, algorithm=MD5, stale=FALSE
 Set-Cookie: stale_after=never; Path=/
 Set-Cookie: fake=fake_value; Path=/
 Access-Control-Allow-Origin: *
@@ -1111,7 +1113,7 @@ hash #2: 0aaaf722394d682e4c93b0c6c7db0d3e
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dig: b720a03c75d4835f110a56a324a763e5
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dig: 64f4d40c29441fe02085dbd71ce50a43
 </pre></div>
 </div>
 </div>
@@ -1125,7 +1127,7 @@ hash #2: 0aaaf722394d682e4c93b0c6c7db0d3e
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Digest username=&quot;myname&quot;, realm=&quot;me@kennethreitz.com&quot;, nonce=&quot;734ea92224d65e57b3967a6743358192&quot;, uri=&quot;/digest-auth/auth/myname/mypass&quot;, response=&quot;b720a03c75d4835f110a56a324a763e5&quot;, opaque=&quot;b6db5356c7b1fb058a0caf4f4ad5531a&quot;, qop=auth, nc=00000001, cnonce=&quot;5e8fe8d6df094ae398da1e94039a306a&quot;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Digest username=&quot;myname&quot;, realm=&quot;me@kennethreitz.com&quot;, nonce=&quot;b593380cb4c4583ef63036fc1c985d0a&quot;, uri=&quot;/digest-auth/auth/myname/mypass&quot;, response=&quot;64f4d40c29441fe02085dbd71ce50a43&quot;, opaque=&quot;4968cb3804091340406e9839a2ee8058&quot;, qop=auth, nc=00000001, cnonce=&quot;f0e97690bca6453c8db1dcf32eac9acb&quot;
 </pre></div>
 </div>
 </div>
@@ -1160,6 +1162,45 @@ hash #2: 0aaaf722394d682e4c93b0c6c7db0d3e
 <div align="center" width="50%">
 <p><img alt="../_images/9b1c0736509505e95aaa78a7ad1408c183da9a1f705213319b62802a16307c76.png" src="../_images/9b1c0736509505e95aaa78a7ad1408c183da9a1f705213319b62802a16307c76.png" /></p>
 </div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boundary</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+<span class="n">content_type</span> <span class="o">=</span> <span class="s2">&quot;image/png&quot;</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span>
+
+<span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--</span><span class="si">{</span><span class="n">boundary</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;Content-Disposition: form-data; name=&quot;</span><span class="si">{</span><span class="n">name1</span><span class="si">}</span><span class="s1">&quot;; filename=&quot;urllib.parse.quote(</span><span class="si">{</span><span class="n">name1</span><span class="si">}</span><span class="s1">)&quot;&#39;</span>
+<span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Content-Type: </span><span class="si">{</span><span class="n">content_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">+=</span> <span class="n">data1</span>
+<span class="n">data</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
+
+<span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--</span><span class="si">{</span><span class="n">boundary</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;Content-Disposition: form-data; name=&quot;</span><span class="si">{</span><span class="n">name2</span><span class="si">}</span><span class="s1">&quot;; filename=&quot;urllib.parse.quote(</span><span class="si">{</span><span class="n">name2</span><span class="si">}</span><span class="s1">)&quot;&#39;</span>
+<span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Content-Type: </span><span class="si">{</span><span class="n">content_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">+=</span> <span class="n">data2</span>
+<span class="n">data</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
+
+<span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--</span><span class="si">{</span><span class="n">boundary</span><span class="si">}</span><span class="s2">--&quot;</span><span class="p">)</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://httpbin.org/anything&quot;</span>
 
@@ -1208,14 +1249,14 @@ Content-Type : application/json
 <span class="w">  </span><span class="nt">&quot;headers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;Accept-Encoding&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;identity&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;Content-Length&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;363458&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Content-Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;multipart/form-data; boundary=f030fc17-86b1-4fdf-bd4e-c593002334a0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Content-Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;multipart/form-data; boundary=5d294801-8441-4884-af59-52c8b8b575cf&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;Host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;httpbin.org&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;User-Agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Mozilla/5.0&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;X-Amzn-Trace-Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Root=1-6628bf3f-45a308d9119ce6677024ed80&quot;</span>
+<span class="w">    </span><span class="nt">&quot;X-Amzn-Trace-Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Root=1-66309066-1f828eb678082d38257699f7&quot;</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">&quot;json&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;172.177.75.80&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;172.177.131.80&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://httpbin.org/anything&quot;</span>
 <span class="p">}</span>
 </pre></div>
@@ -1274,6 +1315,15 @@ Content-Type : application/json
         <p class="prev-next-subtitle">前へ</p>
         <p class="prev-next-title"><span class="section-number">2. </span>正規表現の基礎</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="crawler.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>簡易クローラの作成</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
