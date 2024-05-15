@@ -50,7 +50,7 @@
 2. [正規表現の基礎](sec:regex)
 3. [HTTPリクエスト](sec:request)
 4. [簡易クローラの作成](sec:crawler)
-5. [暗号化とSSL通信](sec:encryption)
+5. [暗号化とSSL通信 (by 坂野先生)](https://www.rbanno.net/classes/hitu_2024_p2/day05/encryption-and-ssl.html)
 6. [情報検索の基礎](sec:retrieval)
 7. [情報圧縮の基礎](sec:compression)
 8.  [ソケット通信](sec:socket)
