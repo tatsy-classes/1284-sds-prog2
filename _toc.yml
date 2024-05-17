@@ -13,10 +13,11 @@ parts:
       - file: contents/regex
       - file: contents/request
       - file: contents/crawler
-      - title: 5. 暗号化とSSL通信
+      - title: 暗号化とSSL通信
         url: https://www.rbanno.net/classes/hitu_2024_p2/day05/encryption-and-ssl.html
+      - file: contents/compression
       # - file: contents/retrieval
-      # - file: contents/compression
-      # - file: contents/socket
+      - title: ソケット通信
+        url: https://www.rbanno.net/classes/hitu_2024_p2/day07/socket.html
       # - file: contents/web-server
       # - file: contents/web-system

@@ -1,11 +1,14 @@
 {
   // Bibtex
   "[bibtex]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": false,
+    "editor.defaultFormatter": "James-Yu.latex-workshop",
   },
   // Markdown
   "[markdown]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false,
   },
   // Python
   "[python]": {

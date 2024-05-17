@@ -42,8 +42,11 @@ repository:
 
 # Sphinx
 sphinx:
+  recursive_update: true
   config:
     language: ja
+    # Syntax highlighting
+    pygments_style: monokai
     # MathJax
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
     # BibTeX

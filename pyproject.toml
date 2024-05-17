@@ -42,6 +42,7 @@ automathon = "^0.0.15"
 docutils = "0.17.1"
 beautifulsoup4 = "^4.12.3"
 scikit-image = "^0.23.1"
+pillow = "^10.3.0"
 
 [tool.poetry.group.dev.dependencies]
 pyproject-flake8 = "^6.0.0"
