@@ -110,8 +110,8 @@ const thebe_selector_output = ".output, .cell_output"
          class="form-control"
          name="q"
          id="search-input"
-         placeholder="Search..."
-         aria-label="Search..."
+         placeholder="Search this book..."
+         aria-label="Search this book..."
          autocomplete="off"
          autocorrect="off"
          autocapitalize="off"
@@ -159,6 +159,14 @@ const thebe_selector_output = ".output, .cell_output"
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    プログラミングⅡ
+                </a>
+            </li>
+        </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">事前準備</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="contents/setup-python.html">1. Python環境の設定</a></li>
@@ -170,7 +178,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="contents/regex.html">2. 正規表現の基礎</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/request.html">3. HTTPリクエスト</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/crawler.html">4. 簡易クローラの作成</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://www.rbanno.net/classes/hitu_2024_p2/day05/encryption-and-ssl.html">5. 暗号化とSSL通信</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.rbanno.net/classes/hitu_2024_p2/day05/encryption-and-ssl.html">暗号化とSSL通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/compression.html">5. 情報圧縮の基礎</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.rbanno.net/classes/hitu_2024_p2/day07/socket.html">ソケット通信</a></li>
 </ul>
 
     </div>
@@ -358,9 +368,9 @@ document.write(`
 <li><p><a class="reference internal" href="contents/request.html#sec-request"><span class="std std-ref">HTTPリクエスト</span></a></p></li>
 <li><p><a class="reference internal" href="contents/crawler.html#sec-crawler"><span class="std std-ref">簡易クローラの作成</span></a></p></li>
 <li><p><a class="reference external" href="https://www.rbanno.net/classes/hitu_2024_p2/day05/encryption-and-ssl.html">暗号化とSSL通信 (by 坂野先生)</a></p></li>
+<li><p><a class="reference internal" href="contents/compression.html#sec-compression"><span class="std std-ref">情報圧縮の基礎</span></a></p></li>
 <li><p><span class="xref myst">情報検索の基礎</span></p></li>
-<li><p><span class="xref myst">情報圧縮の基礎</span></p></li>
-<li><p><span class="xref myst">ソケット通信</span></p></li>
+<li><p><a class="reference external" href="https://www.rbanno.net/classes/hitu_2024_p2/day07/socket.html">ソケット通信 (by 坂野先生)</a></p></li>
 <li><p><span class="xref myst">簡易ウェブサーバの作成</span></p></li>
 <li><p><span class="xref myst">課題:Webシステムの実装</span></p></li>
 </ol>
@@ -379,37 +389,43 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/crawler.html"><span class="doc">contents/crawler</span></a></p></td>
+<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/compression.html"><span class="doc">contents/compression</span></a></p></td>
+<td><p>2024-05-22 14:16</p></td>
+<td><p>cache</p></td>
+<td><p>9.06</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/crawler.html"><span class="doc">contents/crawler</span></a></p></td>
 <td><p>2024-05-09 01:28</p></td>
 <td><p>cache</p></td>
 <td><p>3.38</p></td>
 <td><p>✅</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/regex.html"><span class="doc">contents/regex</span></a></p></td>
+<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/regex.html"><span class="doc">contents/regex</span></a></p></td>
 <td><p>2024-04-24 08:13</p></td>
 <td><p>cache</p></td>
 <td><p>3.16</p></td>
 <td><p>✅</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/request.html"><span class="doc">contents/request</span></a></p></td>
+<tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/request.html"><span class="doc">contents/request</span></a></p></td>
 <td><p>2024-04-30 06:32</p></td>
 <td><p>cache</p></td>
 <td><p>7.92</p></td>
 <td><p>✅</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/setup-git.html"><span class="doc">contents/setup-git</span></a></p></td>
+<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/setup-git.html"><span class="doc">contents/setup-git</span></a></p></td>
 <td><p>2024-04-10 02:29</p></td>
 <td><p>cache</p></td>
 <td><p>0.93</p></td>
 <td><p>✅</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/setup-python.html"><span class="doc">contents/setup-python</span></a></p></td>
+<tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/setup-python.html"><span class="doc">contents/setup-python</span></a></p></td>
 <td><p>2024-04-10 02:29</p></td>
 <td><p>cache</p></td>
 <td><p>0.8</p></td>
 <td><p>✅</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="xref doc reference internal" href="contents/webpage.html"><span class="doc">contents/webpage</span></a></p></td>
+<tr class="row-even"><td><p><a class="xref doc reference internal" href="contents/webpage.html"><span class="doc">contents/webpage</span></a></p></td>
 <td><p>2024-04-10 05:28</p></td>
 <td><p>cache</p></td>
 <td><p>1.25</p></td>

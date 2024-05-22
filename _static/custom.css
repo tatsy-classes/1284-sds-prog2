@@ -44,3 +44,8 @@ img.with-border {
 .pasted-text {
   font-weight: normal !important;
 }
+
+div.cell_output th,
+div.cell_output td {
+  text-align: left !important;
+}

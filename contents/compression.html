@@ -1,0 +1,1665 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>5. 情報圧縮の基礎 &#8212; プログラミングⅡ</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'contents/compression';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="prev" title="4. 簡易クローラの作成" href="crawler.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">プログラミングⅡ</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    プログラミングⅡ
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">事前準備</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="setup-python.html">1. Python環境の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup-git.html">2. Git環境の設定</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">講義内容</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="webpage.html">1. ウェブページの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regex.html">2. 正規表現の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request.html">3. HTTPリクエスト</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crawler.html">4. 簡易クローラの作成</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.rbanno.net/classes/hitu_2024_p2/day05/encryption-and-ssl.html">暗号化とSSL通信</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. 情報圧縮の基礎</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.rbanno.net/classes/hitu_2024_p2/day07/socket.html">ソケット通信</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/tatsy/1284-sds-programming-2/blob/master/./contents/compression.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>情報圧縮の基礎</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.1. 情報圧縮と情報量</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.1.1. 情報量の定義</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">5.1.2. 平均情報量の計算</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5.2. 様々な符号化</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">5.2.1. ハフマン符号化</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">符号化</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">復号</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lz77">5.2.2. LZ77符号化</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">スライド辞書</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">符号化</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">復号</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">5.3. 画像データの圧縮</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">5.3.1. 入力データ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dct">5.3.2. 離散コサイン変換 (DCT)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">5.3.3. DCT係数の量子化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">5.3.4. DCT係数の並べ替え</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">5.3.5. 直流成分の圧縮</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">5.3.6. 交流成分の圧縮</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">5.3.7. 復号処理</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5.4. 練習問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">5.5. 参考文献</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ssec-dct">5.6. 補足: 離散コサイン変換</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="sec-compression">
+<span id="id1"></span><h1><span class="section-number">5. </span>情報圧縮の基礎<a class="headerlink" href="#sec-compression" title="Permalink to this heading">#</a></h1>
+<p>現代社会において、画像や動画、音楽などのデジタル・メディアに触れずに生活することは当たり前となっている。しかし、例えば、私たちのスマートフォンに画像や音楽のデータを大量に保存できたり、インターネットから高速にこれらのメディアをダウンロードできるのは<strong>情報圧縮</strong>の恩恵が大きい。</p>
+<section id="id2">
+<h2><span class="section-number">5.1. </span>情報圧縮と情報量<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>情報圧縮の仕組みについて理解するには、<strong>情報量</strong>についての理解を深めておく必要がある。情報量とは、情報の量を表すわけだが、同じ128キロバイトのデータが与えられたとして、情報量は同じと言えるのだろうか。</p>
+<p>以下の二つの文字列を見てみよう。</p>
+<p><strong>文字列1</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+</pre></div>
+</div>
+<p><strong>文字列2</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>NJALKJIOEKQOIEJOAIJEAOIJDAOIJDAO
+JOIEAJOIJEAOIJDAOIJHTIUOEIQ73198
+JOAI8939068KJZHOIER0AJEOIQHJ04K9
+LIJAEOI903908OLANIOEA098UALI3470
+7RA98U05ANLEIAJRA04A5HJO945A0944
+0958A4HJ0PTFAIUERA0958A4JHOPA8P4
+5480PSW4LH5S9485W0HJOARHAOLI84A5
+RAJ30985ALTSO9480VJNAS0485WQ0805
+</pre></div>
+</div>
+<p>まず、これらの文字列をテキストファイルに保存して、サイズを確認してみよう。</p>
+<a class="reference internal image-reference" href="../_images/file_size.jpg"><img alt="../_images/file_size.jpg" src="../_images/file_size.jpg" style="width: 50%;" /></a>
+<p>正しく保存できていれば、ファイルサイズは270バイト前後になるはずである。これは、ファイルの各行が16のASCII文字であり各文字が1バイトで表されていること、各行の終わりに改行の記号として<code class="docutils literal notranslate"><span class="pre">\r\n</span></code>の2バイトが含まれていることを考えれば自然だろう。</p>
+<p>では、これら2つのファイルを別々にZIP圧縮してみると、ファイルサイズはどのように変化するだろうか。結果については各自で調べて見てほしいが、文字列1の方が、ファイルサイズが小さくなるはずだ。</p>
+<p>文字列1と文字列2を比較すると、文字列1は全ての文字がAの文字列、文字列1は英数字がおよそランダムにならんだ文字列である。上記のように単にASCII文字列を各1バイトのデータとして扱うことは実は効率が悪く、同じ文字が多く出現する場合には、データサイズを<strong>情報量</strong>の観点から削減することができる。</p>
+<p>情報量について考える時、複数種類の文字を識別するのに必要なビット数について考えてみたい。もしファイル中に文字が1種類しか現れなければ、そもそも識別が必要がないので、<strong>識別に必要な情報は0ビットである</strong>。</p>
+<p>一方で、文字の数が3種類になったときには、単純に考えれば、2ビットのデータが必要だが、この時にデータの表し方を多少工夫することができる。例えば、3種類の文字がA, B, Cであるとき、これらを単純に2ビットのデータで区別しようとするなら、</p>
+<ul class="simple">
+<li><p>A: 00</p></li>
+<li><p>B: 01</p></li>
+<li><p>C: 10</p></li>
+</ul>
+<p>のように表せば良いだろう。しかし、それらの文字の出現率に差があり、Aが50%、Bが25%、Cが25%の確率で出現するとすれば、<strong>Aにより少ないビット</strong>を割り当て、<strong>BとCには2ビット</strong>を割り当てれば、より効率が良い。すなわち、A、B、Cの三文字を、</p>
+<ul class="simple">
+<li><p>A: 0</p></li>
+<li><p>B: 10</p></li>
+<li><p>C: 11</p></li>
+</ul>
+<p>のように表すことにすれば、3つの文字から構成された文字を先頭から読んでいく限りにおいて識別可能であり、Aの出現率がより高いことを加味すると、より少ないビット数でデータが表現できることが分かる。</p>
+<p>例えば、<code class="docutils literal notranslate"><span class="pre">001011101011</span></code>のようなビット列であれば、</p>
+<p><code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">10</span></code>, <code class="docutils literal notranslate"><span class="pre">11</span></code>, <code class="docutils literal notranslate"><span class="pre">10</span></code>, <code class="docutils literal notranslate"><span class="pre">10</span></code>, <code class="docutils literal notranslate"><span class="pre">11</span></code></p>
+<p>のように分解することができて、データが文字列<code class="docutils literal notranslate"><span class="pre">AABCBBC</span></code>に対応することが分かる。</p>
+<section id="id3">
+<h3><span class="section-number">5.1.1. </span>情報量の定義<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>以上の議論から、とあるデータの情報量を考える際 (簡単のために、このデータが文字列のデータだとすると)、情報量と、各文字<span class="math notranslate nohighlight">\(i\)</span>がファイル内にどのくらいの頻度で現れるかを表す確率<span class="math notranslate nohighlight">\(p_i\)</span>とは何らかの関係性を持っていることが分かるだろう。</p>
+<p>上記の説明では、2つの文字を識別するのには1ビットのデータを割り当てる必要があり、<span class="math notranslate nohighlight">\(n\)</span>種類のデータを識別しようと思うと、<span class="math notranslate nohighlight">\(\log_2 n\)</span>ビットが必要になる。しかし、出現確率に偏りがあるのであれば、より多く出現する文字には最小の1ビットを、より少なく出現する文字には、理論的に必要なビット数である<span class="math notranslate nohighlight">\(\log_2 n\)</span>ビットを割り当てれば、全体のデータ量を減らすことができる。</p>
+<p>より抽象的には、出現確率が<span class="math notranslate nohighlight">\(p_i\)</span>であるような文字<span class="math notranslate nohighlight">\(i\)</span>に割りあてるべき情報量 (これを<strong>自己情報量</strong>と呼ぶ)を<span class="math notranslate nohighlight">\(-\log p_i\)</span>で表す。この際、出現頻度が低く、より0に近い<span class="math notranslate nohighlight">\(p_i\)</span>の方が、より多くの自己情報量が必要になっていることに注意してほしい。</p>
+<p>この自己情報量に各文字の出現確率をかければ、その文字がデータ内で占める情報量が計算できる。従って、データ全体の情報量は、</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i} -p_i \log p_i
+\]</div>
+<p>という形で表すことができる。この形で表される各文字の自己情報量の重み付き平均を特に<strong>平均情報量</strong>や<strong>エントロピー</strong>と呼ぶ。</p>
+</section>
+<section id="id4">
+<h3><span class="section-number">5.1.2. </span>平均情報量の計算<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>では、これまでの情報量の定義に基づき、冒頭に示した文字列1と文字列2の情報量を計算してみよう。</p>
+<p>まずは、各文字列について、文字列中の各文字の出現回数を、ヒストグラムとして表してみる。ヒストグラムの計算には辞書型の変数を使うと便利だろう。ヒストグラムを計算してMatplotlibを用いてグラフ化したものが以下である。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/7d7cd7d52b4c78237a4f13e9edd7d51821111071da252dd7e20de924b3fe3f58.png" src="../_images/7d7cd7d52b4c78237a4f13e9edd7d51821111071da252dd7e20de924b3fe3f58.png" />
+</div>
+</div>
+<p>このヒストグラムの情報を用いて、各文字列の平均情報量を計算すると、文字列1の情報量は<span class="pasted-text">0.000</span>、文字列2の情報量は<span class="pasted-text">2.977</span>となり、情報量の観点からも文字列2の方がより複雑なデータであることが確認できる。</p>
+<p>情報圧縮は、与えられたデータに対して、情報量に比例するような形でより少ないデータサイズに圧縮することを目的とすることが多い。情報を圧縮する際には、各データ単位 (これまでの例では文字)をどのような表現 (= 符号)で表すかが重要となる。</p>
+<p>以下に、圧縮に用いられる符号化手法をいくつか示すが、ハフマン符号や算術符号は上記の平均情報量に近い形でデータ圧縮することを目指しており、<strong>エントロピー符号</strong>と呼ばれる (平均情報量をエントロピーとも呼ぶため)。</p>
+<div class="note admonition">
+<p class="admonition-title">情報圧縮と情報量</p>
+<ul class="simple">
+<li><p>情報圧縮は、データの情報量に基づいて、より小さいサイズでデータを表す技術</p></li>
+<li><p>情報量(平均情報量)は、各データ単位 (文字など)の出現確率から定まる自己情報量を出現確率で重み付き平均したものである</p></li>
+<li><p>平均情報量に比例するような形でのデータ圧縮を目指すデータの表現法(=符号化)をエントロピー符号化と呼ぶ</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="id5">
+<h2><span class="section-number">5.2. </span>様々な符号化<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<p>データ圧縮に用いられる符号化アルゴリズムには、非常に多くの種類があり、前述のエントロピー符号化以外にも、辞書式符号化と呼ばれる方法が広く用いられている。</p>
+<p>ここでは代表的な符号化アルゴリズムとして、エントロピー符号化の一種である<strong>ハフマン符号化</strong>と、辞書式符号化の一種である<strong>LZ77符号化</strong>を紹介する。</p>
+<section id="id6">
+<h3><span class="section-number">5.2.1. </span>ハフマン符号化<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>ハフマン符号化は、文字の頻度の大小に基づいて、各文字に割り当てるビット数を決定する。ハフマン符号化は、前述の通り、エントロピー符号化の一種であり、<strong>より頻繁に現れる文字には少ないビット</strong>を、<strong>あまり現れない文字には多くのビット</strong>を割り当てることで符号化する。</p>
+<p>以下では、文字列<code class="docutils literal notranslate"><span class="pre">mississippi</span></code>を例にとって、ハフマン符号化のアルゴリズムを説明していく。</p>
+<section id="id7">
+<h4>符号化<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<p>まず、各文字の出現頻度を調べる。出現頻度が高い順に文字をソートすると以下の表のようになる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 入力文字列</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;mississippi&quot;</span>
+
+<span class="c1"># 出現頻度を調べる</span>
+<span class="n">count</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">text</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+    <span class="n">count</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="n">count</span> <span class="o">=</span> <span class="p">[(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">count</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+<span class="n">count</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>文字</th>
+      <th>出現頻度</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>i</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>p</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>m</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>ハフマン符号化では、各文字に割り当てられたビットが区別できるよう、出現頻度が多い順に、<code class="docutils literal notranslate"><span class="pre">0</span></code>、<code class="docutils literal notranslate"><span class="pre">10</span></code>、<code class="docutils literal notranslate"><span class="pre">110</span></code>、...のように1が先頭に数個並び、最後に0が現れるようなビット列で書く文字を符号化する。</p>
+<p>より具体的には、頻度が<span class="math notranslate nohighlight">\(k\)</span>番目 (<span class="math notranslate nohighlight">\(k = 0, 1, 2, \ldots\)</span>)に多い文字は、<span class="math notranslate nohighlight">\(k\)</span>個の1の後に<span class="math notranslate nohighlight">\(0\)</span>が付与されたようなビット列で符号化される。</p>
+<p>一番出現頻度が低い文字だけは例外で、全てのビットが1のビット列で符号化される。文字列に<span class="math notranslate nohighlight">\(n\)</span>種類の文字が現れる場合には、出現頻度が最も低い (つまり出現頻度が<span class="math notranslate nohighlight">\(k = n - 1\)</span>番目)の文字には<span class="math notranslate nohighlight">\(n - 1\)</span>個の1が並んだようなビット列が付与される。</p>
+<p>このルールに従って、各文字にビットを割り当てた結果が以下である。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ビット列の割り当て</span>
+<span class="n">bits</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">bits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;1&quot;</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+<span class="n">bits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;1&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>文字</th>
+      <th>出現頻度</th>
+      <th>ビット列</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>i</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s</td>
+      <td>4</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>p</td>
+      <td>2</td>
+      <td>110</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>m</td>
+      <td>1</td>
+      <td>111</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 復号に必要なヘッダ情報</span>
+<span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">b</span> <span class="k">for</span> <span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">_</span><span class="p">),</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">bits</span><span class="p">)}</span>
+
+<span class="c1"># 符号化後のビット列</span>
+<span class="n">body</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">header</span><span class="p">:</span>
+        <span class="n">body</span> <span class="o">+=</span> <span class="n">header</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>これらの結果を用いて、元の文字列<code class="docutils literal notranslate"><span class="pre">missisippi</span></code>を符号化すると、</p>
+<p><span class="pasted-text">111010100101001101100</span></p>
+<p>という21ビットのビット列が得られる。</p>
+<p>元の文字列を復号するためには、各文字がどのビット列に対応するかを表すヘッダ情報と、符号化後のビット列が必要になる。今回の例では、ヘッダ情報が、8ビットの文字4種類につき、1ビット、2ビット、3ビット、3ビットが割り当てられているので、合計41ビット必要で、上記の符号化後の文字列と合わせると、62ビットのデータになる。</p>
+<p>元の文字列は10文字で各文字が8ビットの合計80ビットであったから、ハフマン符号化によりデータ量が削減できていることが分かる。</p>
+</section>
+<section id="id8">
+<h4>復号<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
+<p>符号化された文字列を復号するには、各文字のハフマン符号をビット数が未復号の文字の先頭に現れるかどうかを<strong>ビット数が少ない順</strong> (= 出現頻度が高い順)に調べていけば良い。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 復号処理</span>
+<span class="n">dec</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">body</span><span class="p">):</span>
+    <span class="c1"># 未復号文字列の先頭と一致する符号を探す</span>
+    <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">header</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">body</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+            <span class="c1"># 一致する符号が見つかったら、その文字を復号文字列に追加</span>
+            <span class="n">dec</span> <span class="o">+=</span> <span class="n">c</span>
+            <span class="c1"># 未復号文字をビット数分進める</span>
+            <span class="n">pos</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+            <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>以上、ハフマン符号化は符号化、復号ともに非常にシンプルなアルゴリズムでありながら、高い圧縮性能を持つ圧縮アルゴリズムであることが確認できた。</p>
+<div class="note admonition">
+<p class="admonition-title">ハフマン符号化</p>
+<ul class="simple">
+<li><p>ハフマン符号化はエントロピー符号化の一種である</p></li>
+<li><p>出現率の高い文字により少ないビットを割り当てることで高い圧縮率を実現する符号化方式である</p></li>
+<li><p>符号化後のデータは出現する文字と対応するビットを含むヘッダ情報と文字列をそのビットで圧縮したボディ情報から成る</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="lz77">
+<h3><span class="section-number">5.2.2. </span>LZ77符号化<a class="headerlink" href="#lz77" title="Permalink to this heading">#</a></h3>
+<p><strong>LZ77符号</strong>はJacob Ziv氏とAbraham Lempel氏によって1977年に発表された符号化手法で、長い歴史を持ちながらもZIPやLZHといった多くの圧縮方式に採用されている符号化手法である。</p>
+<p>LZ77符号の優れた点は<strong>スライド辞書</strong>と呼ばれる一時的な辞書を用いることで、<strong>符号化後のデータに辞書データを保持しなくて良い</strong>点にある。この考え方を<code class="docutils literal notranslate"><span class="pre">missisippi</span></code>という文字列を圧縮する場合を例にとって説明する。</p>
+<section id="id9">
+<h4>スライド辞書<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
+<p>スライド辞書は入力の文字列を特定の長さの部分文字列で切り出す窓のことで、LZ77符号化では、この窓を文字列の先頭から走査しながら圧縮処理を行なう。</p>
+<p>スライド辞書は最初、空の配列として初期化され、入力文字列の先頭から順に追加されていく。もし辞書内の文字が所定の窓サイズを超えた場合には、キューの要領で、辞書の先頭の文字が取り除かれる。</p>
+<p>入力の文字列が<code class="docutils literal notranslate"><span class="pre">missisippi</span></code>で、スライド辞書のサイズが4の時、1文字分ずつ窓がスライドするとすると、次のように辞書内の文字列が変化する。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<p><code class="docutils literal notranslate"><span class="pre">[]</span></code> → <code class="docutils literal notranslate"><span class="pre">['m']</span></code> → <code class="docutils literal notranslate"><span class="pre">['m',</span> <span class="pre">'i']</span></code> → <code class="docutils literal notranslate"><span class="pre">['m',</span> <span class="pre">'i',</span> <span class="pre">'s']</span></code> → <code class="docutils literal notranslate"><span class="pre">['m',</span> <span class="pre">'i',</span> <span class="pre">'s',</span> <span class="pre">'s']</span></code> → <code class="docutils literal notranslate"><span class="pre">['i',</span> <span class="pre">'s',</span> <span class="pre">'s',</span> <span class="pre">'i']</span></code> → <code class="docutils literal notranslate"><span class="pre">['s',</span> <span class="pre">'s',</span> <span class="pre">'i',</span> <span class="pre">'s']</span></code> → <code class="docutils literal notranslate"><span class="pre">['s',</span> <span class="pre">'i',</span> <span class="pre">'s',</span> <span class="pre">'s']</span></code> → <code class="docutils literal notranslate"><span class="pre">['i',</span> <span class="pre">'s',</span> <span class="pre">'s',</span> <span class="pre">'i']</span></code> → <code class="docutils literal notranslate"><span class="pre">['s',</span> <span class="pre">'s',</span> <span class="pre">'i',</span> <span class="pre">'p']</span></code> → <code class="docutils literal notranslate"><span class="pre">['s',</span> <span class="pre">'i',</span> <span class="pre">'p',</span> <span class="pre">'p']</span></code> → <code class="docutils literal notranslate"><span class="pre">['i',</span> <span class="pre">'p',</span> <span class="pre">'p',</span> <span class="pre">'i']</span></code></p>
+</div>
+</div>
+<p>LZ77符号化においては、このスライド辞書の情報を元にして、未圧縮の文字列を符号化する。</p>
+</section>
+<section id="id10">
+<h4>符号化<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h4>
+<p>LZ77符号を用いた符号化では、未圧縮の文字の先頭に現れる文字列が、スライド辞書内の文字列と一致するかどうかを調べる。</p>
+<p>例えば、入力文字列<code class="docutils literal notranslate"><span class="pre">missisippi</span></code>の4文字目まで圧縮が済んでいる場合を考えてみよう。この時、残っている文字列は<code class="docutils literal notranslate"><span class="pre">issippi</span></code>であり、スライド窓には<code class="docutils literal notranslate"><span class="pre">miss</span></code>の4文字が格納されている。</p>
+<p>この場合、<code class="docutils literal notranslate"><span class="pre">miss</span></code>内で、文字列<code class="docutils literal notranslate"><span class="pre">issippi</span></code>と一致する最大文字列は<code class="docutils literal notranslate"><span class="pre">iss</span></code>であり、スライド窓内の1文字目から3文字分一致する。このような一致情報を<code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">3)</span></code>のように、<strong>一致開始位置</strong>と<strong>一致する長さ</strong>の数字の組で表す。</p>
+<p>LZ77符号化では、さらに、未圧縮文字とスライド辞書をマッチングしたときに、最初に<strong>マッチしなかった</strong>文字を、上記の一致開始位置、一致する長さ、とともに出力する。従って、<code class="docutils literal notranslate"><span class="pre">missisippi</span></code>の5文字目の<code class="docutils literal notranslate"><span class="pre">i</span></code>は<code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">3,</span> <span class="pre">&quot;i&quot;)</span></code>のような情報として符号化される。</p>
+<p>また、複数の文字がマッチした場合には、スライド辞書がマッチした文字数分スライドすることに注意してほしい。</p>
+<p>この処理を、文字列<code class="docutils literal notranslate"><span class="pre">missisippi</span></code>の先頭から順に実施すると、各文字は以下のように符号化される。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;mississippi&quot;</span>
+
+<span class="n">slide</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">body</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">history</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">while</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="c1"># スライド窓の文字列を検索</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">n_max</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">slide</span><span class="p">)):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">slide</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">slide</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">slide</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">text</span><span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="n">j</span><span class="p">]:</span>
+                    <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">continue</span>
+            <span class="k">break</span>
+
+        <span class="k">if</span> <span class="n">n_max</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="n">n_max</span> <span class="o">=</span> <span class="n">n</span>
+
+    <span class="c1"># 文字列が見つからなければ、その文字を出力</span>
+    <span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">start</span><span class="p">,</span> <span class="n">n_max</span><span class="p">,</span> <span class="n">text</span><span class="p">[</span><span class="n">pos</span><span class="p">]))</span>
+    <span class="n">history</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">text</span><span class="p">[</span><span class="n">pos</span><span class="p">:],</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">slide</span><span class="p">),</span> <span class="n">body</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+
+    <span class="c1"># 探索位置の更新</span>
+    <span class="n">pos</span> <span class="o">+=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_max</span><span class="p">)</span>
+    <span class="n">slide</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">size</span><span class="p">):</span><span class="n">pos</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>未圧縮文字列</th>
+      <th>スライド辞書</th>
+      <th>出力</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>mississippi</td>
+      <td></td>
+      <td>(0, 0, m)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ississippi</td>
+      <td>m</td>
+      <td>(0, 0, i)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ssissippi</td>
+      <td>mi</td>
+      <td>(0, 0, s)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>sissippi</td>
+      <td>mis</td>
+      <td>(2, 1, s)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>issippi</td>
+      <td>miss</td>
+      <td>(1, 3, i)</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>ippi</td>
+      <td>siss</td>
+      <td>(1, 1, i)</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>ppi</td>
+      <td>issi</td>
+      <td>(0, 0, p)</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>pi</td>
+      <td>ssip</td>
+      <td>(3, 1, p)</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>i</td>
+      <td>sipp</td>
+      <td>(1, 1, i)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>最後に出力のデータをビットに変換する。この例では、スライド辞書のサイズが4であるので、開始位置と一致文字長が2ビット、次の不一致文字が8ビットで表せる。これらを踏まえると最終的に得られるビット列は以下のように計算できる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bits</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">body</span><span class="p">:</span>
+    <span class="n">bits</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">start</span><span class="si">:</span><span class="s2">02b</span><span class="si">}{</span><span class="n">n</span><span class="si">:</span><span class="s2">02b</span><span class="si">}{</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;符号化後のビット長: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">bits</span><span class="p">)</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ビット列:&quot;</span><span class="p">,</span> <span class="n">bits</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>符号化後のビット長: 108
+ビット列: 010001101101010001101001010001110011010101110011011101101001010101101001010001110000010101110000010101101001
+</pre></div>
+</div>
+</div>
+</div>
+<p>今回の例では、元の文字列のサイズが80ビット、圧縮後のデータサイズが108ビットとなり、符号化によりデータサイズは減らすことはできなかった。しかし、同様の処理をより長い文章に対して、大きなサイズのスライド辞書を用いて実行できれば、より良い圧縮率を得ることができるだろう。</p>
+</section>
+<section id="id11">
+<h4>復号<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h4>
+<p>この圧縮の結果として得られるデータは、表の<strong>出力</strong>の列を配列にしたデータである。この際、<strong>出力の情報から、スライド辞書に含まれる情報が完全に復元可能</strong>である、というのがLZ77符号化の優れた点である。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dec</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">slide</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">size</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">while</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">bits</span><span class="p">):</span>
+    <span class="c1"># スライド辞書の開始位置、一致文字長、不一致文字を取り出す</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bits</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">+=</span> <span class="mi">2</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bits</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">+=</span> <span class="mi">2</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bits</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">8</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">pos</span> <span class="o">+=</span> <span class="mi">8</span>
+
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># 一致文字長が0の時は、不一致文字を追加</span>
+        <span class="n">dec</span> <span class="o">+=</span> <span class="n">c</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># 一致文字長が0より大きい時は、スライド辞書から文字列を取り出す</span>
+        <span class="n">dec</span> <span class="o">+=</span> <span class="n">slide</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">start</span> <span class="o">+</span> <span class="n">n</span><span class="p">]</span>
+
+    <span class="c1"># スライド辞書の更新</span>
+    <span class="n">slide</span> <span class="o">=</span> <span class="n">dec</span><span class="p">[</span><span class="o">-</span><span class="n">size</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>このように、LZ77は、スライド辞書により、圧縮データに明示的に辞書を含めなくて良く、その分、効率的なデータ圧縮が期待できる。</p>
+<p>また、LZ77にはLZ78やLZSSといった亜種が複数存在し、ZIP圧縮にも用いられるDeflateというアルゴリズムはLZSSとハフマン符号化を組み合わせた圧縮アルゴリズムである。</p>
+<div class="note admonition">
+<p class="admonition-title">LZ77符号化</p>
+<ul class="simple">
+<li><p>LZ77はスライド辞書と呼ばれる一時辞書によって、辞書を圧縮データに含めなくても済むように工夫している</p></li>
+<li><p>符号化処理では、未圧縮文字列の先頭に現れる文字パターンがスライド辞書内に存在するか否かを調べる</p></li>
+<li><p>LZ78やLZSS等の亜種が存在し、ZIPファイル形式の他、画像の圧縮 (後述するPNG形式)にも用いられている</p></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+<section id="id12">
+<h2><span class="section-number">5.3. </span>画像データの圧縮<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<p>それでは、ここまでに学んだ内容を応用して、画像データの圧縮について考えてみる。</p>
+<p>画像データにはJPEG (Joint Photographic Experts Group)方式やPNG (Portable Network Graphics)方式など、非常に多くの圧縮方式がある。これらの方式が大きく<strong>可逆圧縮</strong>と<strong>不可逆圧縮</strong>に分けることができる。</p>
+<p>可逆圧縮は、圧縮前のデータを完全に復元できる圧縮形式である。一方、不可逆圧縮は、圧縮前のデータを近似的には再現できるものの、完全には再現できない圧縮方式を指す。その代わり、不可逆圧縮は可逆圧縮に比べて大きくデータサイズを減らすことができるという利点もある。</p>
+<p>前述の方式の中ではJPEG方式は不可逆圧縮、PNG方式は可逆圧縮である。以下では写真を始めとする画像データの圧縮に広く用いられるJPEG方式の圧縮アルゴリズムについて紹介する。</p>
+<p>なお、PNG方式の画像圧縮には前述のLZ77の亜種であるLZSSとハフマン符号化を組み合わせたDeflateというアルゴリズムが使われている。</p>
+<section id="id13">
+<h3><span class="section-number">5.3.1. </span>入力データ<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
+<p>今回はJPEG方式の概要だけをつかむため、以下の512×512画素のグレースケール画像の圧縮に取り組む。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/9b1c0736509505e95aaa78a7ad1408c183da9a1f705213319b62802a16307c76.png" src="../_images/9b1c0736509505e95aaa78a7ad1408c183da9a1f705213319b62802a16307c76.png" />
+</div>
+</div>
+<p>各自、上記の画像をダウンロードし、<code class="docutils literal notranslate"><span class="pre">camera.png</span></code>のような名前をつけて保存しておこう。なお、この画像はPNG方式という方式で圧縮されているが、前述の通り、JPEG方式により圧縮率の向上が見込まれる。</p>
+<p>画像の読み込みには、軽量な画像処理のためのライブラリである<strong>Pillow</strong>を用い、後の処理がやりやすいようにNumPyの配列に変換しておく。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;camera.png&quot;</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="dct">
+<h3><span class="section-number">5.3.2. </span>離散コサイン変換 (DCT)<a class="headerlink" href="#dct" title="Permalink to this heading">#</a></h3>
+<p>JPEG方式の画像圧縮の重要なアイディアに<strong>離散コサイン変換</strong> (DCT, discrete cosine transform)がある。以下では、離散コサイン変換が、余弦関数の足し合わせにより離散信号を表すものだという理解にとどめて、JPEG方式でのDCTの利用法について説明する。</p>
+<p>DCTについて、より詳しく知りたい読者は、本項末の<a class="reference internal" href="#ssec-dct"><span class="std std-ref">補足: 離散コサイン変換</span></a>を参照のこと。</p>
+<p>JPEG方式の画像圧縮では、画像を8x8の画像断片に分割して、その断片ごとに二次元のコサイン変換を施す。視覚的には、以下の64種類の二次元信号の足し合わせにより、断片内の画像信号を表す。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/5f1499da3c99b7a6783392da79764fdd2ebbe2368dcb14aff588bc550ba761bd.png" src="../_images/5f1499da3c99b7a6783392da79764fdd2ebbe2368dcb14aff588bc550ba761bd.png" />
+</div>
+</div>
+<p>この二次元コサイン変換を各8x8の画像断片に適用するために、画像を断片に分割する。NumPyの配列には、多次元配列の形を変形する<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.reshape.html">reshape</a>と、次元の順序を入れ替える<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.transpose.html">transpose</a>が用意されているのでこれらを用いる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 画像サイズの取得</span>
+<span class="n">H</span><span class="p">,</span> <span class="n">W</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">patches</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">H</span> <span class="o">//</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">W</span> <span class="o">//</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">patches</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+
+<span class="c1"># 変換前後のサイズを確認</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="p">(</span><span class="n">H</span><span class="p">,</span><span class="w"> </span><span class="n">W</span><span class="p">)</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="n">patches</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(512, 512) → (4096, 8, 8)
+</pre></div>
+</div>
+</div>
+</div>
+<p>画像を断片に分割できたら、SciPyに用意されている<code class="docutils literal notranslate"><span class="pre">dct</span></code>関数を用いて、それぞれの断片をコサイン関数の係数に変換する。この際、8x8の部分をDCTするために<code class="docutils literal notranslate"><span class="pre">axes=(1,</span> <span class="pre">2)</span></code>を、離散コサイン変換と、その逆変換について、同様の正規化を行なうために<code class="docutils literal notranslate"><span class="pre">norm=&quot;ortho&quot;</span></code>を指定すること (詳細は<a class="reference internal" href="#ssec-dct"><span class="std std-ref">補足: 離散コサイン変換</span></a>を参照)。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+
+<span class="n">dct</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">fftpack</span><span class="o">.</span><span class="n">dctn</span><span class="p">(</span><span class="n">patches</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;ortho&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>以上で、画像断片のコサイン変換が完了した。各8x8のDCT係数には実数値が格納されているので、以下では、これらの係数の大きさがどうなっているかを元の画像上に再配置して可視化してみる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># DCT係数を元の画像上に配置</span>
+<span class="n">coeff</span> <span class="o">=</span> <span class="n">dct</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">H</span> <span class="o">//</span> <span class="mi">8</span><span class="p">,</span> <span class="n">W</span> <span class="o">//</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+
+<span class="c1"># 係数の表示</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">coeff</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">50</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/8a99f4592689e959b4beafa2e5130a2e0a981ce9ff2f55e57121e6575f72d2f9.png" src="../_images/8a99f4592689e959b4beafa2e5130a2e0a981ce9ff2f55e57121e6575f72d2f9.png" />
+</div>
+</div>
+<p>このままだと、係数の配置がやや分かりづらいので、左上の5x5ブロックだけを表示してみる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 係数の表示</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">coeff</span><span class="p">[:</span><span class="mi">40</span><span class="p">,</span> <span class="p">:</span><span class="mi">40</span><span class="p">]),</span>
+          <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
+          <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+          <span class="n">vmin</span><span class="o">=-</span><span class="mi">50</span><span class="p">,</span>
+          <span class="n">vmax</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/45f41a3c59991bce0f493ed45ef29efa031c304dc4cd5588e35df58003075262.png" src="../_images/45f41a3c59991bce0f493ed45ef29efa031c304dc4cd5588e35df58003075262.png" />
+</div>
+</div>
+<p>この可視化結果を確認してみると、各8x8のDCT係数について、最も左上の<span class="math notranslate nohighlight">\((0, 0)\)</span>に現れる係数だけが大きな値を取っており、それ以外の係数はほとんど0 (=灰色)であることが確認できる。</p>
+</section>
+<section id="id14">
+<h3><span class="section-number">5.3.3. </span>DCT係数の量子化<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<p>各8x8のブロックに含まれるDCT係数はその位置によって異なる意味合いを持つ。</p>
+<p>最も左上に現れる係数は画像断片内の画素値の平均に対応する成分で、画像を表す上でとても重要な値である。その一方、人間は視覚的に高周波数の信号を知覚しづらいことが知られており、8x8のブロックの右下の方に現れる係数は視覚的に見てそれほど重要ではない。</p>
+<p>そこで、各8x8ブロックに現れる実数のDCTブロックを、異なる幅で量子化する。この際、左上に近い位置に現れる係数には小さな量子化定数を、右下に近い位置に現れる係数には大きな量子化定数を割り当てる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 量子化テーブル</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">61</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">55</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">56</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">62</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">77</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">24</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">113</span><span class="p">,</span> <span class="mi">92</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">49</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">101</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">99</span><span class="p">],</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 量子化されたDCT係数</span>
+<span class="n">qdct</span> <span class="o">=</span> <span class="p">(</span><span class="n">dct</span> <span class="o">/</span> <span class="n">table</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id15">
+<h3><span class="section-number">5.3.4. </span>DCT係数の並べ替え<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
+<p>DCT係数の量子化と同じ理屈で、8x8のDCT係数は左上に近い方が重要で、右下に行けば行くほど重要度がが下がる。その分、量子化の幅も大きくなるので、右下に行けば行くほど0に近い係数が多くなることが予想される。</p>
+<p>そこで、8x8のDCT係数を<strong>ジグザグ・スキャン</strong>と呼ばれる順序で並べ替える。名前の通り、左上の角にある係数から右下の角にある係数までをジグザグの経路で並べ替えるもので、以下のテーブルに示す順序で係数が並べ替えられる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ジグザグ・スキャンのテーブル</span>
+<span class="n">zigzag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">28</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">42</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">43</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">53</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">54</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">21</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">61</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">35</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">63</span><span class="p">],</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ジグザグ・スキャンによる係数の並び替え</span>
+<span class="n">qdct</span> <span class="o">=</span> <span class="n">qdct</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">qdct</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qdct</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">ordered</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">qdct</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">):</span>
+    <span class="n">ordered</span><span class="p">[:,</span> <span class="n">zigzag</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">qdct</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(4096, 64)
+</pre></div>
+</div>
+</div>
+</div>
+<p>並べ替えが済んだら、左上の係数に対応する直流成分 (DC, direct current)と、それ以外の係数に対応する交流成分 (AC, alternate current)に係数を分割しておく。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dc</span> <span class="o">=</span> <span class="n">ordered</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">ac</span> <span class="o">=</span> <span class="n">ordered</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ここで注目すべきは、直流成分の多くが非ゼロの値を取るのに対して、交流成分はほとんどの値が0である、という点である。この点に着目して、直流成分と交流成分の情報をさらに圧縮していく。</p>
+</section>
+<section id="id16">
+<h3><span class="section-number">5.3.5. </span>直流成分の圧縮<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
+<p>JPEG方式において、直流成分と交流成分を圧縮する際には、どちらもハフマン符号化が用いられる。</p>
+<p>このハフマン符号化では、16ビット符号付き整数である-32767から32767の整数を<strong>グループ番号</strong>と<strong>付加ビット</strong>の2つの整数の組で表す。</p>
+<p>各数字を符号化するのに用いるグループ番号と付加ビット数 (付加ビットそれ自体ではないので注意)は以下のようになっている。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>範囲</th>
+      <th>グループ番号</th>
+      <th>付加ビット数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-1, 1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-3, -2, 2, 3</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-7, ..., -4, 4, ..., 7</td>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-15, ..., -8, 8, ..., 15</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>-31, ..., -16, 16, ..., 31</td>
+      <td>5</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>-63, ..., -32, 32, ..., 63</td>
+      <td>6</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>-127, ..., -64, 64, ..., 127</td>
+      <td>7</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>-255, ..., -128, 128, ..., 255</td>
+      <td>8</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>-511, ..., -256, 256, ..., 511</td>
+      <td>9</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>-1023, ..., -512, 512, ..., 1023</td>
+      <td>10</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>-2047, ..., -1024, 1024, ..., 2047</td>
+      <td>11</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>-4095, ..., -2048, 2048, ..., 4095</td>
+      <td>12</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>-8191, ..., -4096, 4096, ..., 8191</td>
+      <td>13</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>-16383, ..., -8192, 8192, ..., 16383</td>
+      <td>14</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>-32767, ..., -16384, 16384, ..., 32767</td>
+      <td>15</td>
+      <td>15</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>この時、各グループに属する整数の数が付加ビットで表せる数字の数と同じになっている点に注目してほしい。</p>
+<p>例えば、グループ番号が4のグループは範囲が-15, ..., -8, 8, ..., 15となっており、合計16種類の数が含まれる。16種類の整数を表すには、4ビットあれば良く、この範囲内の数字が付加ビットによりエンコードされる。</p>
+<p>すなわち、12という数字を符号化する場合、グループ番号は4 (2進数で<code class="docutils literal notranslate"><span class="pre">0100</span></code>)であり、グループ内では11番目の数字なので2進数で<code class="docutils literal notranslate"><span class="pre">1011</span></code>と表せる。従って、12は<code class="docutils literal notranslate"><span class="pre">01001011</span></code>と符号化される。</p>
+<p>上記のハフマンテーブルでは、0に近い値の方がより少ないビットで符号化されるので、符号化されす整数列も0を多く含んでいる方が良い。直流成分は、隣り合うブロックの平均輝度が連続して並んでいるので、隣同士の成分の値の差が0に近い値であると期待できる。そこで、符号化前に、直流成分を先頭の係数と、隣り合う係数の差の情報に変換する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dc_0</span> <span class="o">=</span> <span class="n">dc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 最初の係数</span>
+<span class="n">dc_diff</span> <span class="o">=</span> <span class="n">dc</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">dc</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># 係数の差分</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>係数の差分が得られたら、そのそれぞれをハフマンテーブルに基づき、グループ番号と付加ビットで符号化する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dc_bits</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">dc_diff</span><span class="p">:</span>
+    <span class="c1"># グループ番号の計算</span>
+    <span class="n">group_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">group_id</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">m</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+
+    <span class="c1"># グループ内で何番目か？</span>
+    <span class="k">if</span> <span class="n">group_id</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="mh">0x01</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">group_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="mh">0x01</span> <span class="o">&lt;&lt;</span> <span class="n">group_id</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="n">n</span>
+
+    <span class="c1"># 付加ビットの計算</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;0</span><span class="si">{</span><span class="n">group_id</span><span class="si">}</span><span class="s2">b&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 符号化結果</span>
+    <span class="n">group_bit</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">group_id</span><span class="p">,</span> <span class="s2">&quot;04b&quot;</span><span class="p">)</span>
+
+    <span class="c1"># ビット列の結合</span>
+    <span class="n">dc_bits</span> <span class="o">+=</span> <span class="n">group_bit</span> <span class="o">+</span> <span class="n">code</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id17">
+<h3><span class="section-number">5.3.6. </span>交流成分の圧縮<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
+<p>交流成分は直流成分と異なり、既に多くの値が0に近い値を取っていると考えられる。</p>
+<p>この際、単に0に近いだけでなく、実際に0であるというのが重要で、交流成分の中身は0が連続する領域が非常に多く存在する。</p>
+<p>そこで、0が連続する領域を<strong>ランレングス符号化</strong>により符号化する。ランレングス符号化は連続で現れる同一の記号を <strong>(記号、連続する長さ)</strong> という形式で表す符号化手法である。</p>
+<p>JPEG方式では、0でない交流成分を <strong>(その前に続く0の数、非ゼロ交流成分のハフマン符号)</strong> という形で符号化する。</p>
+<p>例えば、<code class="docutils literal notranslate"><span class="pre">1,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">-2,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">5</span></code> のような整数列が与えられた時、まず0の成分がランレングス符号化により圧縮され、<code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">1),</span> <span class="pre">(3,</span> <span class="pre">-2),</span> <span class="pre">(4,</span> <span class="pre">5)</span></code>のような形で表される。</p>
+<p>あとは、0でない整数である<code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">-2</span></code>, <code class="docutils literal notranslate"><span class="pre">5</span></code>のそれぞれが前述のハフマンテーブルに従い、グループ番号と付加ビットにより符号化される。</p>
+<p>なお、実際のJPEG方式では、0が15個以上連続して現れる場合に<code class="docutils literal notranslate"><span class="pre">ZRL</span> <span class="pre">=</span> <span class="pre">0xF</span></code>という特殊ビットを用いて表し、15の剰余の部分だけを上記の方法で符号化する。</p>
+<p>例えば、0が32個続いた後に、<code class="docutils literal notranslate"><span class="pre">5</span></code>が現れる場合、<code class="docutils literal notranslate"><span class="pre">ZRL</span></code>, <code class="docutils literal notranslate"><span class="pre">ZRL</span></code>, <code class="docutils literal notranslate"><span class="pre">(2,</span> <span class="pre">5のハフマン符号)</span></code>と言う形で表す。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ac_data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">n_zero</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ac</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">n_zero</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ac_data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">n_zero</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+        <span class="n">pre_non_zero</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="n">n_zero</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># 最後は0の数を1つ減らして0を追加</span>
+<span class="n">ac_data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">n_zero</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ac_bits</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="k">for</span> <span class="n">n_zero</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ac_data</span><span class="p">:</span>
+    <span class="k">while</span> <span class="n">n_zero</span> <span class="o">&gt;=</span> <span class="mi">15</span><span class="p">:</span>
+        <span class="n">ac_bits</span> <span class="o">+=</span> <span class="s2">&quot;1111&quot;</span>
+        <span class="n">n_zero</span> <span class="o">-=</span> <span class="mi">15</span>
+
+    <span class="n">nz_bit</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">n_zero</span><span class="p">,</span> <span class="s2">&quot;04b&quot;</span><span class="p">)</span>
+
+    <span class="c1"># グループ番号の計算</span>
+    <span class="n">group_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">group_id</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">m</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+
+    <span class="c1"># グループ内で何番目か？</span>
+    <span class="k">if</span> <span class="n">group_id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="mh">0x01</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">group_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="mh">0x01</span> <span class="o">&lt;&lt;</span> <span class="n">group_id</span>
+
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="n">n</span>
+
+    <span class="c1"># 付加ビットの計算</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;0</span><span class="si">{</span><span class="n">group_id</span><span class="si">}</span><span class="s2">b&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 符号化結果</span>
+    <span class="n">group_bit</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">group_id</span><span class="p">,</span> <span class="s2">&quot;04b&quot;</span><span class="p">)</span>
+
+    <span class="c1"># ビット列の結合</span>
+    <span class="n">ac_bits</span> <span class="o">+=</span> <span class="n">nz_bit</span> <span class="o">+</span> <span class="n">group_bit</span> <span class="o">+</span> <span class="n">code</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>このようにして得られた直流成分と交流成分のビットを合わせたものがJPEG方式の符号化結果となる。ビット数は22万ビット = 3KBほどになる。</p>
+<p>今回用いた画像はグレースケール画像であり、通常1画素が1バイトで表されるので、非圧縮の状態では512x512 = 260KBほどのデータがある。この点を考慮すると、3KBというデータがいかに少ないデータかが分かるだろう。</p>
+</section>
+<section id="id18">
+<h3><span class="section-number">5.3.7. </span>復号処理<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h3>
+<p>では、ここまでで得られた直流成分・交流成分のデータを復号し、元の画像が再現できるかを確かめてみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 直流成分の復元</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">dc_dec</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">while</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">dc_bits</span><span class="p">):</span>
+    <span class="c1"># グループ番号を取得</span>
+    <span class="n">group_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dc_bits</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">4</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">+=</span> <span class="mi">4</span>
+
+    <span class="c1"># group_id分の付加ビットを取得</span>
+    <span class="k">if</span> <span class="n">group_id</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dc_bits</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">pos</span> <span class="o">+</span> <span class="n">group_id</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">pos</span> <span class="o">+=</span> <span class="n">group_id</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># 元の整数を復元</span>
+    <span class="k">if</span> <span class="n">group_id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">dc_dec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="mh">0x01</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">group_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="mh">0x01</span> <span class="o">&lt;&lt;</span> <span class="n">group_id</span>
+        <span class="k">if</span> <span class="n">code</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">:</span>
+            <span class="n">dc_dec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">code</span> <span class="o">-</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dc_dec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+
+<span class="c1"># dc0の成分を反映して直流成分を復元</span>
+<span class="n">dc_dec</span> <span class="o">=</span> <span class="n">dc_0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dc_dec</span><span class="p">)</span>
+
+<span class="c1"># 元のデータと同じかをチェック</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">dc_dec</span> <span class="o">==</span> <span class="n">dc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 交流成分を復元</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">ac_dec</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">while</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">ac_bits</span><span class="p">):</span>
+    <span class="c1"># 最初の4ビットを読む</span>
+    <span class="n">n_zero</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ac_bits</span><span class="p">[</span><span class="n">pos</span> <span class="p">:</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">4</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">+=</span> <span class="mi">4</span>
+
+    <span class="k">if</span> <span class="n">n_zero</span> <span class="o">==</span> <span class="mh">0xF</span><span class="p">:</span>
+        <span class="c1"># 0xfの場合は、15個の0を復元</span>
+        <span class="n">ac_dec</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">15</span><span class="p">)</span>
+        <span class="k">continue</span>
+
+    <span class="c1"># 0xfでない場合は、その数分0を復元</span>
+    <span class="n">ac_dec</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_zero</span><span class="p">)</span>
+
+    <span class="c1"># 以下、0に続く非ゼロ成分を復元</span>
+    <span class="c1"># グループ番号を取得</span>
+    <span class="n">group_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ac_bits</span><span class="p">[</span><span class="n">pos</span> <span class="p">:</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">4</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">+=</span> <span class="mi">4</span>
+
+    <span class="c1"># group_id分の付加ビットを取得</span>
+    <span class="k">if</span> <span class="n">group_id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ac_bits</span><span class="p">[</span><span class="n">pos</span> <span class="p">:</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">group_id</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">pos</span> <span class="o">+=</span> <span class="n">group_id</span>
+
+    <span class="c1"># 元の整数を復元</span>
+    <span class="k">if</span> <span class="n">group_id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="mh">0x01</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">group_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="mh">0x01</span> <span class="o">&lt;&lt;</span> <span class="n">group_id</span>
+
+    <span class="k">if</span> <span class="n">code</span> <span class="o">&lt;</span> <span class="n">a</span><span class="p">:</span>
+        <span class="n">ac_dec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">code</span> <span class="o">-</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ac_dec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+
+<span class="c1"># 扱いやすくするためにNumPy配列に変換</span>
+<span class="n">ac_dec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ac_dec</span><span class="p">)</span>
+
+<span class="c1"># 元のデータと同じかをチェック</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">ac_dec</span> <span class="o">==</span> <span class="n">ac</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ここまでで直流成分と交流成分を復元できたので、ジグザグ・スキャンと量子化の処理を元に戻す</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 直流成分と交流成分を統合</span>
+<span class="n">dec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(((</span><span class="n">H</span> <span class="o">//</span> <span class="mi">8</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">W</span> <span class="o">//</span> <span class="mi">8</span><span class="p">),</span> <span class="mi">8</span> <span class="o">*</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
+<span class="n">dec</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dc_dec</span>
+<span class="n">dec</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">ac_dec</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">63</span><span class="p">)</span>
+
+<span class="c1"># ジグザグ・スキャンの逆並び替え</span>
+<span class="n">qdct_dec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">):</span>
+    <span class="n">qdct_dec</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dec</span><span class="p">[:,</span> <span class="n">zigzag</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[</span><span class="n">i</span><span class="p">]]</span>
+
+<span class="c1"># 量子化をキャンセル</span>
+<span class="n">dct_dec</span> <span class="o">=</span> <span class="n">qdct_dec</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">qdct_dec</span><span class="p">),</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span> <span class="o">*</span> <span class="n">table</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>以上で、DCT係数が復元できたので、最後に逆離散コサイン変換を行い、画像を復元する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 逆離散コサイン変換</span>
+<span class="n">image_dec</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">fftpack</span><span class="o">.</span><span class="n">idctn</span><span class="p">(</span><span class="n">dct_dec</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;ortho&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+
+<span class="c1"># 画像サイズを元に戻す</span>
+<span class="n">image_dec</span> <span class="o">=</span> <span class="n">image_dec</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">H</span> <span class="o">//</span> <span class="mi">8</span><span class="p">,</span> <span class="n">W</span> <span class="o">//</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+
+<span class="c1"># 輝度の範囲を0-255に制限</span>
+<span class="n">image_dec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">image_dec</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;uint8&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>復元した画像を実際に表示してみると、以下の通り、元画像に限りなく近い画像が復元できていることが確認できる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_dec</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7cacf516e23956f806d4d00ad4e3327eea768c8f2bc749a346139a63e6fe91de.png" src="../_images/7cacf516e23956f806d4d00ad4e3327eea768c8f2bc749a346139a63e6fe91de.png" />
+</div>
+</div>
+<p>なお、ここまでの処理はあくまでJPEG方式を説明するための処理について述べただけであり、実際のJPEG方式の圧縮にはもう少し細かなルールが設定されている。これらについて詳しく知りたい読者は参考文献として<span id="id19">[<a class="reference internal" href="#id27" title="昌達 慶仁. 詳解 圧縮処理プログラミング. ソフトバンク クリエイティブ, 2010. ISBN 978-407973-5949-7.">5-1</a>]</span>などを参考にすると良い。</p>
+<div class="note admonition">
+<p class="admonition-title">画像データの圧縮</p>
+<ul class="simple">
+<li><p>画像等のメディアの圧縮には可逆圧縮と非可逆圧縮がある</p></li>
+<li><p>非可逆圧縮は高い圧縮率を実現できるが、元データを近似的にしか再現できない</p></li>
+<li><p>JPEG方式の画像圧縮には、DCT、ハフマン符号化、ランレングス符号化などの技術が用いられる</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="id20">
+<h2><span class="section-number">5.4. </span>練習問題<a class="headerlink" href="#id20" title="Permalink to this heading">#</a></h2>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-header docutils">
+<p class="sd-card-text"><strong>問1</strong></p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">以下の16進数で表された文字列は、とある文章を大きさ16のスライド辞書を用いてLZ77符号化したものである。元の文章を復号して、得られる問に答えよ。</p>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>04206f07206e020069326e031038037039442004706517206d061116e07902c4
+1200492320169074c169416106cf16c317941200738174072075067f167616c0
+65064612007706951740681120d2746165c22007206121644269216906f06e91
+6106c1202165616407506321614774073079e173617416506d91200620751745
+120077816506eb27406fc16e4120174c16f11200645165076316506c516f0702
+1200728265316f816c075074069516f06e0615172079212081740681165216f9
+1724169c16507373201161417422205172b16106e517306606fa17206d065064
+4120a16f0753172120d175216e816461653172073074061926e069616e067212
+006f066d120068c16f07791201174b1680655120075116e069076a1650720737
+26516f07092650610745165617302e612004d079312006d216f8173517481200
+6eb16f117406106206c065120077316f07206b3120069216e063516c07506431
+650732120074068b165c42006f0720795120c16f0662120a172316506c061217
+4069076e169c174217902c11200770687169063d168a120d16306f06d0700721
+69073065e173120062616f0741268d27461657120067316506e116507206106c
+4120d161916e0641200730701650630694361074068816506f07271694165117
+302e612004941200771619173120d161b27711720641165e1642120074068b16
+512004e06f062616506c612005017206907a4265c16906e72200680790735169
+063d1735420031039032d131120916e06f0744120066c16f072120e17206506c
+0616174069076e169217407902c120062075617412006606f072812006d41795
+12006507807006c06106ee161174069116fb16e1120d16f06611208174068065
+9120070c168416f1174216f916506c71650633174072069c1632120165066f16
+6636502c8120061612016306f17206e2165d1720734174916fa26e2120069616
+e1120071075061116e4174c17506d51200700680790731169063d17302e71200
+57716806f312006126d04903f
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id21">
+<h2><span class="section-number">5.5. </span>参考文献<a class="headerlink" href="#id21" title="Permalink to this heading">#</a></h2>
+<div class="docutils container" id="id22">
+<dl class="citation">
+<dt class="label" id="id27"><span class="brackets"><a class="fn-backref" href="#id19">5-1</a></span></dt>
+<dd><p>昌達 慶仁. <em>詳解 圧縮処理プログラミング</em>. ソフトバンク クリエイティブ, 2010. ISBN 978-407973-5949-7.</p>
+</dd>
+</dl>
+</div>
+</section>
+<section id="ssec-dct">
+<span id="id28"></span><h2><span class="section-number">5.6. </span>補足: 離散コサイン変換<a class="headerlink" href="#ssec-dct" title="Permalink to this heading">#</a></h2>
+<p>類似の変換である<strong>フーリエ級数展開</strong>では、実数値の信号に対しても複素数の値が現れることがあるが、扱う信号を偶関数に限定すると、実係数のコサイン関数の足し合わせとして、元の実信号を表せる。この考え方を利用したものがコサイン変換である。</p>
+<p>入力の信号<span class="math notranslate nohighlight">\(I(t)\)</span>が周期<span class="math notranslate nohighlight">\(T\)</span>を持ち、偶関数で表せる連続信号である場合、以下のような無限級数により、<span class="math notranslate nohighlight">\(I(t)\)</span>が表せる。</p>
+<div class="math notranslate nohighlight">
+\[
+I(t) = \frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos\left( \frac{2\pi n t}{T} \right)
+\]</div>
+<p>この時、各<span class="math notranslate nohighlight">\(a_n\)</span>は以下のように表せる。</p>
+<div class="math notranslate nohighlight">
+\[
+a_n = \frac{2}{T} \int_0^T I(t) \cos \left( \frac{2\pi n t}{T} \right) \mathrm{d}t
+\]</div>
+<p><strong>離散</strong>コサイン変換の場合には、離散的な信号を同様の形式で表し、フーリエ級数展開に現れる係数<span class="math notranslate nohighlight">\(a_n\)</span>が離散コサイン変換の結果として与えられる。</p>
+<p>詳細は割愛するが、入力の信号が離散的な信号である場合、その信号が持つ周波数には上限がある。従って、フーリエ級数に表れる項も有限で抑えらる。特に離散信号が<span class="math notranslate nohighlight">\(N\)</span>点の観測値として与えられるときには、高々<span class="math notranslate nohighlight">\(N\)</span>個のコサイン関数の足し合わせにより、元の離散信号が表せる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-idct">
+<span class="eqno">(5.1)<a class="headerlink" href="#equation-eq-idct" title="この数式へのパーマリンク">#</a></span>\[
+x_k =　\frac{X_0}{2} + \sum_{n=1}^{N - 1} X_n \cos\left( \frac{\pi}{N} n \left( k + \frac{1}{2} \right) \right)
+\]</div>
+<p>この級数にコサイン関数の係数として表れる<span class="math notranslate nohighlight">\(X_0\)</span>, <span class="math notranslate nohighlight">\(X_1\)</span>, ..., <span class="math notranslate nohighlight">\(X_{n - 1}\)</span>が離散コサイン変換結果となる。各係数は、連続値の場合の積分を和として表した次式により計算できる。</p>
+<div class="math notranslate nohighlight" id="equation-eq-dct">
+<span class="eqno">(5.2)<a class="headerlink" href="#equation-eq-dct" title="この数式へのパーマリンク">#</a></span>\[
+X_k = \frac{2}{N} \sum_{n=0}^N x_n \cos \left( \frac{\pi}{N} \left( n + \frac{1}{2} \right)k \right)
+\]</div>
+<p>ただし、コサイン変換の<a class="reference internal" href="#equation-eq-dct">(5.2)</a>に現れる係数の<span class="math notranslate nohighlight">\(\frac{2}{N}\)</span>は、計算上は<a class="reference internal" href="#equation-eq-idct">(5.1)</a>と<a class="reference internal" href="#equation-eq-dct">(5.2)</a>のどちらに掛けても良く、画像圧縮に用いる場合には、<a class="reference internal" href="#equation-eq-idct">(5.1)</a>と<a class="reference internal" href="#equation-eq-dct">(5.2)</a>のそれぞれに<span class="math notranslate nohighlight">\(\sqrt{\frac{2}{N}}\)</span>を掛けることが多い。</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./contents"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="crawler.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>簡易クローラの作成</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.1. 情報圧縮と情報量</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.1.1. 情報量の定義</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">5.1.2. 平均情報量の計算</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5.2. 様々な符号化</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">5.2.1. ハフマン符号化</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">符号化</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">復号</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lz77">5.2.2. LZ77符号化</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">スライド辞書</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">符号化</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">復号</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">5.3. 画像データの圧縮</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">5.3.1. 入力データ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dct">5.3.2. 離散コサイン変換 (DCT)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">5.3.3. DCT係数の量子化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">5.3.4. DCT係数の並べ替え</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">5.3.5. 直流成分の圧縮</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">5.3.6. 交流成分の圧縮</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">5.3.7. 復号処理</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5.4. 練習問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">5.5. 参考文献</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ssec-dct">5.6. 補足: 離散コサイン変換</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 Tatsuya Yatagawa
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright CC BY-NC-SA 4.0, 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
