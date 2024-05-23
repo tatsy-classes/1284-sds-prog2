@@ -507,13 +507,13 @@ document.write(`
 
     <span class="c1"># ノードの取り出し</span>
     <span class="n">node</span> <span class="o">=</span> <span class="n">que</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-    <span class="n">page</span><span class="p">,</span> <span class="n">prev</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">title</span>
+    <span class="n">page</span><span class="p">,</span> <span class="n">prev</span> <span class="o">=</span> <span class="n">node</span>
 
     <span class="c1"># 既にチェック済みの記事かどうかを調べる</span>
     <span class="c1"># !!! 実装する !!!</span>
 
     <span class="c1"># 未チェックの記事なら、リンクされた記事を取得</span>
-    <span class="n">next_pages</span> <span class="o">=</span> <span class="n">get_pages</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">next_pages</span> <span class="o">=</span> <span class="n">get_pages</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
 
     <span class="c1"># 新しい記事の中にゴールが見つかったら終了</span>
     <span class="c1"># !!! 実装する !!!</span>
