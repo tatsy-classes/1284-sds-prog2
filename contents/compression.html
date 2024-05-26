@@ -692,7 +692,7 @@ RAJ30985ALTSO9480VJNAS0485WQ0805
 
     <span class="c1"># 探索位置の更新</span>
     <span class="n">pos</span> <span class="o">+=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_max</span><span class="p">)</span>
-    <span class="n">slide</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">size</span><span class="p">):</span><span class="n">pos</span><span class="p">]</span>
+    <span class="n">slide</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">size</span><span class="p">)</span> <span class="p">:</span> <span class="n">pos</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -814,11 +814,11 @@ RAJ30985ALTSO9480VJNAS0485WQ0805
 
 <span class="k">while</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">bits</span><span class="p">):</span>
     <span class="c1"># スライド辞書の開始位置、一致文字長、不一致文字を取り出す</span>
-    <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bits</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bits</span><span class="p">[</span><span class="n">pos</span> <span class="p">:</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">pos</span> <span class="o">+=</span> <span class="mi">2</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bits</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bits</span><span class="p">[</span><span class="n">pos</span> <span class="p">:</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">pos</span> <span class="o">+=</span> <span class="mi">2</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bits</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">8</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bits</span><span class="p">[</span><span class="n">pos</span> <span class="p">:</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">8</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
     <span class="n">pos</span> <span class="o">+=</span> <span class="mi">8</span>
 
     <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -826,7 +826,7 @@ RAJ30985ALTSO9480VJNAS0485WQ0805
         <span class="n">dec</span> <span class="o">+=</span> <span class="n">c</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># 一致文字長が0より大きい時は、スライド辞書から文字列を取り出す</span>
-        <span class="n">dec</span> <span class="o">+=</span> <span class="n">slide</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">start</span> <span class="o">+</span> <span class="n">n</span><span class="p">]</span>
+        <span class="n">dec</span> <span class="o">+=</span> <span class="n">slide</span><span class="p">[</span><span class="n">start</span> <span class="p">:</span> <span class="n">start</span> <span class="o">+</span> <span class="n">n</span><span class="p">]</span>
 
     <span class="c1"># スライド辞書の更新</span>
     <span class="n">slide</span> <span class="o">=</span> <span class="n">dec</span><span class="p">[</span><span class="o">-</span><span class="n">size</span><span class="p">:]</span>
@@ -936,11 +936,7 @@ RAJ30985ALTSO9480VJNAS0485WQ0805
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 係数の表示</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">coeff</span><span class="p">[:</span><span class="mi">40</span><span class="p">,</span> <span class="p">:</span><span class="mi">40</span><span class="p">]),</span>
-          <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
-          <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
-          <span class="n">vmin</span><span class="o">=-</span><span class="mi">50</span><span class="p">,</span>
-          <span class="n">vmax</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">coeff</span><span class="p">[:</span><span class="mi">40</span><span class="p">,</span> <span class="p">:</span><span class="mi">40</span><span class="p">]),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">50</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -960,16 +956,18 @@ RAJ30985ALTSO9480VJNAS0485WQ0805
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 量子化テーブル</span>
-<span class="n">table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">61</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">55</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">56</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">62</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">77</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">24</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">113</span><span class="p">,</span> <span class="mi">92</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">49</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">101</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">99</span><span class="p">],</span>
-<span class="p">])</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">61</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">55</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">56</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">62</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">77</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">24</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">113</span><span class="p">,</span> <span class="mi">92</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">49</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">101</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">99</span><span class="p">],</span>
+    <span class="p">]</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -990,16 +988,18 @@ RAJ30985ALTSO9480VJNAS0485WQ0805
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ジグザグ・スキャンのテーブル</span>
-<span class="n">zigzag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">28</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">42</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">43</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">53</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">54</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">21</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">61</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">35</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">63</span><span class="p">],</span>
-<span class="p">])</span>
+<span class="n">zigzag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">28</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">42</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">43</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">53</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">54</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">21</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">61</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">35</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">63</span><span class="p">],</span>
+    <span class="p">]</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1300,12 +1300,12 @@ RAJ30985ALTSO9480VJNAS0485WQ0805
 <span class="n">dc_dec</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">while</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">dc_bits</span><span class="p">):</span>
     <span class="c1"># グループ番号を取得</span>
-    <span class="n">group_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dc_bits</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">4</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">group_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dc_bits</span><span class="p">[</span><span class="n">pos</span> <span class="p">:</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">4</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">pos</span> <span class="o">+=</span> <span class="mi">4</span>
 
     <span class="c1"># group_id分の付加ビットを取得</span>
     <span class="k">if</span> <span class="n">group_id</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dc_bits</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span><span class="n">pos</span> <span class="o">+</span> <span class="n">group_id</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dc_bits</span><span class="p">[</span><span class="n">pos</span> <span class="p">:</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">group_id</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">pos</span> <span class="o">+=</span> <span class="n">group_id</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">code</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1408,8 +1408,7 @@ RAJ30985ALTSO9480VJNAS0485WQ0805
 <span class="n">image_dec</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">fftpack</span><span class="o">.</span><span class="n">idctn</span><span class="p">(</span><span class="n">dct_dec</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;ortho&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
 
 <span class="c1"># 画像サイズを元に戻す</span>
-<span class="n">image_dec</span> <span class="o">=</span> <span class="n">image_dec</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
-    <span class="p">(</span><span class="n">H</span> <span class="o">//</span> <span class="mi">8</span><span class="p">,</span> <span class="n">W</span> <span class="o">//</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+<span class="n">image_dec</span> <span class="o">=</span> <span class="n">image_dec</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">H</span> <span class="o">//</span> <span class="mi">8</span><span class="p">,</span> <span class="n">W</span> <span class="o">//</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
 
 <span class="c1"># 輝度の範囲を0-255に制限</span>
 <span class="n">image_dec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">image_dec</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;uint8&quot;</span><span class="p">)</span>
@@ -1455,30 +1454,34 @@ RAJ30985ALTSO9480VJNAS0485WQ0805
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>04206f07206e020069326e031038037039442004706517206d061116e07902c4
-1200492320169074c169416106cf16c317941200738174072075067f167616c0
-65064612007706951740681120d2746165c22007206121644269216906f06e91
-6106c1202165616407506321614774073079e173617416506d91200620751745
-120077816506eb27406fc16e4120174c16f11200645165076316506c516f0702
-1200728265316f816c075074069516f06e0615172079212081740681165216f9
-1724169c16507373201161417422205172b16106e517306606fa17206d065064
-4120a16f0753172120d175216e816461653172073074061926e069616e067212
-006f066d120068c16f07791201174b1680655120075116e069076a1650720737
-26516f07092650610745165617302e612004d079312006d216f8173517481200
-6eb16f117406106206c065120077316f07206b3120069216e063516c07506431
-650732120074068b165c42006f0720795120c16f0662120a172316506c061217
-4069076e169c174217902c11200770687169063d168a120d16306f06d0700721
-69073065e173120062616f0741268d27461657120067316506e116507206106c
-4120d161916e0641200730701650630694361074068816506f07271694165117
-302e612004941200771619173120d161b27711720641165e1642120074068b16
-512004e06f062616506c612005017206907a4265c16906e72200680790735169
-063d1735420031039032d131120916e06f0744120066c16f072120e17206506c
-0616174069076e169217407902c120062075617412006606f072812006d41795
-12006507807006c06106ee161174069116fb16e1120d16f06611208174068065
-9120070c168416f1174216f916506c71650633174072069c1632120165066f16
-6636502c8120061612016306f17206e2165d1720734174916fa26e2120069616
-e1120071075061116e4174c17506d51200700680790731169063d17302e71200
-57716806f312006126d04903f
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0042006f0072006e00200069326e00310038003700394420004700650172006d
+0061116e0079002c41200049232001690074c1694161006cf16c317941200073
+8174007200750067f167616c00650064612000770069517400681120d2746165
+c22000720061216442692169006f006e9161006c012021656164007500632161
+477400730079e17361740165006d9120006200750174512000778165006eb274
+006fc16e41200174c16f11200064516500763165006c516f0070212000728265
+316f816c007500740069516f006e0061517200792120817400681165216f9172
+4169c165007373201161417422205172b161006e51730066006fa172006d0065
+00644120a16f007531720120d175216e816461653172007300740061926e0069
+616e00672120006f0066d1200068c16f007791201174b168006551200075116e
+00690076a165007200737265016f007092650061007451656173002e6120004d
+00793120006d216f817351748120006eb16f117400610062006c006501200077
+316f0072006b31200069216e0063516c0075006431650073212000740068b165
+c420006f007200795120c16f00662120a1723165006c0061217400690076e169
+c1742179002c11200077006871690063d168a120d163006f006d007000720169
+00730065e17301200062616f00741268d2746165712000673165006e11650072
+0061006c4120d161916e00640120007300700165006300694361007400688165
+006f0072716941651173002e6120004941200077016191730120d161b2771172
+00641165e164212000740068b1650120004e006f00626165006c612000500172
+0069007a4265c169006e722000680079007351690063d1735420003100390032
+d1310120916e006f007441200066c16f00720120e1720065006c006161740069
+0076e16921740079002c012000620075617401200066006f00728120006d4179
+5120006500780070006c0061006ee16101740069116fb16e1120d16f00661120
+81740068006591200070c168416f1174216f9165006c71650063317400720069
+c163212001650066f1666365002c8120006161200163006f0172006e2165d172
+00734174916fa26e21200069616e1120007100750061116e4174c175006d5120
+007000680079007311690063d173002e712000577168006f31200061026d0049
+003f
 </pre></div>
 </div>
 </div>
