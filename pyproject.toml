@@ -7,6 +7,7 @@ readme = "README.md"
 homepage = "https://tatsy.github.io/1284-sds-prog2/"
 repository = "https://github.com/tatsy/1284-sds-prog2.git"
 license = "CC BY-NC-SA 4.0"
+package-mode = false
 
 exclude = [
   "autograding/*",
@@ -24,7 +25,7 @@ exclude = [
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
 numpy = "^1.25.0"
-scipy = "^1.11.1"
+scipy = "~1.12.0"
 scikit-learn = "^1.2.2"
 matplotlib = "^3.7.1"
 pandas = "^2.0.3"
@@ -43,6 +44,8 @@ docutils = "0.17.1"
 beautifulsoup4 = "^4.12.3"
 scikit-image = "^0.23.1"
 pillow = "^10.3.0"
+janome = "^0.5.0"
+gensim = "^4.3.2"
 
 [tool.poetry.group.dev.dependencies]
 pyproject-flake8 = "^6.0.0"
@@ -57,7 +60,7 @@ name = "PyPI"
 priority = "primary"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.8"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
