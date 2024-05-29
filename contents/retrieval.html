@@ -1,0 +1,1693 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>6. 情報検索の基礎 &#8212; プログラミングⅡ</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="application/vnd.jupyter.widget-state+json">{"state": {"639ebd62a79b497289e828801c6454ce": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "213bc8789b8e4395aebd22486400f4f6": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "b6edcf976d6a439d91214c2566cb2a8e": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_639ebd62a79b497289e828801c6454ce", "max": 193.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_213bc8789b8e4395aebd22486400f4f6", "tabbable": null, "tooltip": null, "value": 193.0}}, "9c4d2a7fd2304cd08e20ba2a120dfd7b": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "d4e2676ae12c4fe09a4ba672a8829460": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "7a5ccadf8c2f4b7eb6a94f3d52c2a852": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_9c4d2a7fd2304cd08e20ba2a120dfd7b", "placeholder": "\u200b", "style": "IPY_MODEL_d4e2676ae12c4fe09a4ba672a8829460", "tabbable": null, "tooltip": null, "value": "100%"}}, "a21f475d4e4e47d79e77772310bfd908": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "e2403a96f3e94b40b939f409436d8f0e": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "53b42f22bea5431a8372be20f9703eaa": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_a21f475d4e4e47d79e77772310bfd908", "placeholder": "\u200b", "style": "IPY_MODEL_e2403a96f3e94b40b939f409436d8f0e", "tabbable": null, "tooltip": null, "value": "\u2007193/193\u2007[00:00&lt;00:00,\u200721230.02it/s]"}}, "7830a649e2184ce6bd5a9eb4c2aefcfc": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "67e634fd2f56469e8ae914131bf29610": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_7a5ccadf8c2f4b7eb6a94f3d52c2a852", "IPY_MODEL_b6edcf976d6a439d91214c2566cb2a8e", "IPY_MODEL_53b42f22bea5431a8372be20f9703eaa"], "layout": "IPY_MODEL_7830a649e2184ce6bd5a9eb4c2aefcfc", "tabbable": null, "tooltip": null}}, "0099f7850b8a41d8b575a6e910c64362": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "910de882f9134b5085dedcb9d4b70ee2": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "7356ed8de2334e699452d51b35c36f3f": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_0099f7850b8a41d8b575a6e910c64362", "max": 193.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_910de882f9134b5085dedcb9d4b70ee2", "tabbable": null, "tooltip": null, "value": 193.0}}, "efee692dd25e4f08b1cb7c6611ac31f5": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "c37d5a60044b40c9aa7ad1e1e4b11ee0": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "11cd151c70d64126a132f0714abb3b17": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_efee692dd25e4f08b1cb7c6611ac31f5", "placeholder": "\u200b", "style": "IPY_MODEL_c37d5a60044b40c9aa7ad1e1e4b11ee0", "tabbable": null, "tooltip": null, "value": "100%"}}, "c77fc9eac48b498bb2d279cdea7ac86c": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "d5b9e9dcf6914945b6879545af271c66": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "2d584afdd77f4e3a9d83defdd7dae9d6": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_c77fc9eac48b498bb2d279cdea7ac86c", "placeholder": "\u200b", "style": "IPY_MODEL_d5b9e9dcf6914945b6879545af271c66", "tabbable": null, "tooltip": null, "value": "\u2007193/193\u2007[00:01&lt;00:00,\u2007227.71it/s]"}}, "46fead098fae4964a3f22076f7ed64d2": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "68ce15c9160c4994bdedc3f07aaf3c99": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_11cd151c70d64126a132f0714abb3b17", "IPY_MODEL_7356ed8de2334e699452d51b35c36f3f", "IPY_MODEL_2d584afdd77f4e3a9d83defdd7dae9d6"], "layout": "IPY_MODEL_46fead098fae4964a3f22076f7ed64d2", "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}</script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'contents/retrieval';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="prev" title="5. 情報圧縮の基礎" href="compression.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">プログラミングⅡ</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">事前準備</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="setup-python.html">1. Python環境の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup-git.html">2. Git環境の設定</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">講義内容</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="webpage.html">1. ウェブページの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regex.html">2. 正規表現の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request.html">3. HTTPリクエスト</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crawler.html">4. 簡易クローラの作成</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.rbanno.net/classes/hitu_2024_p2/day05/encryption-and-ssl.html">暗号化とSSL通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compression.html">5. 情報圧縮の基礎</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. 情報検索の基礎</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.rbanno.net/classes/hitu_2024_p2/day07/socket.html">ソケット通信</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>情報検索の基礎</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">6.1. 検索の準備</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">6.1.1. 日本語の取り扱い</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#janome">6.1.2. janomeによる形態素解析</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">6.1.3. 分かち書き</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">6.2. 検索クエリによる文書検索</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">6.2.1. 転置インデックス</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">6.2.2. 単語による文書検索</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">6.2.3. 連語検索</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">6.2.4. 検索順位の計算</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf">6.2.5. TF-IDF</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">6.3. 類似文書検索</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">6.3.1. 文書間類似度</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec">6.3.2. Word2Vec</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">学習データの用意</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">モデルの訓練</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">文書のベクトル化</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">6.4. 練習問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">6.5. 参考文献</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="sec-retrieval">
+<span id="id1"></span><h1><span class="section-number">6. </span>情報検索の基礎<a class="headerlink" href="#sec-retrieval" title="Permalink to this heading">#</a></h1>
+<p>本節では、今日、インターネット等を用いる上で避けて通ることのできない<strong>情報検索</strong> (information retrieval)の仕組みについて学ぶ。</p>
+<p>情報検索を指す英語にはsearchではなく、「失われたものを取り戻す」というニュアンスのretrieveが用いられるので注意してほしい (元々は古い文書から情報を取り戻す、という意味だったらしい)。</p>
+<p>情報検索には、Google等のサーチエンジンのように、特定の単語を含む文章の計算から、とある文書と類似した文書を探す、はたまた、画像検索のように類似したメディアを探す、という処理まで幅広く含まれる。</p>
+<p>本項では、特に日本語を対象として、単語ベースの文書検索ならびに類似度に基づく文書検索について紹介する。</p>
+<section id="id2">
+<h2><span class="section-number">6.1. </span>検索の準備<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>以下の資料では、日本語版のWikipediaから収集した国連加盟国193ヶ国 (2024年5月27日現在)の記事情報を用いて演習を実施する。</p>
+<p>圧縮したデータを以下のURLに用意してあるので、各自、ダウンロードと展開を済ませておくこと。</p>
+<ul class="simple">
+<li><p><a class="reference download internal" download="" href="../_downloads/907d9b553b7ecea8362fbb5e42eebaef/countries.tar.gz"><span class="xref download myst">情報検索 - 演習用データ</span></a></p></li>
+</ul>
+<div class="warning admonition">
+<p class="admonition-title">ファイルの展開</p>
+<p>Windowsを使っている場合には、単にファイルをダブルクリックするだけでは展開されない。ファイルを右クリックして「全て展開」のメニューから内容を展開すること。</p>
+</div>
+<section id="id3">
+<h3><span class="section-number">6.1.1. </span>日本語の取り扱い<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>本項では、日本語を対象にした情報検索について取り扱う。しかし、日本語(や中国語等のいわゆるCJK言語)は、英語等の単語がスペース等で区切られた言語よりも一般に取り扱いが難しい。</p>
+<p>このような言語を対象に、文章を単語に区切るための仕組みを<strong>形態素解析</strong>と呼ぶ。日本語向けの形態素解析のライブラリで、最も有名なものに<a class="reference external" href="https://taku910.github.io/mecab/">Mecab</a>がある。</p>
+<p>しかし、MecabはPythonで取り扱う際には、インストールに少々手間がかかるので、本項ではもう一つの有名ライブラリである<a class="reference external" href="https://mocobeta.github.io/janome/">janome</a>を用いる。ただし、janomeはMecabに比べると動作が遅いので、より最適化されたプログラムを作成したい場合には、Mecabの方を使うと良い。</p>
+<p><strong>janome</strong>はpip等を用いて簡単にインストールできる。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>janome
+</pre></div>
+</div>
+<p>使い方の詳細については、<a class="reference external" href="https://mocobeta.github.io/janome/">公式のドキュメント</a>を参照のこと。以下では、単純な単語分割のやり方について紹介する。</p>
+</section>
+<section id="janome">
+<h3><span class="section-number">6.1.2. </span>janomeによる形態素解析<a class="headerlink" href="#janome" title="Permalink to this heading">#</a></h3>
+<p>まずは<code class="docutils literal notranslate"><span class="pre">countries/日本.txt</span></code>を読み込んで、内容を表示してみよう(以下の例では最初の5行だけを表示)。ファイルはUTF-8でエンコードされているので注意すること。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># データのディレクトリは各自で読み替えること</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/countries/日本.txt&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>建国諸説あり日本神話による初代神武天皇即位の日辛酉年月日。グレゴリオ暦換算での紀元前年月日紀元節は明治時代に推定された注釈。
+日本国にほんこく、にっぽんこく、英、または日本にほん、にっぽんは、東アジアに位置する民主制国家。首都は東京都注釈。
+全長キロメートル以上にわたる国土は、主に日本列島注釈および南西諸島伊豆諸島小笠原諸島などの弧状列島により構成される。大部分が温帯に属するが、北部や島嶼部では亜寒帯や熱帯の地域がある。地形は起伏に富み、火山地丘陵を含む山地の面積は国土の約を占め、人口は沿岸の平野部に集中している。国内には行政区分としての都道府県があり、日本人大和民族琉球民族アイヌ民族注釈外国系諸民族と外国人と数百人程度の無国籍者注釈が居住し、日本語を通用する。漢字文化圏に含まれる国のつでもある。
+日本国憲法は、天皇を日本国の象徴と規定している。
+日本の象徴として国樹は桜、国鳥はキジ、山国の象徴となる山は富士山、その他がある。
+</pre></div>
+</div>
+</div>
+</div>
+<p>言うまでもなく、日本語の文書は単語ごとにスペースなどで区切られておらず、このまま、単語単位の検索をかけようとすると、各文の中に所望の単語が存在するかどうかを逐一チェックしなくてはならない。</p>
+<p>このような検索には、一般に文の長さを<span class="math notranslate nohighlight">\(N\)</span>として線形時間、即ち<span class="math notranslate nohighlight">\(O(N)\)</span>の計算時間がかかってしまう。線形時間の計算は特別時間がかかる計算という訳ではないが、全ての文に同様の処理を行なわねばならないことを考えると、決して効率的な処理とは言えない。</p>
+<p>形態素解析では、文章を最小の意味単位に区切る。この最小の意味単位のことを<strong>トークン</strong>と呼ぶ。</p>
+<p>janomeを用いた形態素解析には<code class="docutils literal notranslate"><span class="pre">Tokenizer</span></code>というクラスを用いる。<code class="docutils literal notranslate"><span class="pre">Tokernizer</span></code>クラスには<code class="docutils literal notranslate"><span class="pre">tokenize</span></code>という関数が用意されており、この関数に日本語の文書をテキストとして渡すことで、形態素解析が実行される。</p>
+<p>戻り値はトークン化された結果で、各トークンには、単語そのものの他に、品詞などの情報が付随している。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># janomeのインポート</span>
+<span class="kn">from</span> <span class="nn">janome.tokenizer</span> <span class="kn">import</span> <span class="n">Tokenizer</span>
+
+<span class="c1"># Tokenizerの初期化</span>
+<span class="n">tkz</span> <span class="o">=</span> <span class="n">Tokenizer</span><span class="p">()</span>
+
+<span class="c1"># 文書の内容を結合</span>
+<span class="n">body</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+<span class="c1"># 形態素解析の実行 (少し時間がかかる)</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tkz</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">body</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>実際に、単語分割結果を見てみると、元の単語と品詞のほか、読み方などの情報も含まれていることが分かる。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>建国	名詞,サ変接続,*,*,*,*,建国,ケンコク,ケンコク
+諸説	名詞,一般,*,*,*,*,諸説,ショセツ,ショセツ
+あり	動詞,自立,*,*,五段・ラ行,連用形,ある,アリ,アリ
+日本	名詞,固有名詞,地域,国,*,*,日本,ニッポン,ニッポン
+神話	名詞,一般,*,*,*,*,神話,シンワ,シンワ
+による	助詞,格助詞,連語,*,*,*,による,ニヨル,ニヨル
+初代	名詞,一般,*,*,*,*,初代,ショダイ,ショダイ
+神武	名詞,固有名詞,人名,一般,*,*,神武,ジンム,ジンム
+天皇	名詞,一般,*,*,*,*,天皇,テンノウ,テンノー
+即位	名詞,サ変接続,*,*,*,*,即位,ソクイ,ソクイ
+</pre></div>
+</div>
+</div>
+</div>
+<p>一見、左列の単語情報だけがあれば十分に見えるが、右列の付属情報は同音異義語などを識別する際に役に立つ。ただし、以下の説明では、特に同音異義語を区別することなく計算を実行することとする。</p>
+<div class="warning admonition">
+<p class="admonition-title">トークンと単語</p>
+<p>トークンは概ね単語と同義と考えて良いが、あえて異なる用語として使っている本などもあるので、その点は注意してほしい。以下では、トークンと単語は同義であるとして説明を続ける。</p>
+</div>
+</section>
+<section id="id4">
+<h3><span class="section-number">6.1.3. </span>分かち書き<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>以後の処理を簡単にするために各文書ファイルの<strong>分かち書き</strong>を行なっておこう。分かち書きとは、日本語のように、本来は単語と単語の境目が明らかでない言語で書かれた文章に対して、単語間にスペースを入れて記したものを指す。</p>
+<p>janomeの<code class="docutils literal notranslate"><span class="pre">Tokernizer</span></code>には分かち書きモードが用意されていて、<code class="docutils literal notranslate"><span class="pre">tokernize</span></code>関数に<code class="docutils literal notranslate"><span class="pre">wakati=True</span></code>というパラメータを渡すと、品詞などの属性情報を含まない単語分割の結果だけを得ることができる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 文書の読み込み</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="s2">&quot;data/countries/日本.txt&quot;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c1"># 分かち書きモードでトークン化する</span>
+<span class="n">tkz</span> <span class="o">=</span> <span class="n">Tokenizer</span><span class="p">()</span>
+<span class="n">wakati</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tkz</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">wakati</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+<span class="c1"># 必要に応じてファイルを保存</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/countries/日本_wakati.txt&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wakati</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>分かち書きを行なった結果は、以下のように単語の間にスペースが入ったものになっていはずなので、各自<code class="docutils literal notranslate"><span class="pre">..._wakati.txt</span></code>ファイルを開いて、このような形式になっているかを確認しておくと良い。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>建国 諸説 あり 日本 神話 による 初代 神武 天皇 即位 の 日 辛 酉 年月日 。 グレゴリオ 暦 換算 で の 紀元前 年月日 紀元節 は 明治 時代 に 推定 さ れ た 注釈 。 
+ 日本 国 に ほん こく 、 にっぽん こく 、 英 、 または 日本 に ほん 、 にっぽん は 、 東アジア に 位置 する 民主 制 国家 。 首都 は 東京 都 注釈 。 
+ 全長 キロメートル 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">日本語の取り扱い</p>
+<ul class="simple">
+<li><p>情報検索などの自然言語処理で日本語を扱う場合には、あらかじめ形態素解析を行う</p></li>
+<li><p>形態素解析は日本語の文法を解析して、単語あるいはトークンの列に変換する役割を持つ</p></li>
+<li><p>日本語の文章の単語と単語の間にスペースを入れたような形式を「分かち書き」と呼ぶ</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="id5">
+<h2><span class="section-number">6.2. </span>検索クエリによる文書検索<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<p>インターネット上のサーチエンジンを用いる場合、いわゆる検索窓に調べたい語句を入力する。このような検索対象となる語句のことを<strong>検索クエリ</strong>と呼ぶ。</p>
+<p>検索クエリは通常、複数の単語から構成されており、その中で全ての単語を含むような文書や、いずれかの単語を含む文書などを検索することができる。</p>
+<section id="id6">
+<h3><span class="section-number">6.2.1. </span>転置インデックス<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>検索クエリによる検索には、<strong>転置インデックス</strong>と呼ばれるデータ構造を用いることが一般的である。</p>
+<p><strong>転置インデックス</strong> (inverted index)とは、文書内に現れる単語について、その出現位置をインデックス化したものを指す。まずは、短い文章で、その概念を理解しよう。</p>
+<p>一例として、「すもももももももものうち」という文章が与えられたとする。これを形態素解析すると、</p>
+<p>すもも、も、もも、も、もも、の、うち</p>
+<p>のように分割される。各単語が現れる位置は、</p>
+<ul class="simple">
+<li><p>すもも: 0</p></li>
+<li><p>も: 3, 6</p></li>
+<li><p>もも: 4, 7</p></li>
+<li><p>の: 9</p></li>
+<li><p>うち: 10</p></li>
+</ul>
+<p>のようになる。このように文書に現れる単語ごとに、出現位置をリスト化したものを転置インデックスと呼ぶ。</p>
+<p>転置インデックスを各文書に対して計算するため、文書内に現れる各単語の出現位置を調べる。</p>
+<p>先ほど用意しておいた分かち書きのファイルを読み込んで、半角スペースで区切って単語に分割しておく。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 分かち書きファイルの読み込み</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/countries/日本_wakati.txt&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 各単語の出現位置を調べる</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">tk</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+    <span class="n">indices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">tk</span><span class="p">))</span>
+    <span class="n">n</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tk</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>この時点では、単語は出現順に並んでおり、その単語に出現位置が付与されているだけなので、単語をキーとする辞書を作成し、出現位置を表すインデックスを辞書の値として持たせる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 転置インデックスを作成</span>
+<span class="n">ii</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+    <span class="n">ii</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>作成した辞書を最初の出現位置が早い順にいくつか表示すると、以下のようになる。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>単語</th>
+      <th>出現位置</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>建国</td>
+      <td>[0, 14406, 14436, 14459, 14650, 14691, 14820, ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>諸説</td>
+      <td>[2, 14084, 75602, 91246]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>あり</td>
+      <td>[4, 275, 507, 2003, 2912, 3388, 7627, 10627, 1...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>日本</td>
+      <td>[6, 62, 83, 139, 361, 375, 421, 427, 435, 449,...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>神話</td>
+      <td>[8, 8371, 14630, 14768, 36570]</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>による</td>
+      <td>[10, 1286, 2520, 6265, 9891, 14478, 17141, 177...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>初代</td>
+      <td>[13, 11406, 14481, 37229, 55089, 72372, 103990]</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>神武</td>
+      <td>[15, 11411, 13245, 14483, 14541, 14550, 14555,...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>天皇</td>
+      <td>[17, 358, 8198, 9050, 9459, 10593, 10669, 1070...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>即位</td>
+      <td>[19, 14487, 14678, 14733, 14917, 14981, 103846...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>転置インデックスにおいて、単語の集合のことを特に<strong>辞書</strong>と呼び、出現位置を表すインデックスのリストのことを<strong>ポスティング・リスト</strong>と呼ぶ。</p>
+<p>ここまで、「日本」というWikipediaの記事について転置インデックスの計算を行なったが、以下の演習では、データベースにある193ヶ国分の文書について、転置インデックスが計算済みであるとする。</p>
+</section>
+<section id="id7">
+<h3><span class="section-number">6.2.2. </span>単語による文書検索<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>転置インデックスが取得できたら、とある検索語が文書に存在するかを調べることは非常に容易である。即ち、とある単語をキーとして転置インデックスを評価したときに、出現位置のリストが空でなければ、その文書内に検索語が存在することになる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;東京&quot;</span>
+
+<span class="k">if</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">ii</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s1">&quot; is in the document.&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s1">&quot; is NOT in the document.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;東京&quot; is in the document.
+</pre></div>
+</div>
+</div>
+</div>
+<p>同様にして、複数の単語のいずれかが含まれるか(OR検索)、あるいは複数の単語の全てが含まれるか(AND検索)についても、同様の方法で容易に実装できる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q1</span> <span class="o">=</span> <span class="s2">&quot;東京&quot;</span>
+<span class="n">q2</span> <span class="o">=</span> <span class="s2">&quot;大阪&quot;</span>
+
+<span class="c1"># 各クエリが文書内に出現するかを調べる</span>
+<span class="n">q1_ok</span> <span class="o">=</span> <span class="n">q1</span> <span class="ow">in</span> <span class="n">ii</span>
+<span class="n">q2_ok</span> <span class="o">=</span> <span class="n">q2</span> <span class="ow">in</span> <span class="n">ii</span>
+
+<span class="c1"># 以下はAND検索の例</span>
+<span class="k">if</span> <span class="n">q1_ok</span> <span class="ow">and</span> <span class="n">q2_ok</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">q1</span><span class="si">}</span><span class="s1">&quot; and &quot;</span><span class="si">{</span><span class="n">q2</span><span class="si">}</span><span class="s1">&quot; are both contained in the document.&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;both </span><span class="si">{</span><span class="n">q1</span><span class="si">}</span><span class="s1">&quot; and &quot;</span><span class="si">{</span><span class="n">q2</span><span class="si">}</span><span class="s1">&quot; are not contained in the document.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;東京&quot; and &quot;大阪&quot; are both contained in the document.
+</pre></div>
+</div>
+</div>
+</div>
+<p>上記の計算では、各単語が文書内に存在するかどうかを、辞書内の検索によって実現している。</p>
+<p>「日本」という記事において、辞書の大きさは<span class="output text_plain">6915</span>であり、計算機から見ればそれほど大きな数ではないが、上記の計算にかかる計算量には注意を払っておく必要がある。</p>
+<p>Pythonの辞書型はハッシュテーブルを使って実装されているので、辞書型のキーに指定した単語が含まれているかどうかは定数時間で計算できる。</p>
+<p>以上のことから、文書内の各文について、単語が含まれるかを見ていくのに比べ、転置インデックスを利用する方が圧倒的に効率的な探索が可能であることが分かる。</p>
+</section>
+<section id="id8">
+<h3><span class="section-number">6.2.3. </span>連語検索<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>では「東京オリンピック」のような連語を検索したい場合にはどうすれば良いだろうか？</p>
+<p>「東京オリンピック」という単語は、形態素解析によって「東京」「オリンピック」という2語に分割されるので、転置インデックスの辞書に「東京オリンピック」は存在しない。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;東京オリンピック&quot;</span>
+
+<span class="k">if</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">ii</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s1">&quot; is in the document.&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s1">&quot; is NOT contained in the document.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;東京オリンピック&quot; is NOT contained in the document.
+</pre></div>
+</div>
+</div>
+</div>
+<p>そこで、「東京オリンピック」という単語が含まれるための必要条件として、「東京」と「オリンピック」の各語が文書に含まれるかどうかを最初に確認する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q1</span> <span class="o">=</span> <span class="s2">&quot;東京&quot;</span>
+<span class="n">q2</span> <span class="o">=</span> <span class="s2">&quot;オリンピック&quot;</span>
+
+<span class="c1"># 各クエリが文書内に出現するかを調べる</span>
+<span class="n">q1_ok</span> <span class="o">=</span> <span class="n">q1</span> <span class="ow">in</span> <span class="n">ii</span>
+<span class="n">q2_ok</span> <span class="o">=</span> <span class="n">q2</span> <span class="ow">in</span> <span class="n">ii</span>
+
+<span class="c1"># 以下はAND検索の例</span>
+<span class="k">if</span> <span class="n">q1_ok</span> <span class="ow">and</span> <span class="n">q2_ok</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">q1</span><span class="si">}</span><span class="s1">&quot; and &quot;</span><span class="si">{</span><span class="n">q2</span><span class="si">}</span><span class="s1">&quot; are both contained in the document.&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;both </span><span class="si">{</span><span class="n">q1</span><span class="si">}</span><span class="s1">&quot; and &quot;</span><span class="si">{</span><span class="n">q2</span><span class="si">}</span><span class="s1">&quot; are not contained in the document.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;東京&quot; and &quot;オリンピック&quot; are both contained in the document.
+</pre></div>
+</div>
+</div>
+</div>
+<p>ここまでで、「東京」、「オリンピック」の2語が文書に含まれていることは分かった。しかし、これらの単語が連続しているかどうかはまだ分からない。転置インデックスのポスティングリストに単語の出現位置を記録しておいたことがここで役に立つ。</p>
+<p>「東京」という単語は長さが2の単語なので、「東京」が現れる位置から2文字進んだところに「オリンピック」という単語が現れていれば、「東京オリンピック」という連語が文書内に存在しているかが分かる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">list1</span> <span class="o">=</span> <span class="n">ii</span><span class="p">[</span><span class="n">q1</span><span class="p">]</span>
+<span class="n">list2</span> <span class="o">=</span> <span class="n">ii</span><span class="p">[</span><span class="n">q2</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">list1</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">list2</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">q1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">q2</span><span class="si">:</span><span class="s1">s</span><span class="si">}</span><span class="s1">&quot; appears at position </span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s1">d</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;東京オリンピック&quot; appears at position 4454.
+&quot;東京オリンピック&quot; appears at position 8072.
+&quot;東京オリンピック&quot; appears at position 23152.
+&quot;東京オリンピック&quot; appears at position 89928.
+&quot;東京オリンピック&quot; appears at position 105036.
+</pre></div>
+</div>
+</div>
+</div>
+<p>このように、同文書内に「東京オリンピック」という連語が5回出現することが確認できた。</p>
+<p>この考え方は、より多くの単語が結合された連語に対しても適用できる。例えば「東京株式取引所」という単語が含まれいるかを知りたければ、「東京」という単語の出現位置から2文字進んだ位置に「株式」という単語が出現し、なおかつ、そこからさらに2文字進んだ位置に「取引所」という単語が存在するかを確認すれば良い。</p>
+</section>
+<section id="id9">
+<h3><span class="section-number">6.2.4. </span>検索順位の計算<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p>複数の文書が与えられた時、特定の検索クエリに対応する文書も複数存在するとしよう。この場合、文書の総数が少なければ、それら全てを順不同に表示すれば良いだろう。</p>
+<p>しかし、インターネット上にあふれるデータは非常に多く、全文書を順不同で示すことは現実的ではない。そのため、通常の検索エンジンには検索順位を計算する仕組みが用意されているのが一般的である。</p>
+<p>以下の例では、辞書型の変数<code class="docutils literal notranslate"><span class="pre">inv_ids</span></code>に国名をキーとして各文書の転置インデックスが含まれているものとして、検索ランキングの考え方について説明する。</p>
+<p>最も単純には、単語の出現回数が多い順にページを表示すれば良いだろう。前述の連語検索の考え方を利用して、「世界遺産」という単語が各文書に何回ずつ出現するかを計算してみる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q1</span> <span class="o">=</span> <span class="s2">&quot;世界&quot;</span>
+<span class="n">q2</span> <span class="o">=</span> <span class="s2">&quot;遺産&quot;</span>
+
+<span class="n">count</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">q1</span> <span class="ow">in</span> <span class="n">inv_ids</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">q2</span> <span class="ow">in</span> <span class="n">inv_ids</span><span class="p">[</span><span class="n">c</span><span class="p">]:</span>
+        <span class="k">continue</span>
+
+    <span class="n">l1</span> <span class="o">=</span> <span class="n">inv_ids</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="n">q1</span><span class="p">]</span>
+    <span class="n">l2</span> <span class="o">=</span> <span class="n">inv_ids</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="n">q2</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">l1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">l2</span><span class="p">:</span>
+            <span class="n">count</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>国</th>
+      <th>出現回数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>スペイン</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ベトナム</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>トルコ</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>アゼルバイジャン</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>イラン</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>エストニア</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>エチオピア</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>オーストラリア</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>カーボベルデ</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>シエラレオネ</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>この結果を見てみると、一見自然には見えるが、中には直感的に「世界遺産」とは結びつきづらい国名が現れていることも事実である。</p>
+<p>出現回数だと、単純に長い文書の順位が高くなりやすいので、その影響があるのかもしれない。出現回数の代わりに出現確率を指標として用いるとどうなるだろうか。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prob</span> <span class="o">=</span> <span class="p">[(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">inv_ids</span><span class="p">[</span><span class="n">c</span><span class="p">]))</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">count</span><span class="p">]</span>
+<span class="n">prob</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>国</th>
+      <th>出現確率</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>スリナム</td>
+      <td>0.003584</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>セントルシア</td>
+      <td>0.003160</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ドミニカ国</td>
+      <td>0.002954</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>バルバドス</td>
+      <td>0.002688</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>エストニア</td>
+      <td>0.002660</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>カーボベルデ</td>
+      <td>0.002443</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>シエラレオネ</td>
+      <td>0.002360</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>アゼルバイジャン</td>
+      <td>0.002229</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>レソト</td>
+      <td>0.002010</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>サンマリノ</td>
+      <td>0.002006</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>残念ながら、今度は比較的短い文書に対して有利な結果になってしまい、逆に直感的でない検索ランキングとなってしまった。</p>
+</section>
+<section id="tf-idf">
+<h3><span class="section-number">6.2.5. </span>TF-IDF<a class="headerlink" href="#tf-idf" title="Permalink to this heading">#</a></h3>
+<p><strong>TF-IDF</strong>はterm frequencyとinverse document frequencyを組み合わせた値で、各文書に現れる単語の重要度を表すために用いられる指標の一つである。</p>
+<p><strong>TF</strong> (term frequency)は、各文書において、単語が現れる頻度を用いた指標で、文書<span class="math notranslate nohighlight">\(d\)</span>に単語<span class="math notranslate nohighlight">\(t\)</span>が現れる頻度を<span class="math notranslate nohighlight">\(f_{t,d}\)</span>としたとき、以下の式が用いられることが多い <span id="id10">[<a class="reference internal" href="#id27" title="Steven Buttcher, Charles L. A. Clarke, Gordon V. Cormack, and Bob Kummerfeld. 情報検索 検索エンジンの実装と評価. 森北出版, 2020. ISBN 978-4-627-81761-6.">6-1</a>]</span>。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathrm{TF}(t, d) = \begin{cases}
+\log (f_{t, d}) + 1 &amp; (f_{t,d} &gt; 0) \\
+0 &amp; (\text{Otherwise})
+\end{cases}
+\end{split}\]</div>
+<p>一方、<strong>IDF</strong> (inverse document frequency)は、文書の数<span class="math notranslate nohighlight">\(N\)</span>と、単語<span class="math notranslate nohighlight">\(t\)</span>が現れる文書の数<span class="math notranslate nohighlight">\(0 \leq N_t \leq N\)</span>と用いて以下のように定義される。</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{IDF}(t) = \log \left( \frac{N}{N_t} \right)
+\]</div>
+<p>TF-IDFはTF値とIDF値の積で計算される。</p>
+<div class="math notranslate nohighlight" id="equation-eq-tf-idf">
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-eq-tf-idf" title="この数式へのパーマリンク">#</a></span>\[
+\mathrm{TF}\text{-}\mathrm{IDF}(t, d) = \mathrm{TF}(t, d) \cdot \mathrm{IDF}(t)
+\]</div>
+<p>TF-IDFを計算するために、まずは全文書に現れる全単語のリスト (コーパスと呼ぶ)を取得しよう。コーパスの取得には、重複をなくしたデータ集合を扱う<code class="docutils literal notranslate"><span class="pre">set</span></code>を用いると良い。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># コーパスの取得</span>
+<span class="n">corpus</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">inv_ids</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">corpus</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">ii</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+<span class="n">corpus</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">corpus</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>コーパスが取得できたら、後の処理のために、記事名(=国名)と単語にインデックスを振っておく。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_countries</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">countries</span><span class="p">)</span>
+<span class="n">n_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+<span class="n">i_countries</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">countries</span><span class="p">)}</span>
+<span class="n">i_words</span> <span class="o">=</span> <span class="p">{</span><span class="n">w</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">corpus</span><span class="p">)}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>このインデックスを元に、各記事における各単語の出現回数をNumPyによる二次元配列のデータとして計算する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_countries</span><span class="p">,</span> <span class="n">n_words</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">inv_ids</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ii</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">i_c</span> <span class="o">=</span> <span class="n">i_countries</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+        <span class="n">i_w</span> <span class="o">=</span> <span class="n">i_words</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+        <span class="n">freq</span><span class="p">[</span><span class="n">i_c</span><span class="p">,</span> <span class="n">i_w</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ii</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>各単語の出現回数が得られたら、<a class="reference internal" href="#equation-eq-tf-idf">(6.1)</a>の定義に基づき、TF-IDFを計算する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span>  <span class="c1"># 記事の総数</span>
+<span class="n">N_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">freq</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 各単語が出現する文書の数</span>
+
+<span class="c1"># 以下、定義式に基づきTF-IDFを計算</span>
+<span class="n">tf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">freq</span><span class="p">)</span>
+<span class="n">idf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="n">N_t</span><span class="p">)</span>
+<span class="n">tfidf</span> <span class="o">=</span> <span class="n">tf</span> <span class="o">*</span> <span class="n">idf</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>TF-IDFが計算できたら、検索クエリに含まれる単語のTF-IDF値の積を指標として検索ランキングを計算してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q1</span> <span class="o">=</span> <span class="s2">&quot;世界&quot;</span>
+<span class="n">q2</span> <span class="o">=</span> <span class="s2">&quot;遺産&quot;</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="mf">0.0</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">}</span>
+
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">q1</span> <span class="ow">in</span> <span class="n">inv_ids</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">q2</span> <span class="ow">in</span> <span class="n">inv_ids</span><span class="p">[</span><span class="n">c</span><span class="p">]:</span>
+        <span class="k">continue</span>
+
+    <span class="n">l1</span> <span class="o">=</span> <span class="n">inv_ids</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="n">q1</span><span class="p">]</span>
+    <span class="n">l2</span> <span class="o">=</span> <span class="n">inv_ids</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="n">q2</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">l1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">l2</span><span class="p">:</span>
+            <span class="n">i_c</span> <span class="o">=</span> <span class="n">i_countries</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+            <span class="n">i_w1</span> <span class="o">=</span> <span class="n">i_words</span><span class="p">[</span><span class="n">q1</span><span class="p">]</span>
+            <span class="n">i_w2</span> <span class="o">=</span> <span class="n">i_words</span><span class="p">[</span><span class="n">q2</span><span class="p">]</span>
+            <span class="n">scores</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="n">tfidf</span><span class="p">[</span><span class="n">i_c</span><span class="p">,</span> <span class="n">i_w1</span><span class="p">]</span> <span class="o">*</span> <span class="n">tfidf</span><span class="p">[</span><span class="n">i_c</span><span class="p">,</span> <span class="n">i_w2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ここで計算した<code class="docutils literal notranslate"><span class="pre">scores</span></code>に基づく検索ランキングは以下のようになる。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>国名</th>
+      <th>TF-IDF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>スペイン</td>
+      <td>0.137280</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ベトナム</td>
+      <td>0.132768</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ロシア連邦</td>
+      <td>0.093656</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>トルコ</td>
+      <td>0.092913</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ドイツ</td>
+      <td>0.078629</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>オーストラリア</td>
+      <td>0.067139</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>日本</td>
+      <td>0.062272</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>イラン</td>
+      <td>0.060474</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>フィリピン</td>
+      <td>0.056141</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>ラオス</td>
+      <td>0.052969</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>結果を確認してみると、若干ではあるが、世界遺産が多そうな国が上位にならび、やや直感的に近づいた結果となったことが確認できる。</p>
+<p>なお、2024年5月27日現在、世界遺産登録数が多い順に国名を列挙すると、</p>
+<ul class="simple">
+<li><p>イタリア</p></li>
+<li><p>中華人民共和国</p></li>
+<li><p>ドイツ</p></li>
+<li><p>フランス</p></li>
+<li><p>スペイン</p></li>
+</ul>
+<p>のようなになるので、Wikipediaの記事に単語が現れているかどうかを調べただけでは、そこまで正確な結果が得られているとは言えないかもしれない。</p>
+<div class="note admonition">
+<p class="admonition-title">単語を用いた文書検索</p>
+<ul class="simple">
+<li><p>複数の単語からなる検索クエリを用いた文書検索には転置インデックスが広く用いられる</p></li>
+<li><p>転置インデックスは、文書が含む単語のリストである辞書と、各単語の出現位置の集めたポスティング・リストからなる</p></li>
+<li><p>検索ランキングを与えるには、TF-IDFなどの単語重要度を考慮したスコアが利用される</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="id11">
+<h2><span class="section-number">6.3. </span>類似文書検索<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
+<section id="id12">
+<h3><span class="section-number">6.3.1. </span>文書間類似度<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<p>文書の類似度を調べる場合にも、上記のTF-IDFの値を用いると良い。この値によって、各文書は全出現単語を次元とするベクトルとして表現される。</p>
+<p>ベクトル同士の距離を計算する指標は様々あるが、文書の類似度を比較する場合には、コサイン類似度が比較的よく用いられる。</p>
+<div class="math notranslate nohighlight">
+\[
+S_{\mathrm{cosine}}(\mathbf{x}, \mathbf{y}) = \frac{\mathbf{x}}{| \mathbf{x} |} \cdot \frac{\mathbf{y}}{| \mathbf{y} |}
+\]</div>
+<p>今、各単語のTF-IDFの値は正であるので、<span class="math notranslate nohighlight">\(\mathbf{x}\)</span>や<span class="math notranslate nohighlight">\(\mathbf{y}\)</span>などのベクトルは必ず第1象限に含まれている。従って、コサイン類似度は0から1の間の値を取り、1に近ければ近いほど、二つの文書<span class="math notranslate nohighlight">\(\mathbf{x}\)</span>と<span class="math notranslate nohighlight">\(\mathbf{y}\)</span>は類似していることを意味する。</p>
+<div class="warning admonition">
+<p class="admonition-title">距離と類似度</p>
+<p>「距離」という言葉と「類似度」という言葉はしばしば混同して用いられるが、一般に、より近いデータであれば高い値を取る指標が類似度であり、より近い値に対して0に近い非負の値を取る指標を距離と呼ぶ。</p>
+<p>この意味で、実際、前述のコサイン類似度を「コサイン距離」と呼ぶのは誤りであるので注意してほしい。</p>
+</div>
+<p>ここで、コサイン類似度を用いて「日本」により近い内容を持つ文書を探してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v_japan</span> <span class="o">=</span> <span class="n">tfidf</span><span class="p">[</span><span class="n">i_countries</span><span class="p">[</span><span class="s2">&quot;日本&quot;</span><span class="p">],</span> <span class="p">:]</span>
+
+<span class="n">dists</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">tfidf</span><span class="p">[</span><span class="n">i_countries</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="p">:]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v_japan</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v_japan</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+    <span class="n">dists</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>このようにして計算されたコサイン類似度が高い順に国名を列挙すると以下のようになる。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>国名</th>
+      <th>コサイン類似度</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>日本</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>韓国</td>
+      <td>0.260421</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>北朝鮮</td>
+      <td>0.215774</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>アメリカ合衆国</td>
+      <td>0.198374</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ロシア連邦</td>
+      <td>0.190575</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>中華人民共和国</td>
+      <td>0.185069</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>ドイツ</td>
+      <td>0.167426</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>ベトナム</td>
+      <td>0.159030</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>インド</td>
+      <td>0.155713</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>シンガポール</td>
+      <td>0.154870</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>結果を見てみると、直感的には日本と関係が深そうな各国や北朝鮮が上位に来ており、類似度評価はかなり上手くいっているように見える。</p>
+<p>一方、コサイン類似度を用いた文書の類似度は、古くは比較する文書の長さがおよそ同等であった時代に考案されたもの<span id="id13">[<a class="reference internal" href="#id27" title="Steven Buttcher, Charles L. A. Clarke, Gordon V. Cormack, and Bob Kummerfeld. 情報検索 検索エンジンの実装と評価. 森北出版, 2020. ISBN 978-4-627-81761-6.">6-1</a>]</span>であり、コサイン類似度を求める際に、各文書を表すベクトルを正規化してしまうと、文書の長さの影響を上手く捉えることができないことがある。</p>
+<p>そこで、ベクトルを正規化しない類似度の計算法として、コサイン類似度と似た指標がいくつも提案されている。以下では、一例として<strong>Okapi BM25</strong>という指標について紹介する。</p>
+<p><strong>Okapi BM25</strong> (以下では単にBM25とする)は、ロンドン大学シティ校のRobertsonらが開発した検索システムであるOkapiに用いられていた類似度指標である。なお、BMはBest Matchingの略であり、25は同指標が実装されたOkapiのバージョン番号である <span id="id14">[<a class="reference internal" href="#id27" title="Steven Buttcher, Charles L. A. Clarke, Gordon V. Cormack, and Bob Kummerfeld. 情報検索 検索エンジンの実装と評価. 森北出版, 2020. ISBN 978-4-627-81761-6.">6-1</a>]</span>。</p>
+<p>BM25は、TF-IDFのTFの計算方法を改良しており、以下の式を用いる。</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{TF}_{\mathrm{BM25}}(t, d) = \frac{f_{t,d} (k_1 + 1)}{k_1 ((1 - b) + b (l_d / l_{\mathrm{avg}})) + f_{t,d}}
+\]</div>
+<p>この式において、<span class="math notranslate nohighlight">\(l_d\)</span>は文書<span class="math notranslate nohighlight">\(d\)</span>に現れる単語数であり、<span class="math notranslate nohighlight">\(l_{\mathrm{avg}}\)</span>は各文書に現れる単語数の平均値である。なお、<span class="math notranslate nohighlight">\(k_1\)</span>と<span class="math notranslate nohighlight">\(b\)</span>はパラメータであり、<span class="math notranslate nohighlight">\(k_1 = 1.2\)</span>、<span class="math notranslate nohighlight">\(b = 0.75\)</span>を規定値として用いる。</p>
+<p>この式に基づき、BM25では、以下のようにして、クエリ文書<span class="math notranslate nohighlight">\(q\)</span>に単語<span class="math notranslate nohighlight">\(t\)</span>が現れる回数を<span class="math notranslate nohighlight">\(q_t\)</span>でTF-IDF値を重み付けて、以下のように類似度スコアを計算する。</p>
+<div class="math notranslate nohighlight" id="equation-eq-bm25">
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-eq-bm25" title="この数式へのパーマリンク">#</a></span>\[
+S_{\mathrm{BM25}} = \sum_{t \in q} q_t \cdot \mathrm{TF}\text{-}\mathrm{IDF}_{\mathrm{BM25}}(t, d)
+\]</div>
+<p>では、<a class="reference internal" href="#equation-eq-bm25">(6.2)</a>に基づき、「日本」の記事と各文書の類似度を計算してみよう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 文書長に関する変数</span>
+<span class="n">l_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">l_avg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">l_d</span><span class="p">)</span>
+
+<span class="c1"># BM25版TF-IDFの計算</span>
+<span class="n">k1</span> <span class="o">=</span> <span class="mf">1.2</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mf">0.75</span>
+<span class="n">tf_bm25</span> <span class="o">=</span> <span class="p">(</span><span class="n">freq</span> <span class="o">*</span> <span class="p">(</span><span class="n">k1</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">k1</span> <span class="o">*</span> <span class="p">((</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="p">(</span><span class="n">l_d</span> <span class="o">/</span> <span class="n">l_avg</span><span class="p">))</span> <span class="o">+</span> <span class="n">freq</span><span class="p">)</span>
+<span class="n">tfidf_bm25</span> <span class="o">=</span> <span class="n">tf_bm25</span> <span class="o">*</span> <span class="n">idf</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># BM25に基づく文書間類似度の計算</span>
+<span class="n">dists</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">q_t</span> <span class="o">=</span> <span class="n">freq</span><span class="p">[</span><span class="n">i_countries</span><span class="p">[</span><span class="s2">&quot;日本&quot;</span><span class="p">],</span> <span class="p">:]</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">tfidf_bm25</span><span class="p">[</span><span class="n">i_countries</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="p">:]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">q_t</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+    <span class="n">dists</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>国名</th>
+      <th>Okapi BM25</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>日本</td>
+      <td>39460.698893</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>韓国</td>
+      <td>18590.990600</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>北朝鮮</td>
+      <td>16353.442688</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>アメリカ合衆国</td>
+      <td>15821.683293</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ロシア連邦</td>
+      <td>15610.194962</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>中華人民共和国</td>
+      <td>14811.119422</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>ベトナム</td>
+      <td>14670.974348</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>ドイツ</td>
+      <td>14342.732113</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>インド</td>
+      <td>14065.494369</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>フランス</td>
+      <td>13639.038075</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>今回の例では、BM25を用いたことで、それほど大きな変化は得られなかったが、これは日本の記事と、日本に関連が深い国の記事が、それ相応の長さを持っていることに起因する可能性がある。</p>
+<p>他の国に関する文書との類似度を用いた場合に、コサイン類似度とBM25を用いる場合とでどのような変化が生じるかは、練習問題を通じて確認してみてほしい。</p>
+</section>
+<section id="word2vec">
+<h3><span class="section-number">6.3.2. </span>Word2Vec<a class="headerlink" href="#word2vec" title="Permalink to this heading">#</a></h3>
+<p><strong>word2vec</strong>は2013年にGoogleの研究者であったMikolov氏らが提案した手法<span id="id15">[<a class="reference internal" href="#id28" title="Tomas Mikolov, Kai Chen, Greg Corrado, and Jeffrey Dean. Efficient estimation of word representations in vector space. arXiv preprint:1301.3781, 2013.">6-2</a>]</span>で、与えられた文書集合に含まれる各単語を特徴ベクトル化する技術の一種である。</p>
+<p>word2vecは、各単語をベクトル化するために、CBoW (continuous bag of words)とskip-gramと呼ばれる2つの異なる教師付き学習の枠組みを用いる。</p>
+<p><strong>CBoW</strong>は、ある単語<span class="math notranslate nohighlight">\(a_i\)</span>の周りに存在する単語<span class="math notranslate nohighlight">\(\ldots, a_{i-2}, a_{i-1}, a_{i+1}, a_{i+2}, \ldots\)</span>から、<span class="math notranslate nohighlight">\(a_i\)</span>を予想する、という問題を機械学習で解く。反対に<strong>skip-gram</strong>では、単語<span class="math notranslate nohighlight">\(a_i\)</span>から、周囲に存在する単語のいずれかを予想するという問題を解く。</p>
+<p>以下では、機械学習ライブラリの<a class="reference external" href="https://radimrehurek.com/gensim/">gensim</a>を用いてword2vecによる単語のベクトル表現を利用してみよう。</p>
+<p><strong>gensim</strong>はpipを用いて簡単にインストールができる。この際、gensimの内部でSciPyが使われており、そのバージョンによってエラーが生じる可能性があるので、SciPyのバージョンを指定して一緒にインストールすると良い。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>gensim<span class="w"> </span><span class="nv">scipy</span><span class="o">==</span><span class="m">1</span>.12
+</pre></div>
+</div>
+<section id="id16">
+<h4>学習データの用意<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h4>
+<p>word2vecで用いられるCBoWとskip-gramはいずれも教師付き学習に基づくアプローチなので、これらを利用するには訓練データを用意する必要がある。</p>
+<p>gensimで用いる訓練データは文書の全文を1つの要素とする文字列型の配列である。今回は、各国の文書を要素として持つ長さ193の配列を訓練データとして用いる。</p>
+<p>日本語を扱う場合、各文書は分かち書きされている必要があるので、本項の始めに用意しておいた分かち書き処理済みのファイルを読み込んで、<strong>各文書に含まれる単語のリスト</strong> (出現順)を訓練データとして用いる。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 国名リストの読み込み</span>
+<span class="n">countries</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/countries/list.txt&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">countries</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+<span class="n">countries</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">]</span>
+
+<span class="c1"># 分かち書き済みの文書の読み込み</span>
+<span class="n">sentences</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;data/countries/</span><span class="si">{</span><span class="n">c</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="s2">_wakati.txt&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">sentences</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id17">
+<h4>モデルの訓練<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h4>
+<p>訓練データ (<code class="docutils literal notranslate"><span class="pre">sentences</span></code>)が用意できたら、<code class="docutils literal notranslate"><span class="pre">gensim</span></code>の<code class="docutils literal notranslate"><span class="pre">Word2Vec</span></code>クラスのコンストラクタに与えて、モデルの訓練を実行する。<code class="docutils literal notranslate"><span class="pre">Word2Vec</span></code>にはいくつかのパラメータが必要であり、各単語を表すベクトルの次元数を表す<code class="docutils literal notranslate"><span class="pre">vector_size</span></code>や、各単語の周囲何単語を訓練データに含めるかを決める<code class="docutils literal notranslate"><span class="pre">window</span></code>、CBoWかskip-gramのどちらを使うかを表す<code class="docutils literal notranslate"><span class="pre">sg</span></code> (<code class="docutils literal notranslate"><span class="pre">sg=1</span></code>のときはskip-gram, そうでないときはCBoW)、最低何回出現する単語を学習に含めるかを決める<code class="docutils literal notranslate"><span class="pre">min_count</span></code>などを指定する。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gensim.models</span> <span class="kn">import</span> <span class="n">Word2Vec</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">Word2Vec</span><span class="p">(</span>
+    <span class="n">sentences</span><span class="o">=</span><span class="n">sentences</span><span class="p">,</span>
+    <span class="n">vector_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">window</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+    <span class="n">sg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">min_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id18">
+<h4>文書のベクトル化<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">Word2Vec</span></code>はインスタンス化とともにモデルの訓練が実行され、<code class="docutils literal notranslate"><span class="pre">model.wv</span></code>が単語をキーとし、ベクトル表現を値とする辞書型として与えられる。</p>
+<p>各文書をベクトル化する方法にはいくつかあるが、以下では、単純に文書に現れる単語のベクトル表現の和を取る。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vectors</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">countries</span><span class="p">):</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">vectors</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>このようにして得られた各文書のベクトル表現のユークリッド距離に基づき、文書間の類似度を決める。今回はユークリッド距離が小さい方が、より類似した文書となるので注意すること。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v_jp</span> <span class="o">=</span> <span class="n">vectors</span><span class="p">[</span><span class="s2">&quot;日本&quot;</span><span class="p">]</span>
+<span class="n">dists</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="mf">0.0</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">vectors</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v_jp</span> <span class="o">-</span> <span class="n">v</span><span class="p">)</span>
+    <span class="n">dists</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
+
+<span class="n">dists</span> <span class="o">=</span> <span class="p">[(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dists</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>計算された距離に基づいて国名を昇順で並べ替えると以下のようになる。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>国名</th>
+      <th>w2vによる類似度</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>日本</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>韓国</td>
+      <td>51335.203125</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>北朝鮮</td>
+      <td>55850.687500</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>アメリカ合衆国</td>
+      <td>70985.656250</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ポーランド</td>
+      <td>76495.265625</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>ロシア連邦</td>
+      <td>76512.421875</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>インド</td>
+      <td>78247.195312</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>ブラジル</td>
+      <td>82678.859375</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>アルゼンチン</td>
+      <td>82748.085938</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>フランス</td>
+      <td>82970.156250</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>いかがだろうか。word2vecを用いた場合も、かなり直感に近い類似度を得ることができた。ただ、今回の単語ベクトルの「和」と、ユークリッド距離を用いたアプローチは文書の長さによる影響を受ける可能性がある。</p>
+<p>前述の通り、日本語のWikipediaの記事は日本と関連の深い国の文書が長い可能性があることには注意が必要である。</p>
+<div class="note admonition">
+<p class="admonition-title">類似文書の検索</p>
+<ul class="simple">
+<li><p>文書の類似度計算にも、単語を検索クエリに用いる場合と同様、TF-IDFを基本とした指標が用いられる</p></li>
+<li><p>類似度指標の計算方法は多数あり、コサイン類似度の他、Okapi BM25などの指標がある</p></li>
+<li><p>word2vecを用いると単語のベクトル表現が得られるので、それを用いて文書をベクトル化する方法もある</p></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+<section id="id19">
+<h2><span class="section-number">6.4. </span>練習問題<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h2>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-header docutils">
+<p class="sd-card-text"><strong>問1</strong></p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text"><a class="reference download internal" download="" href="../_downloads/907d9b553b7ecea8362fbb5e42eebaef/countries.tar.gz"><span class="xref download myst">演習用データ</span></a>を用いて各国の記事に対する転置インデックスとTF-IDF値を計算せよ。また、それらを用いて、いくつかの連語に対する検索ランキングを計算し、ランキングに用いる指標の与える効果について論ぜよ。</p>
+</div>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-header docutils">
+<p class="sd-card-text"><strong>問2</strong></p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">本文の指示に従い、コサイン類似度やOkapi BM25、word2vecを利用して、「日本」以外の記事についても文書間の類似度を調べ、各国の記事の関係や類似度指標の違いについて論ぜよ。</p>
+</div>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-header docutils">
+<p class="sd-card-text"><strong>問3</strong></p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">word2vecを用いて、検索クエリに現れる単語のベクトル表現の平均値を取ると、その平均ベクトルを用いて、各文書と検索クエリの類似度を調べることができる。いくつかの検索クエリに対して、word2vecを用いた検索ランキングを試し、その結果について考察せよ。</p>
+</div>
+</div>
+</section>
+<section id="id20">
+<h2><span class="section-number">6.5. </span>参考文献<a class="headerlink" href="#id20" title="Permalink to this heading">#</a></h2>
+<div class="docutils container" id="id21">
+<dl class="citation">
+<dt class="label" id="id27"><span class="brackets">6-1</span><span class="fn-backref">(<a href="#id10">1</a>,<a href="#id13">2</a>,<a href="#id14">3</a>)</span></dt>
+<dd><p>Steven Buttcher, Charles L. A. Clarke, Gordon V. Cormack, and Bob Kummerfeld. <em>情報検索 検索エンジンの実装と評価</em>. 森北出版, 2020. ISBN 978-4-627-81761-6.</p>
+</dd>
+<dt class="label" id="id28"><span class="brackets"><a class="fn-backref" href="#id15">6-2</a></span></dt>
+<dd><p>Tomas Mikolov, Kai Chen, Greg Corrado, and Jeffrey Dean. Efficient estimation of word representations in vector space. <em>arXiv preprint:1301.3781</em>, 2013.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./contents"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="compression.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>情報圧縮の基礎</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">6.1. 検索の準備</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">6.1.1. 日本語の取り扱い</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#janome">6.1.2. janomeによる形態素解析</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">6.1.3. 分かち書き</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">6.2. 検索クエリによる文書検索</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">6.2.1. 転置インデックス</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">6.2.2. 単語による文書検索</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">6.2.3. 連語検索</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">6.2.4. 検索順位の計算</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf">6.2.5. TF-IDF</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">6.3. 類似文書検索</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">6.3.1. 文書間類似度</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec">6.3.2. Word2Vec</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">学習データの用意</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">モデルの訓練</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">文書のベクトル化</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">6.4. 練習問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">6.5. 参考文献</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 Tatsuya Yatagawa
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright CC BY-NC-SA 4.0, 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
