@@ -32,17 +32,17 @@ html:
 # Interact link settings
 launch_buttons:
   notebook_interface: "jupyterlab"
-  colab_url: "https://colab.research.google.com"
+  colab_url: ""
 
 # Launch button settings
 repository:
   url: https://github.com/tatsy/1284-sds-programming-2
-  path_to_book: ./
+  path_to_book: ""
   branch: master
 
 # Sphinx
 sphinx:
-  recursive_update: false
+  recursive_update: true
   config:
     language: ja
     # Syntax highlighting
@@ -54,6 +54,8 @@ sphinx:
     bibtex_reference_style: label
     # Disable download button
     html_theme_options:
+      pygments_light_style: gotthard-light
+      pygments_dark_style: material
       use_download_button: false
 
 bibtex_bibfiles:
