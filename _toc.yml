@@ -19,4 +19,4 @@ parts:
       - file: contents/retrieval
       - title: ソケット通信
         url: https://www.rbanno.net/classes/hitu_2024_p2/day07/socket.html
-      # - file: contents/webserver
+      - file: contents/webserver
