@@ -1,0 +1,847 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>7. 簡易ウェブサーバの実装 &#8212; プログラミングⅡ</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'contents/webserver';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="prev" title="6. 情報検索の基礎" href="retrieval.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">プログラミングⅡ</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">事前準備</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="setup-python.html">1. Python環境の設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup-git.html">2. Git環境の設定</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">講義内容</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="webpage.html">1. ウェブページの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regex.html">2. 正規表現の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request.html">3. HTTPリクエスト</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crawler.html">4. 簡易クローラの作成</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.rbanno.net/classes/hitu_2024_p2/day05/encryption-and-ssl.html">暗号化とSSL通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compression.html">5. 情報圧縮の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="retrieval.html">6. 情報検索の基礎</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.rbanno.net/classes/hitu_2024_p2/day07/socket.html">ソケット通信</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. 簡易ウェブサーバの実装</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>簡易ウェブサーバの実装</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">7.1. 最初のプログラム</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#http">7.2. HTTPレスポンスの内容</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.2.1. レスポンスを真似る</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">7.3. レスポンスの動的な生成</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.3.1. ステータスコード</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.3.2. サーバの名前</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">7.3.3. 時刻の生成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.3.4. ファイルの情報</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.3.5. レスポンス・ボディ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.4. リンクされたファイルへの対応</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">7.4.1. リクエスト・ファイルの取得</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">7.4.2. エラーコードの返送</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ssec-web-application">7.5. ウェブ・アプリケーション</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">7.6. 練習問題</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="sec-web-server">
+<span id="id1"></span><h1><span class="section-number">7. </span>簡易ウェブサーバの実装<a class="headerlink" href="#sec-web-server" title="Permalink to this heading">#</a></h1>
+<p>本項では、前回の<a class="reference external" href="https://www.rbanno.net/classes/hitu_2024_p2/day07/socket.html">ソケット通信</a>で学んだことを応用し、簡易ウェブサーバを実装してみよう。</p>
+<p>特定のURLの特定のポートにおいて接続を待ち受けるだけの簡単なプログラムをマルチスレッドでリクエストを処理するウェブサーバに改良していく。</p>
+<p>最終的に作成される簡易ウェブサーバでは以下の演習用データを配信することを目指す。</p>
+<ul class="simple">
+<li><p><a class="reference download internal" download="" href="../_downloads/96a2bbb42dfba4850e248ee743303dab/public_html.tar.gz"><span class="xref download myst">演習用データ</span></a></p></li>
+</ul>
+<section id="id2">
+<h2><span class="section-number">7.1. </span>最初のプログラム<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>まずは、ソケットを用いて<code class="docutils literal notranslate"><span class="pre">localhost</span></code>の<code class="docutils literal notranslate"><span class="pre">8080</span></code>ポートで接続を待ち受けるプログラムを作成しよう。以下のソースコードに<code class="docutils literal notranslate"><span class="pre">server.py</span></code>という名前をつけて、各自のコンピュータに保存しよう。</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="c1"># サーバのパラメータ</span>
+<span class="n">SERVER_HOST</span> <span class="o">=</span> <span class="s2">&quot;localhost&quot;</span>
+<span class="n">SERVER_PORT</span> <span class="o">=</span> <span class="mi">8080</span>
+<span class="n">SERVER_NAME</span> <span class="o">=</span> <span class="s2">&quot;Awesome HTTP Server/v1.0.0&quot;</span>
+<span class="n">SERVER_ROOT</span> <span class="o">=</span> <span class="s2">&quot;public_html&quot;</span>
+<span class="n">BUFSIZE</span> <span class="o">=</span> <span class="mi">4096</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># ソケットを作成</span>
+    <span class="n">srv_sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+    <span class="n">srv_sock</span><span class="o">.</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SO_REUSEADDR</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">srv_sock</span><span class="o">.</span><span class="n">settimeout</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">srv_sock</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="n">SERVER_HOST</span><span class="p">,</span> <span class="n">SERVER_PORT</span><span class="p">))</span>
+    <span class="n">srv_sock</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Listening on </span><span class="si">{</span><span class="n">SERVER_HOST</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">SERVER_PORT</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># クライアントからの接続を待ち受ける</span>
+            <span class="n">clt_sock</span><span class="p">,</span> <span class="n">clt_addr</span> <span class="o">=</span> <span class="n">srv_sock</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Connection from </span><span class="si">{</span><span class="n">clt_addr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="c1"># データを受信して表示</span>
+            <span class="n">req_bytes</span> <span class="o">=</span> <span class="n">clt_sock</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="n">req_bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received:</span><span class="se">\r\n</span><span class="si">{</span><span class="n">request</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">request</span> <span class="o">==</span> <span class="s2">&quot;exit&quot;</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">timeout</span><span class="p">:</span>
+            <span class="c1"># 接続がタイムアウトしたら、再度接続を待ち受ける</span>
+            <span class="k">continue</span>
+
+        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+            <span class="c1"># Ctrl+Cなどが押されたらループを抜ける</span>
+            <span class="k">break</span>
+
+    <span class="c1"># ソケットを閉じる</span>
+    <span class="n">srv_sock</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>保存が完了したらターミナル等のシェルを開き、</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>server.py
+</pre></div>
+</div>
+<p>として実行する。すると、<code class="docutils literal notranslate"><span class="pre">localhost</span></code>の<code class="docutils literal notranslate"><span class="pre">8080</span></code>番ポートが読み取られるようになるので、ブラウザのURLに <code class="docutils literal notranslate"><span class="pre">http://localhost:8080</span></code> と入力してサーバーにアクセスしてみよう。</p>
+<p>おそらく、以下のような「このサイトにはアクセスできません」のようなエラーメッセージが表示されてアクセスに失敗するはずだ。</p>
+<a class="with-border reference internal image-reference" href="../_images/404_not_found.jpg"><img alt="../_images/404_not_found.jpg" class="with-border align-center" src="../_images/404_not_found.jpg" style="width: 70%;" /></a>
+<p>しかし、裏側ではブラウザからHTTPリクエストが送信されていて、サーバ側のプログラムでは、送られてきたリクエスト内容がシェル上に表示されているはずである。ブラウザの種類によって多少内容はことなるが、概ね以下のような内容のリクエストが表示されているはずである。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GET / HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: &quot;Brave&quot;;v=&quot;125&quot;, &quot;Chromium&quot;;v=&quot;125&quot;, &quot;Not.A/Brand&quot;;v=&quot;24&quot;
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: &quot;Windows&quot;
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+Sec-GPC: 1
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: ja,en;q=0.9,en-US;q=0.8
+</pre></div>
+</div>
+<p>世間で広く使われているようなウェブサーバでは、このHTTPリクエストの内容を一つずつチェックして、どのような内容をクライアント側に送り返すかを決めている。しかし、簡易ウェブサーバで全てを扱うのは困難なので、これらのリクエスト・パラメータのいくつかだけに対応することにする。</p>
+</section>
+<section id="http">
+<h2><span class="section-number">7.2. </span>HTTPレスポンスの内容<a class="headerlink" href="#http" title="Permalink to this heading">#</a></h2>
+<p>「最初のプログラム」では、ブラウザでアクセスした際に、エラーが発生してアクセスに失敗してしまった。これは、端的にはHTTPレスポンスが返ってこなかったことに原因があるのだが、そもそも、通常のウェブサーバはどのようなレスポンスを返してくるのだろうか。</p>
+<p>Pythonには標準ライブラリの中に簡易ウェブサーバが用意されているので、それを用いてレスポンス情報を調べてみよう。サーバは以下のコマンドで起動できる。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># [配信するディレクトリ]の部分は適宜変更すること</span>
+python<span class="w"> </span>-m<span class="w"> </span>http.serve<span class="w"> </span><span class="o">[</span>配信するディレクトリ<span class="o">]</span><span class="w"> </span><span class="m">8081</span>
+</pre></div>
+</div>
+<p>サーバを起動後、ブラウザを開いて、 <code class="docutils literal notranslate"><span class="pre">localhost:8081</span></code> にアクセスしてみよう。すると、以下のようなウェブページが正しく表示されるはずである。</p>
+<a class="with-border reference internal image-reference" href="../_images/tama_simple.jpg"><img alt="../_images/tama_simple.jpg" class="with-border align-center" src="../_images/tama_simple.jpg" style="width: 50%;" /></a>
+<p>ブラウザでページを表示したら、Google Chromeであれば、右上の三点メニューから「その他のツール」→「ディベロッパーツール」を開く。ツールの画面が開いたら、ページをリロードすると、「Network」のタブに以下のような情報が表示される。</p>
+<a class="with-border reference internal image-reference" href="../_images/devtool_network.jpg"><img alt="../_images/devtool_network.jpg" class="with-border align-center" src="../_images/devtool_network.jpg" style="width: 80%;" /></a>
+<p>上記の画像で画面下側に表示されているいくつかのドメイン、ファイル名のうち <code class="docutils literal notranslate"><span class="pre">localhost</span></code>を選択すると詳細を見ることができる。なお、この<code class="docutils literal notranslate"><span class="pre">localhost</span></code>というURLは、以下のTipに示すとおり、<code class="docutils literal notranslate"><span class="pre">index.html</span></code>に対応している。</p>
+<a class="with-border reference internal image-reference" href="../_images/devtool_response.jpg"><img alt="../_images/devtool_response.jpg" class="with-border align-center" src="../_images/devtool_response.jpg" style="width: 50%;" /></a>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>一般的なサーバは、ファイル名を指定しない場合には、そのディレクトリにおけるデフォルトファイル (多くの場合は <code class="docutils literal notranslate"><span class="pre">index.html</span></code>)を参照することになっており、<code class="docutils literal notranslate"><span class="pre">localhost:8081</span></code>は、実は <code class="docutils literal notranslate"><span class="pre">localhost:8081/index.html</span></code>をURLとして指定していることと同義になる。</p>
+</div>
+<p>上記の画面で、Response Headersの右横にあるチェックボックスをクリックすると、レスポンス・ヘッダの情報を取り出すことができる。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.11.9
+Date: Wed, 12 Jun 2024 00:23:34 GMT
+Content-type: text/html
+Content-Length: 497
+Last-Modified: Tue, 11 Jun 2024 23:59:41 GMT
+</pre></div>
+</div>
+<p>以上のように、レスポンスヘッダにはHTTPのバージョンの他、ファイルが配信された時刻やファイルの種類、データ長などが含まれている。</p>
+<section id="id3">
+<h3><span class="section-number">7.2.1. </span>レスポンスを真似る<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>HTTPサーバから戻されるレスポンスは、上記のレスポンス・ヘッダとレスポンス・ボディを含む。レスポンス・ボディは、上記の例で言えば<code class="docutils literal notranslate"><span class="pre">index.html</span></code>のファイルの中身で、ヘッダとボディは空行で区切られる。</p>
+<p>では、レスポンスとして、上記のレスポンス・ヘッダと適当なHTMLファイルをつなげた以下のテキストをそのまま戻すようにしてみよう。なお、レスポンス・ヘッダはバイナリデータとして送信しなければならないので、以下のテキストをUTF-8でエンコードし、クラアントのソケットを用いて送信する。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># responseは以下に示すテキストの内容</span>
+<span class="n">clt_sock</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.11.9
+Date: Wed, 12 Jun 2024 00:23:34 GMT
+Content-type: text/html
+Content-Length: 497
+Last-Modified: Tue, 11 Jun 2024 23:59:41 GMT
+
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot; /&gt;
+&lt;title&gt;テスト&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;テスト&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+<p>上手くレスポンスが送信できれば、ブラウザに以下のように表示される。</p>
+<a class="with-border reference internal image-reference" href="../_images/test_display.jpg"><img alt="../_images/test_display.jpg" class="with-border align-center" src="../_images/test_display.jpg" style="width: 100%;" /></a>
+</section>
+</section>
+<section id="id4">
+<h2><span class="section-number">7.3. </span>レスポンスの動的な生成<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>ここまでの例はPythonに元々用意されている<code class="docutils literal notranslate"><span class="pre">http.server</span></code>のレスポンス・ヘッダをそのまま利用していた。しかし、通常のウェブサーバは、これらの情報をサーバ自身が生成していることは言うまでもない。</p>
+<p>そこで、必要なレスポンス・ヘッダの情報を、計算機的に生成してみよう。なお、レスポンス・ヘッダやそれに続く空行はCRLF改行と呼ばれる改行文字 (<code class="docutils literal notranslate"><span class="pre">\r\n</span></code>)を用いるので注意すること。</p>
+<section id="id5">
+<h3><span class="section-number">7.3.1. </span>ステータスコード<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>レスポンス・ヘッダは必ずステータスコードから始まる。今回は、レスポンスの返送が必ず成功するとして、ステータスコード200を返送する。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="s2">&quot;HTTP/1.0 200 OK</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3><span class="section-number">7.3.2. </span>サーバの名前<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>サーバの名前は、適当につけて良いので、自分の好きな名前を用いておこう。サーバ名は日本語で指定すると文字化けしてしまうので、英数字で指定しておくと良い。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server_name</span> <span class="o">=</span> <span class="s2">&quot;Awesome HTTP Server/v1.0.0&quot;</span>
+<span class="n">response</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Server: </span><span class="si">{</span><span class="n">server_name</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3><span class="section-number">7.3.3. </span>時刻の生成<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>現在時刻に関する情報は<code class="docutils literal notranslate"><span class="pre">datetime</span></code>モジュールを用いて取得することができる。特に、現在時刻は<code class="docutils literal notranslate"><span class="pre">datetime</span></code>の静的関数である<code class="docutils literal notranslate"><span class="pre">now()</span></code>を用いれば良い。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">timezone</span><span class="o">.</span><span class="n">jst</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>しかし、このままでは、どこの標準時で時刻が取得されているかが判然としないので、日本標準時で時刻を取得してみよう。タイムゾーンを指定するには<code class="docutils literal notranslate"><span class="pre">zoneinfo</span></code>モジュールの<code class="docutils literal notranslate"><span class="pre">ZoneInfo</span></code>を用いる。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">zoneinfo</span> <span class="kn">import</span> <span class="n">ZoneInfo</span>
+
+<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">ZoneInfo</span><span class="p">(</span><span class="s2">&quot;Asia/Tokyo&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>これを、 <code class="docutils literal notranslate"><span class="pre">Wed,</span> <span class="pre">12</span> <span class="pre">Jun</span> <span class="pre">2024</span> <span class="pre">00:23:34</span> <span class="pre">GMT</span></code>というようなフォーマットに合わせるには、<code class="docutils literal notranslate"><span class="pre">strftime</span></code>関数を用いれば良い。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">now_str</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%a</span><span class="s2">, </span><span class="si">%d</span><span class="s2"> %b %Y %H:%M:%S JST&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>これで日本標準時が取得できたので、この情報をレスポンスに加えておく。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Date: </span><span class="si">{</span><span class="n">now_str</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h3><span class="section-number">7.3.4. </span>ファイルの情報<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>前述のレスポンス・ヘッダには送信するファイルの情報として、</p>
+<ul class="simple">
+<li><p>ファイルの種類 (<code class="docutils literal notranslate"><span class="pre">Content-type</span></code>)</p></li>
+<li><p>ファイルのバイト数 (<code class="docutils literal notranslate"><span class="pre">Content-Length</span></code>)</p></li>
+<li><p>ファイルの最終更新日時 (<code class="docutils literal notranslate"><span class="pre">Last-Modified</span></code>)</p></li>
+</ul>
+<p>が含まれている。これらを順に取得していこう。</p>
+<p>まず、ファイルの種類だが、これは、ファイルの拡張子から判断すれば良い。例えば、拡張子が<code class="docutils literal notranslate"><span class="pre">.htm</span></code>や<code class="docutils literal notranslate"><span class="pre">.html</span></code>であればHTML (<code class="docutils literal notranslate"><span class="pre">text/html</span></code>)、<code class="docutils literal notranslate"><span class="pre">.css</span></code>であればCSSファイル(<code class="docutils literal notranslate"><span class="pre">text/css</span></code>)といった具合になる。</p>
+<p>ファイルの拡張子はファイルのパスを<code class="docutils literal notranslate"><span class="pre">.</span></code>で区切って取得するか、あるいは<code class="docutils literal notranslate"><span class="pre">os.path</span></code>モジュールの<code class="docutils literal notranslate"><span class="pre">os.path.splitext</span></code>を用いても良い。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 拡張子の取得</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+<span class="c1"># ファイルの種類を判別</span>
+<span class="n">content_type</span> <span class="o">=</span> <span class="s2">&quot;text/plain&quot;</span>
+<span class="k">if</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.html&quot;</span><span class="p">:</span>
+    <span class="n">content_type</span> <span class="o">=</span> <span class="s2">&quot;text/html&quot;</span>
+<span class="k">elif</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.css&quot;</span><span class="p">:</span>
+    <span class="n">content_type</span> <span class="o">=</span> <span class="s2">&quot;text/css&quot;</span>
+<span class="k">elif</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.jpg&quot;</span> <span class="ow">or</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.jpeg&quot;</span><span class="p">:</span>
+    <span class="n">content_type</span> <span class="o">=</span> <span class="s2">&quot;image/jpeg&quot;</span>
+<span class="k">elif</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.png&quot;</span><span class="p">:</span>
+    <span class="n">content_type</span> <span class="o">=</span> <span class="s2">&quot;image/png&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown file type with extension: </span><span class="si">{</span><span class="n">extension</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># レスポンスに情報を追加</span>
+<span class="n">response</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Content-Type: </span><span class="si">{</span><span class="n">content_type</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>続いて、ファイルのサイズだが、これは、ファイルを実際に開いて、バイト数をカウントすれば良い。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ファイルの内容を読み取る</span>
+<span class="n">file_data</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">file_data</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c1"># ファイルサイズを取得</span>
+<span class="n">file_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>HTTPレスポンスでは、実際にファイルの内容をレスポンス・ボディとして用いるので、ファイルの内容を先読みしておくこと自体は問題はない。しかし、(本項では扱わないが)ファイルサイズが巨大な場合には、データを分割して送信することもあるので、最初からファイルの内容を読むのではなく、ファイルのサイズだけを先に調べる方が良い。</p>
+<p>このためには、ファイルを開いた後、読み取り位置を移動させる<code class="docutils literal notranslate"><span class="pre">seek</span></code>関数にファイルの終端位置を表す <code class="docutils literal notranslate"><span class="pre">os.SEEK_END</span></code>を与えて、読み取り位置をファイルの末尾に移動し、その位置をバイト数として返してくる<code class="docutils literal notranslate"><span class="pre">tell</span></code>関数を用いるという方法が考えられる。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># ファイルサイズの取得</span>
+<span class="n">file_size</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="c1"># 読み取り位置を終端に移動</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">SEEK_END</span><span class="p">)</span>
+    <span class="c1"># 読み取り位置 = ファイルサイズ、を取得する</span>
+    <span class="n">file_size</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+
+<span class="c1"># レスポンス・ヘッダの更新</span>
+<span class="n">response</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Content-Length: </span><span class="si">{</span><span class="n">file_size</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>最後にファイルの最終更新日時だが、これはオペレーティング・システム上に記録されている情報を用いる。情報の取得には <code class="docutils literal notranslate"><span class="pre">os.path</span></code>モジュールの<code class="docutils literal notranslate"><span class="pre">getmtime</span></code>関数が使える (<code class="docutils literal notranslate"><span class="pre">mtime</span></code>の<code class="docutils literal notranslate"><span class="pre">m</span></code>は<strong>Modified</strong>の<code class="docutils literal notranslate"><span class="pre">m</span></code>である)。</p>
+<p><code class="docutils literal notranslate"><span class="pre">getmtime</span></code>関数は更新時刻を浮動小数で表されるタイムスタンプとして返してくるので、これを<code class="docutils literal notranslate"><span class="pre">Tue,</span> <span class="pre">11</span> <span class="pre">Jun</span> <span class="pre">2024</span> <span class="pre">23:59:41</span> <span class="pre">GMT</span></code>のような形式に変換するには、レスポンスの返送時刻を計算したときと同様に<code class="docutils literal notranslate"><span class="pre">datetime</span></code>の<code class="docutils literal notranslate"><span class="pre">strftime</span></code>を用いる。</p>
+<p>ただし、<code class="docutils literal notranslate"><span class="pre">getmtime</span></code>で得られるファイルの更新時刻はUTC (Universal Time Coordinated, 協定世界時)で表されているので、<code class="docutils literal notranslate"><span class="pre">datetime</span></code>オブジェクトの<code class="docutils literal notranslate"><span class="pre">astimezone</span></code>関数にタイムゾーン情報を指定して、時刻を日本標準時に変更しておく。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># タイムスタンプの取得</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="s2">&quot;./server/public_html/index.html&quot;</span><span class="p">)</span>
+
+<span class="c1"># datetimeオブジェクトのインスタンス化</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">ZoneInfo</span><span class="p">(</span><span class="s2">&quot;Asia/Tokyo&quot;</span><span class="p">))</span>
+
+<span class="c1"># テキストに変更してレスポンスに加える</span>
+<span class="n">dt_str</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%a</span><span class="s2">, </span><span class="si">%d</span><span class="s2"> %b %Y %H:%M:%S JST&quot;</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Last-Modified: </span><span class="si">{</span><span class="n">dt_str</span><span class="si">}</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3><span class="section-number">7.3.5. </span>レスポンス・ボディ<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p>レスポンス・ボディは実際に送信するファイルのバイナリ情報である。バイナリ情報は実際にファイルをバイナリ読み取りモード<code class="docutils literal notranslate"><span class="pre">mode=&quot;rb&quot;</span></code>で開き、<code class="docutils literal notranslate"><span class="pre">read</span></code>関数で全てのデータを取り出すことで得ることができる。</p>
+<p>ここで注意したいのが、これまでに計算してきたレスポンス・ヘッダはテキスト情報である一方で、レスポンス・ボディを含むHTTPレスポンスはバイナリ情報である、という点である。</p>
+<p>そこで、レスポンス・ボディを<code class="docutils literal notranslate"><span class="pre">response</span></code>に追加する前に情報をエンコードしてバイナリ化した後に、レスポンス・ボディのバイナリ情報を付加すれば良い。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ヘッダとボディを区切る空行を追加</span>
+<span class="n">response</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+
+<span class="c1"># レスポンス・ヘッダをバイナリ化</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+<span class="c1"># ボディ情報を付加</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">+=</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>ここまでのレスポンス・ヘッダとレスポンス・ボディの計算が正しく行えると、以下のようにウェブページ (の一部)が表示されるはずである。</p>
+<a class="with-border reference internal image-reference" href="../_images/partly_shown.jpg"><img alt="../_images/partly_shown.jpg" class="with-border align-center" src="../_images/partly_shown.jpg" style="width: 80%;" /></a>
+<p>現時点では表示は不完全ではるもののレスポンス自体は正しく送信できていて、ディベロッパーツールで<code class="docutils literal notranslate"><span class="pre">localhost</span></code>へのアクセスに対して戻ってきたレスポンスヘッダは、以下のようにプログラムで計算したものと一致している。</p>
+<a class="reference internal image-reference" href="../_images/good_response.jpg"><img alt="../_images/good_response.jpg" class="align-center" src="../_images/good_response.jpg" style="width: 70%;" /></a>
+</section>
+</section>
+<section id="id10">
+<h2><span class="section-number">7.4. </span>リンクされたファイルへの対応<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<p>ウェブブラウザは<code class="docutils literal notranslate"><span class="pre">index.html</span></code>をレスポンスとして受け取ると、そのファイルを表示するのに必要な別ファイルに対して自動的にHTTPリクエストを送信するようになっている。</p>
+<p>実際、先ほどのディベロッパーツールの画面で<code class="docutils literal notranslate"><span class="pre">style.css</span></code>や<code class="docutils literal notranslate"><span class="pre">cat.jpg</span></code>などの別ファイルに対してもHTTPリクエストが送られていることが確認できる。現在、これらのファイルに対して、送り返されているHTTPレスポンスを確認してみよう。</p>
+<p>当然ながら、現在のサーバは常に<code class="docutils literal notranslate"><span class="pre">index.html</span></code>を読み取ってその内容を戻すので、レスポンスの内容がリクエストされているファイル内容に沿ったものにはなっていない。これが画像が正しく表示されなかったり、CSSが正しく反映されていなかったりする理由である。</p>
+<p>そこで、ここまでのサーバをリクエストされているファイルに合わせてレスポンスを変更するように更新しよう。</p>
+<section id="id11">
+<h3><span class="section-number">7.4.1. </span>リクエスト・ファイルの取得<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<p>冒頭に示したHTTPリクエストの一行目には</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GET / HTTP/1.1
+</pre></div>
+</div>
+<p>という情報が記載されており、HTTPメソッド、ファイルのパス、HTTPのバージョンの3つの情報がスペースで区切られて記載されている。この情報を正規表現を用いて解析し、文法のチェックと情報の取得を行う。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="c1"># リクエストを行に分割</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;[</span><span class="se">\r\n</span><span class="s2">]{1,2}&quot;</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+
+<span class="c1"># リクエスト情報の解析</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;(GET|POST)\s+(\S+?)\s+HTTP/([0-9\.]+)&quot;</span><span class="p">)</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># サブグループの取得</span>
+<span class="n">http_method</span> <span class="o">=</span> <span class="n">matches</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="n">matches</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">http_version</span> <span class="o">=</span> <span class="n">matches</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">file_path</span> <span class="o">==</span> <span class="s2">&quot;/&quot;</span><span class="p">:</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;/index.html&quot;</span>
+</pre></div>
+</div>
+<p>リクエストされているファイルについては<code class="docutils literal notranslate"><span class="pre">/</span></code>というディレクトリに対するアクセスである場合には<code class="docutils literal notranslate"><span class="pre">/index.html</span></code>に変換していることに注意してほしい。</p>
+<p>なお本項では、HTTPメソッドは常にGETであり、HTTPのバージョンはいくつであってもレスポンスは<code class="docutils literal notranslate"><span class="pre">HTTP/1.0</span></code>のルールに従ってデータを返送することとする。</p>
+<div class="tip admonition">
+<p class="admonition-title">HTTPのバージョン</p>
+<p>HTTPが最初にドキュメント化された時のバージョンであるHTTP/0.9はURLに対してアクセスがあった場合に、ファイルの内容を返送するという単純なプロトコルであったが、HTTP/1.0でHTTPメソッドやステータスコードなどの、ここまでに実装してきた簡易サーバでも一部サポートしたような多くの機能が追加された。さらにHTTP/1.1ではTLS (Transport Layer Security)などがサポートされた。現在の最新のバージョンはHTTP/3であり、UDPを利用して通信の高速化を図りながら、TCPと同様の接続の信頼性を担保するQUICなどの新しいプロトコルがサポートされている。</p>
+<p>ちなみに、HTTP/1.0であれば、その仕様書もそれほど長くなく、時間を掛ければ読み切れる程度なので、興味のある読者はぜひ原文を見てみてほしい。
+<a class="reference external" href="https://www.w3.org/Protocols/HTTP/1.0/spec">https://www.w3.org/Protocols/HTTP/1.0/spec</a></p>
+</div>
+</section>
+<section id="id12">
+<h3><span class="section-number">7.4.2. </span>エラーコードの返送<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<p>上記のリクエストファイルを適切に読み取る処理を追加すると、ブラウザによっては正しくウェブページが表示される。しかし、<code class="docutils literal notranslate"><span class="pre">favicon.ico</span></code> (ブラウザのタイトル横に表示されるアイコン)などのファイルに対して、勝手にリクエストが送られてしまうと、これまでに実装したサーバはファイルの読み取り例外が発生してダウンしてしまう。</p>
+<p>この問題を解決するために、ファイルが存在しないなどの理由でファイルの読み取りに失敗した場合に、404などのステータスコードを返送する必要がある。</p>
+<p>これまでのプログラムでは、ファイルを実際に開いてファイルサイズを取得しているので、この部分でファイルの開閉に失敗したり、別のエラーが発生した場合に404等のステータスコードを返すように変更する。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">SEEK_END</span><span class="p">)</span>
+        <span class="n">file_size</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;HTTP/1.0 404 File not found</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+    <span class="n">clt_sock</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+    <span class="k">continue</span>
+<span class="k">except</span> <span class="ne">PermissionError</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;HTTP/1.0 403 Forbidden</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+    <span class="n">clt_sock</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+    <span class="k">continue</span>
+</pre></div>
+</div>
+<p>上記のコードでは、ファイルが見つからない場合 (<code class="docutils literal notranslate"><span class="pre">FileNotFoundError</span></code>)や、ファイルのパーミッションの問題でファイルのアクセスに失敗した場合 (<code class="docutils literal notranslate"><span class="pre">PermissionError</span></code>)に、レスポンス・ヘッダにステータスコードを入れて、その場で返送している。</p>
+<p>ここまで実装すれば、以下のように正しく画像が表示され、CSSのデザイン要素が反映されたようなウェブページが表示される。</p>
+<a class="with-border reference internal image-reference" href="../_images/tama_simple.jpg"><img alt="../_images/tama_simple.jpg" class="with-border align-center" src="../_images/tama_simple.jpg" style="width: 50%;" /></a>
+<p>ただし、上記のプログラムでは、ディベロッパツールでファイルを見たときにステータスコードとして404が正しく表示されない。これは、ステータスコードとして200でない場合にも何らかのコンテンツ (例えばエラーページ)を表示することが期待されているためで、実際にはエラーであっても、もう少し丁寧にレスポンス・ヘッダを記述する必要がある。</p>
+<p>以下、決してクリーンなコードではないが、エラーメッセージをテキストファイルとしてレスポンス・ボディに与えている。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="n">err_msg</span> <span class="o">=</span> <span class="s2">&quot;404 File not found&quot;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="s2">&quot;HTTP/1.0 404 File not found</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+    <span class="n">response</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Date: </span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+    <span class="n">response</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Server: </span><span class="si">{</span><span class="n">SERVER_NAME</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+    <span class="n">response</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Content-Length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+    <span class="n">response</span> <span class="o">+=</span> <span class="s2">&quot;Content-Type: text/plain</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+    <span class="n">response</span> <span class="o">+=</span> <span class="s2">&quot;Connection: close</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+    <span class="n">response</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+    <span class="n">response</span> <span class="o">+=</span> <span class="n">err_msg</span>
+    <span class="n">clt_sock</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+    <span class="k">continue</span>
+</pre></div>
+</div>
+<p>このようにしてエラー発生時にもレスポンス・ボディを含むHTTPレスポンスを返すようにすると、Chrome等のディベロッパツール上で、<code class="docutils literal notranslate"><span class="pre">favicon.ico</span></code>などのサーバ上に存在しないファイルがステータスコード404で表示されるようになる。</p>
+<a class="reference internal image-reference" href="../_images/error_recognized.jpg"><img alt="../_images/error_recognized.jpg" class="align-center" src="../_images/error_recognized.jpg" style="width: 80%;" /></a>
+<div class="note admonition">
+<p class="admonition-title">マルチスレッド化</p>
+<p>通常のウェブサーバはHTTPリクエストを受信したら、クライアントのソケットを生成後、レスポンス生成の処理を並行計算(並列計算とは微妙に意味合いが異なる)により処理する。これにより、ウェブサーバに多数のHTTPリクエストが来たとしても、それを一つずつ処理のではなく、多数のリクエストを同時に処理することが可能となっている。</p>
+<p>今回作成したサーバにおいて並行処理を有効化するには、<code class="docutils literal notranslate"><span class="pre">clt_sock</span></code>と<code class="docutils literal notranslate"><span class="pre">clt_addr</span></code>が生成されたあとの処理を<code class="docutils literal notranslate"><span class="pre">handle_client</span></code>のような関数として別に定義し、</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">handle_client</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">clt_sock</span><span class="p">,</span> <span class="n">clt_addr</span><span class="p">),</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>のようにして、レスポンス処理を別スレッドで開始すれば良い。</p>
+</div>
+</section>
+</section>
+<section id="ssec-web-application">
+<span id="id13"></span><h2><span class="section-number">7.5. </span>ウェブ・アプリケーション<a class="headerlink" href="#ssec-web-application" title="Permalink to this heading">#</a></h2>
+<p>ここまでは、<code class="docutils literal notranslate"><span class="pre">index.html</span></code>や<code class="docutils literal notranslate"><span class="pre">style.css</span></code>のように、サーバルートである<code class="docutils literal notranslate"><span class="pre">public_html</span></code>に実在するファイルをレスポンス・ボディとして返送する「普通のウェブサーバ」を実装してきた。</p>
+<p>しかし、ここまでのプログラムから分かる通り、サーバから配信されるレスポンスはレスポンス・ヘッダとレスポンス・ボディの情報が対応してさえいれば、必ずしも実在するファイルの内容を返す必要はない。</p>
+<p>実際、世の中でウェブ・アプリケーションと呼ばれるものは、必ずしも実在するHTMLファイルを返送しているわけではなく、HTMLファイル自体をリクエストに応じて動的に生成したり、アプリケーション・プログラミング・インターフェース (API)のように、特定のURIにプログラムの機能を割り当てたりしている。</p>
+<p>一例として、<code class="docutils literal notranslate"><span class="pre">localhost:8080/cat</span></code>にアクセスしたら猫の画像、<code class="docutils literal notranslate"><span class="pre">localhost:8080/dog</span></code>にアクセスしたら犬の画像、<code class="docutils literal notranslate"><span class="pre">localhost:8080/random</span></code>にアクセスしたらランダムに猫か犬の画像、といったようにURIによって表示するウェブページを切り替えるなどのアプリケーションが考えられるだろう。</p>
+<a class="with-border reference internal image-reference" href="../_images/dog_page.jpg"><img alt="../_images/dog_page.jpg" class="with-border align-center" src="../_images/dog_page.jpg" style="width: 70%;" /></a>
+<p>画像の出典: <a class="reference external" href="https://www.pakutaso.com/20220623159post-40215.html">https://www.pakutaso.com/20220623159post-40215.html</a></p>
+</section>
+<section id="id14">
+<h2><span class="section-number">7.6. </span>練習問題<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h2>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-header docutils">
+<p class="sd-card-text"><strong>問1</strong></p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">これまでの説明に従い、正しく演習用のウェブページを配信できる簡易サーバを実装せよ。</p>
+</div>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-header docutils">
+<p class="sd-card-text"><strong>問2</strong></p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text"><a class="reference internal" href="#ssec-web-application"><span class="std std-ref">ウェブ・アプリケーション</span></a>に示した内容に沿って、URIに合わせて適当なウェブページを配信するウェブ・アプリケーションを作成せよ。</p>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./contents"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="retrieval.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>情報検索の基礎</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">7.1. 最初のプログラム</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#http">7.2. HTTPレスポンスの内容</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.2.1. レスポンスを真似る</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">7.3. レスポンスの動的な生成</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.3.1. ステータスコード</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.3.2. サーバの名前</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">7.3.3. 時刻の生成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.3.4. ファイルの情報</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.3.5. レスポンス・ボディ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.4. リンクされたファイルへの対応</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">7.4.1. リクエスト・ファイルの取得</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">7.4.2. エラーコードの返送</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ssec-web-application">7.5. ウェブ・アプリケーション</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">7.6. 練習問題</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 Tatsuya Yatagawa
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright CC BY-NC-SA 4.0, 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

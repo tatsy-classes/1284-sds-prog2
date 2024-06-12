@@ -174,6 +174,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="compression.html">5. 情報圧縮の基礎</a></li>
 <li class="toctree-l1"><a class="reference internal" href="retrieval.html">6. 情報検索の基礎</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.rbanno.net/classes/hitu_2024_p2/day07/socket.html">ソケット通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webserver.html">7. 簡易ウェブサーバの実装</a></li>
 </ul>
 
     </div>
@@ -396,33 +397,33 @@ document.write(`
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_c19bc_row0_col0, #T_c19bc_row0_col1, #T_c19bc_row1_col0, #T_c19bc_row1_col1, #T_c19bc_row2_col0, #T_c19bc_row2_col1, #T_c19bc_row3_col0, #T_c19bc_row3_col1, #T_c19bc_row4_col0, #T_c19bc_row4_col1 {
+#T_9e811_row0_col0, #T_9e811_row0_col1, #T_9e811_row1_col0, #T_9e811_row1_col1, #T_9e811_row2_col0, #T_9e811_row2_col1, #T_9e811_row3_col0, #T_9e811_row3_col1, #T_9e811_row4_col0, #T_9e811_row4_col1 {
   text-align: left;
 }
 </style>
-<table id="T_c19bc">
+<table id="T_9e811">
   <thead>
   </thead>
   <tbody>
     <tr>
-      <td id="T_c19bc_row0_col0" class="data row0 col0" >Date</td>
-      <td id="T_c19bc_row0_col1" class="data row0 col1" >Tue, 30 Apr 2024 06:32:01 GMT</td>
+      <td id="T_9e811_row0_col0" class="data row0 col0" >Date</td>
+      <td id="T_9e811_row0_col1" class="data row0 col1" >Wed, 12 Jun 2024 14:17:18 GMT</td>
     </tr>
     <tr>
-      <td id="T_c19bc_row1_col0" class="data row1 col0" >Expires</td>
-      <td id="T_c19bc_row1_col1" class="data row1 col1" >-1</td>
+      <td id="T_9e811_row1_col0" class="data row1 col0" >Expires</td>
+      <td id="T_9e811_row1_col1" class="data row1 col1" >-1</td>
     </tr>
     <tr>
-      <td id="T_c19bc_row2_col0" class="data row2 col0" >Cache-Control</td>
-      <td id="T_c19bc_row2_col1" class="data row2 col1" >private, max-age=0</td>
+      <td id="T_9e811_row2_col0" class="data row2 col0" >Cache-Control</td>
+      <td id="T_9e811_row2_col1" class="data row2 col1" >private, max-age=0</td>
     </tr>
     <tr>
-      <td id="T_c19bc_row3_col0" class="data row3 col0" >Content-Type</td>
-      <td id="T_c19bc_row3_col1" class="data row3 col1" >text/html; charset=Shift_JIS</td>
+      <td id="T_9e811_row3_col0" class="data row3 col0" >Content-Type</td>
+      <td id="T_9e811_row3_col1" class="data row3 col1" >text/html; charset=Shift_JIS</td>
     </tr>
     <tr>
-      <td id="T_c19bc_row4_col0" class="data row4 col0" >Content-Security-Policy-Report-Only</td>
-      <td id="T_c19bc_row4_col1" class="data row4 col1" >object-src 'none';base-uri 'self';script-src 'nonce-exzpuXyGLWruO0iFCsvAaA' 'strict-dynamic' 'report-sample' 'unsafe-eval' 'unsafe-inline' https: http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp</td>
+      <td id="T_9e811_row4_col0" class="data row4 col0" >Content-Security-Policy-Report-Only</td>
+      <td id="T_9e811_row4_col1" class="data row4 col1" >object-src 'none';base-uri 'self';script-src 'nonce-tPDbLRpDGsNTqplklKSu9g' 'strict-dynamic' 'report-sample' 'unsafe-eval' 'unsafe-inline' https: http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp</td>
     </tr>
   </tbody>
 </table>
@@ -789,11 +790,11 @@ Content-Type : application/json
 <span class="w">    </span><span class="nt">&quot;Content-Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/x-www-form-urlencoded&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;Host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;httpbin.org&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;User-Agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Mozilla/5.0&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;X-Amzn-Trace-Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Root=1-66309063-16c9a8803ed3527a680ec9e0&quot;</span>
+<span class="w">    </span><span class="nt">&quot;X-Amzn-Trace-Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Root=1-6669adef-26ebec325131782b59c3f6bb&quot;</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">&quot;json&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;172.177.131.80&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;172.183.219.72&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://httpbin.org/anything&quot;</span>
 <span class="p">}</span>
 </pre></div>
@@ -865,11 +866,11 @@ Content-Type : application/json
 <span class="w">    </span><span class="nt">&quot;Content-Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image/png&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;Host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;httpbin.org&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;User-Agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Mozilla/5.0&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;X-Amzn-Trace-Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Root=1-66309063-09d68e580d3ca85f7bb9a928&quot;</span>
+<span class="w">    </span><span class="nt">&quot;X-Amzn-Trace-Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Root=1-6669adf0-6af2d54f6ad84b0669c3bf58&quot;</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">&quot;json&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;172.177.131.80&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;172.183.219.72&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://httpbin.org/anything&quot;</span>
 <span class="p">}</span>
 </pre></div>
@@ -1033,12 +1034,12 @@ Content-Type : application/json
 <p>なお、このHTTPエラーに含まれるヘッダ情報は以下のようになっている。</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Date: Tue, 30 Apr 2024 06:32:04 GMT
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Date: Wed, 12 Jun 2024 14:17:21 GMT
 Content-Type: text/html; charset=utf-8
 Content-Length: 0
 Connection: close
 Server: gunicorn/19.9.0
-WWW-Authenticate: Digest realm=&quot;me@kennethreitz.com&quot;, nonce=&quot;b593380cb4c4583ef63036fc1c985d0a&quot;, qop=&quot;auth&quot;, opaque=&quot;4968cb3804091340406e9839a2ee8058&quot;, algorithm=MD5, stale=FALSE
+WWW-Authenticate: Digest realm=&quot;me@kennethreitz.com&quot;, nonce=&quot;12e3ee1f9c1348297e5c1285fdc2fbd1&quot;, qop=&quot;auth&quot;, opaque=&quot;946e915cea6f1c0746ea7901018f1a32&quot;, algorithm=MD5, stale=FALSE
 Set-Cookie: stale_after=never; Path=/
 Set-Cookie: fake=fake_value; Path=/
 Access-Control-Allow-Origin: *
@@ -1118,7 +1119,7 @@ hash #2: 0aaaf722394d682e4c93b0c6c7db0d3e
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dig: 64f4d40c29441fe02085dbd71ce50a43
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dig: 49a300d7923942e6d48f33f6b5a2de0e
 </pre></div>
 </div>
 </div>
@@ -1132,7 +1133,7 @@ hash #2: 0aaaf722394d682e4c93b0c6c7db0d3e
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Digest username=&quot;myname&quot;, realm=&quot;me@kennethreitz.com&quot;, nonce=&quot;b593380cb4c4583ef63036fc1c985d0a&quot;, uri=&quot;/digest-auth/auth/myname/mypass&quot;, response=&quot;64f4d40c29441fe02085dbd71ce50a43&quot;, opaque=&quot;4968cb3804091340406e9839a2ee8058&quot;, qop=auth, nc=00000001, cnonce=&quot;f0e97690bca6453c8db1dcf32eac9acb&quot;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Digest username=&quot;myname&quot;, realm=&quot;me@kennethreitz.com&quot;, nonce=&quot;12e3ee1f9c1348297e5c1285fdc2fbd1&quot;, uri=&quot;/digest-auth/auth/myname/mypass&quot;, response=&quot;49a300d7923942e6d48f33f6b5a2de0e&quot;, opaque=&quot;946e915cea6f1c0746ea7901018f1a32&quot;, qop=auth, nc=00000001, cnonce=&quot;3b1118325ebe4e94bd374fed2ce5ff0b&quot;
 </pre></div>
 </div>
 </div>
@@ -1254,14 +1255,14 @@ Content-Type : application/json
 <span class="w">  </span><span class="nt">&quot;headers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;Accept-Encoding&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;identity&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;Content-Length&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;363458&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;Content-Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;multipart/form-data; boundary=5d294801-8441-4884-af59-52c8b8b575cf&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Content-Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;multipart/form-data; boundary=43b2cb38-6778-42d5-b253-29e0e3787f71&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;Host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;httpbin.org&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;User-Agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Mozilla/5.0&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;X-Amzn-Trace-Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Root=1-66309066-1f828eb678082d38257699f7&quot;</span>
+<span class="w">    </span><span class="nt">&quot;X-Amzn-Trace-Id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Root=1-6669adf2-1245d62277642ab565d69a9b&quot;</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">&quot;json&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;172.177.131.80&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;origin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;172.183.219.72&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://httpbin.org/anything&quot;</span>
 <span class="p">}</span>
 </pre></div>

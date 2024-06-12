@@ -174,6 +174,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="compression.html">5. 情報圧縮の基礎</a></li>
 <li class="toctree-l1"><a class="reference internal" href="retrieval.html">6. 情報検索の基礎</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.rbanno.net/classes/hitu_2024_p2/day07/socket.html">ソケット通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webserver.html">7. 簡易ウェブサーバの実装</a></li>
 </ul>
 
     </div>
@@ -387,7 +388,7 @@ document.write(`
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="p">&lt;</span><span class="nt">html</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;client-nojs vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-sticky-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-0 vector-feature-appearance-disabled vector-feature-appearance-pinned-clientpref-0 vector-feature-night-mode-disabled skin-theme-clientpref-day vector-toc-available&quot;</span> <span class="na">dir</span><span class="o">=</span><span class="s">&quot;ltr&quot;</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ja&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;client-nojs vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-sticky-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-1 vector-feature-appearance-enabled vector-feature-appearance-pinned-clientpref-1 vector-feature-night-mode-disabled skin-theme-clientpref-day vector-toc-available&quot;</span> <span class="na">dir</span><span class="o">=</span><span class="s">&quot;ltr&quot;</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ja&quot;</span><span class="p">&gt;</span>
  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">/&gt;</span>
   <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>
@@ -401,16 +402,16 @@ document.write(`
 <p>ページの内容が取得できたら、<a class="reference internal" href="regex.html#sec-regex"><span class="std std-ref">正規表現</span></a>を使用して、リンクされている<strong>Wikipedia日本語版の記事</strong>を取得する (プログラムは自分で考えること)。</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>%E6%97%A5%E6%9C%AC%E5%88%80
-%E6%97%A5%E6%9C%AC%E3%81%AE%E7%B5%8C%E6%B8%88
-%E7%94%9F%E7%89%A9%E5%B7%A5%E5%AD%A6
-%E9%AD%9A%E4%BB%8B%E9%A1%9E
-%E6%97%AC
-%E6%9D%B1%E3%82%A2%E3%82%B8%E3%82%A2%E3%82%B5%E3%83%9F%E3%83%83%E3%83%88
-%E3%82%B9%E3%82%AE
-%E3%83%90%E3%82%B9%E3%82%B1%E3%83%83%E3%83%88%E3%83%9C%E3%83%BC%E3%83%AB%E6%97%A5%E6%9C%AC%E4%BB%A3%E8%A1%A8
-%E5%AE%AE%E5%89%8D%E5%8C%BA
-%E5%9B%BD%E8%8A%B1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>%E5%9B%BD%E7%AB%8B%E9%8A%80%E8%A1%8C%E6%9D%A1%E4%BE%8B
+1336%E5%B9%B4
+%E3%82%BC%E3%83%8D%E3%82%B3%E3%83%B3
+%E6%97%A5%E7%B1%B3%E5%9C%B0%E4%BD%8D%E5%8D%94%E5%AE%9A
+%E8%8F%AF%E5%83%91
+%E6%B8%85%E6%9C%9D
+%E7%89%B9%E4%BE%8B%E5%B8%82
+8%E6%9C%8811%E6%97%A5
+%E4%BA%BA%E5%8F%A3%E6%B8%9B%E5%B0%91%E7%A4%BE%E4%BC%9A
+%E6%83%85%E5%A0%B1%E6%A9%9F%E9%96%A2
 </pre></div>
 </div>
 </div>
@@ -418,16 +419,16 @@ document.write(`
 <p>ここで得られる記事名はURLエンコードされているので、<code class="docutils literal notranslate"><span class="pre">urllib.parse.unquote</span></code>関数を用いて、元の日本語の記事名を復元しておく。</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>日本刀
-日本の経済
-生物工学
-魚介類
-旬
-東アジアサミット
-スギ
-バスケットボール日本代表
-宮前区
-国花
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>国立銀行条例
+1336年
+ゼネコン
+日米地位協定
+華僑
+清朝
+特例市
+8月11日
+人口減少社会
+情報機関
 </pre></div>
 </div>
 </div>
