@@ -404,7 +404,7 @@ Accept-Language: ja,en;q=0.9,en-US;q=0.8
 <p>「最初のプログラム」では、ブラウザでアクセスした際に、エラーが発生してアクセスに失敗してしまった。これは、端的にはHTTPレスポンスが返ってこなかったことに原因があるのだが、そもそも、通常のウェブサーバはどのようなレスポンスを返してくるのだろうか。</p>
 <p>Pythonには標準ライブラリの中に簡易ウェブサーバが用意されているので、それを用いてレスポンス情報を調べてみよう。サーバは以下のコマンドで起動できる。</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># [配信するディレクトリ]の部分は適宜変更すること</span>
-python<span class="w"> </span>-m<span class="w"> </span>http.serve<span class="w"> </span><span class="o">[</span>配信するディレクトリ<span class="o">]</span><span class="w"> </span><span class="m">8081</span>
+python<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span><span class="o">[</span>配信するディレクトリ<span class="o">]</span><span class="w"> </span><span class="m">8081</span>
 </pre></div>
 </div>
 <p>サーバを起動後、ブラウザを開いて、 <code class="docutils literal notranslate"><span class="pre">localhost:8081</span></code> にアクセスしてみよう。すると、以下のようなウェブページが正しく表示されるはずである。</p>
@@ -481,7 +481,7 @@ Last-Modified: Tue, 11 Jun 2024 23:59:41 GMT
 <p>現在時刻に関する情報は<code class="docutils literal notranslate"><span class="pre">datetime</span></code>モジュールを用いて取得することができる。特に、現在時刻は<code class="docutils literal notranslate"><span class="pre">datetime</span></code>の静的関数である<code class="docutils literal notranslate"><span class="pre">now()</span></code>を用いれば良い。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
-<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">timezone</span><span class="o">.</span><span class="n">jst</span><span class="p">)</span>
+<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>しかし、このままでは、どこの標準時で時刻が取得されているかが判然としないので、日本標準時で時刻を取得してみよう。タイムゾーンを指定するには<code class="docutils literal notranslate"><span class="pre">zoneinfo</span></code>モジュールの<code class="docutils literal notranslate"><span class="pre">ZoneInfo</span></code>を用いる。</p>
