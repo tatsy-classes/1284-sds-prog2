@@ -84,16 +84,13 @@ def handle_client(clt_sock, clt_addr):
         content_type = "image/jpeg"
     elif extension == ".png":
         content_type = "image/png"
+    elif extension == ".ico":
+        content_type = "image/x-icon"
     else:
         raise Exception("Unknown file type!!")
 
     response += f"Content-Type: {content_type}\r\n"
     response += "Connection: close\r\n"
-
-    ts = os.path.getmtime(file_path)
-    dt = datetime.fromtimestamp(ts, ZoneInfo("Asia/Tokyo"))
-    last_modified = dt.strftime("%a, %d %b %Y %H:%M:%S JST")
-    response += f"Last-Modified: {last_modified}\r\n"
 
     content = b""
     try:
@@ -105,6 +102,11 @@ def handle_client(clt_sock, clt_addr):
     except PermissionError:
         handle_error(clt_sock, "403 Forbidden")
         return
+
+    ts = os.path.getmtime(file_path)
+    dt = datetime.fromtimestamp(ts, ZoneInfo("Asia/Tokyo"))
+    last_modified = dt.strftime("%a, %d %b %Y %H:%M:%S JST")
+    response += f"Last-Modified: {last_modified}\r\n"
 
     if animal == "dog":
         content = content.decode("utf-8")
