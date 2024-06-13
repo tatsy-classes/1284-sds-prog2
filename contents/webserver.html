@@ -398,6 +398,10 @@ Accept-Language: ja,en;q=0.9,en-US;q=0.8
 </pre></div>
 </div>
 <p>世間で広く使われているようなウェブサーバでは、このHTTPリクエストの内容を一つずつチェックして、どのような内容をクライアント側に送り返すかを決めている。しかし、簡易ウェブサーバで全てを扱うのは困難なので、これらのリクエスト・パラメータのいくつかだけに対応することにする。</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>今回作成するウェブサーバはHTTPSには対応していないので、ブラウザでウェブページを開くときには <strong>http://</strong> から始まるURLを使うこと。</p>
+</div>
 </section>
 <section id="http">
 <h2><span class="section-number">7.2. </span>HTTPレスポンスの内容<a class="headerlink" href="#http" title="Permalink to this heading">#</a></h2>
@@ -688,9 +692,15 @@ Last-Modified: Tue, 11 Jun 2024 23:59:41 GMT
 <section id="ssec-web-application">
 <span id="id13"></span><h2><span class="section-number">7.5. </span>ウェブ・アプリケーション<a class="headerlink" href="#ssec-web-application" title="Permalink to this heading">#</a></h2>
 <p>ここまでは、<code class="docutils literal notranslate"><span class="pre">index.html</span></code>や<code class="docutils literal notranslate"><span class="pre">style.css</span></code>のように、サーバルートである<code class="docutils literal notranslate"><span class="pre">public_html</span></code>に実在するファイルをレスポンス・ボディとして返送する「普通のウェブサーバ」を実装してきた。</p>
-<p>しかし、ここまでのプログラムから分かる通り、サーバから配信されるレスポンスはレスポンス・ヘッダとレスポンス・ボディの情報が対応してさえいれば、必ずしも実在するファイルの内容を返す必要はない。</p>
+<p>しかし、ここまでのプログラムから分かる通り、サーバから配信されるレスポンスはレスポンス・ヘッダとレスポンス・ボディの情報が対応してさえいれば、必ずしも実在するファイル(= HDD等に保存されているファイル)の内容を返す必要はない。</p>
 <p>実際、世の中でウェブ・アプリケーションと呼ばれるものは、必ずしも実在するHTMLファイルを返送しているわけではなく、HTMLファイル自体をリクエストに応じて動的に生成したり、アプリケーション・プログラミング・インターフェース (API)のように、特定のURIにプログラムの機能を割り当てたりしている。</p>
-<p>一例として、<code class="docutils literal notranslate"><span class="pre">localhost:8080/cat</span></code>にアクセスしたら猫の画像、<code class="docutils literal notranslate"><span class="pre">localhost:8080/dog</span></code>にアクセスしたら犬の画像、<code class="docutils literal notranslate"><span class="pre">localhost:8080/random</span></code>にアクセスしたらランダムに猫か犬の画像、といったようにURIによって表示するウェブページを切り替えるなどのアプリケーションが考えられるだろう。</p>
+<p>一例として、</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">localhost:8080/cat</span></code>にアクセスしたら猫の画像</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">localhost:8080/dog</span></code>にアクセスしたら犬の画像</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">localhost:8080/random</span></code>にアクセスしたらランダムに猫か犬の画像</p></li>
+</ul>
+<p>といったようにURIによって表示するウェブページを切り替えるなどのアプリケーションが考えられるだろう。</p>
 <a class="with-border reference internal image-reference" href="../_images/dog_page.jpg"><img alt="../_images/dog_page.jpg" class="with-border align-center" src="../_images/dog_page.jpg" style="width: 70%;" /></a>
 <p>画像の出典: <a class="reference external" href="https://www.pakutaso.com/20220623159post-40215.html">https://www.pakutaso.com/20220623159post-40215.html</a></p>
 </section>
