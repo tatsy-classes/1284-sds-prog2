@@ -36,77 +36,83 @@ def handle_error(clt_sock, msg):
     clt_sock.close()
 
 
-def handle_client(clt_sock, clt_addr):
-    # データを受信して表示
-    req_bytes = clt_sock.recv(4096)
-    request = req_bytes.decode("utf-8")
-    print(f"Received:\r\n{request}")
+class ClientHandler(Thread):
+    def __init__(self, clt_sock, clt_addr):
+        super(ClientHandler, self).__init__(daemon=True)
+        self.clt_sock = clt_sock
+        self.clt_addr = clt_addr
 
-    # レスポンスを返す
-    lines = re.split("[\r\n]{1,2}", request)
-    pattern = re.compile("(GET|POST)\s+(\S+?)\s+HTTP/([0-9\.]+)")
-    matches = pattern.match(lines[0])
-    if not matches:
-        handle_error(clt_sock, "400 Bad Request")
-        return
+    def run(self):
+        # データを受信して表示
+        req_bytes = self.clt_sock.recv(4096)
+        request = req_bytes.decode("utf-8")
+        print(f"Received:\r\n{request}", flush=True)
 
-    # サブグループの取得
-    file_path = matches.group(2)
-    if file_path == "/":
-        file_path = "/index.html"
+        # レスポンスを返す
+        lines = re.split("[\r\n]{1,2}", request)
+        pattern = re.compile("(GET|POST)\s+(\S+?)\s+HTTP/([0-9\.]+)")
+        matches = pattern.match(lines[0])
+        if not matches:
+            handle_error(self.clt_sock, "400 Bad Request")
+            return
 
-    file_path = SERVER_ROOT + file_path
-    response = "HTTP/1.0 200 OK\r\n"
+        # サブグループの取得
+        file_path = matches.group(2)
+        if file_path == "/":
+            file_path = "/index.html"
 
-    now = datetime.now(ZoneInfo("Asia/Tokyo"))
-    date = now.strftime("%a, %d %b %Y %H:%M:%S JST")
-    response += f"Date: {date}\r\n"
-    response += f"Server: {SERVER_NAME:s}\r\n"
+        file_path = SERVER_ROOT + file_path
+        response = "HTTP/1.0 200 OK\r\n"
 
-    content_type = "text/html"
-    file_size = 0
+        now = datetime.now(ZoneInfo("Asia/Tokyo"))
+        date = now.strftime("%a, %d %b %Y %H:%M:%S JST")
+        response += f"Date: {date}\r\n"
+        response += f"Server: {SERVER_NAME:s}\r\n"
 
-    try:
-        with open(file_path, "rb") as f:
-            f.seek(0, os.SEEK_END)
-            file_size = f.tell()
-
-    except FileNotFoundError:
-        handle_error(clt_sock, "404 File not found")
-        return
-    except PermissionError:
-        handle_error(clt_sock, "403 Forbidden")
-        return
-
-    _, extension = os.path.splitext(file_path)
-    if extension == ".html" or extension == ".htm":
         content_type = "text/html"
-    elif extension == ".css":
-        content_type = "text/css"
-    elif extension == ".jpg" or extension == ".jpeg":
-        content_type = "image/jpeg"
-    elif extension == ".png":
-        content_type = "image/png"
-    else:
-        raise Exception("Unknown file type!!")
+        file_size = 0
 
-    response += f"Content-Type: {content_type}\r\n"
-    response += f"Content-Length: {file_size}\r\n"
-    response += "Connection: close\r\n"
+        try:
+            with open(file_path, "rb") as f:
+                f.seek(0, os.SEEK_END)
+                file_size = f.tell()
 
-    ts = os.path.getmtime(file_path)
-    dt = datetime.fromtimestamp(ts, ZoneInfo("Asia/Tokyo"))
-    last_modified = dt.strftime("%a, %d %b %Y %H:%M:%S JST")
-    response += f"Last-Modified: {last_modified}\r\n"
+        except FileNotFoundError:
+            handle_error(self.clt_sock, "404 File not found")
+            return
+        except PermissionError:
+            handle_error(self.clt_sock, "403 Forbidden")
+            return
 
-    response += "\r\n"
-    response = response.encode("utf-8")
+        _, extension = os.path.splitext(file_path)
+        if extension == ".html" or extension == ".htm":
+            content_type = "text/html"
+        elif extension == ".css":
+            content_type = "text/css"
+        elif extension == ".jpg" or extension == ".jpeg":
+            content_type = "image/jpeg"
+        elif extension == ".png":
+            content_type = "image/png"
+        else:
+            raise Exception("Unknown file type!!")
 
-    with open(file_path, "rb") as f:
-        response += f.read()
+        response += f"Content-Type: {content_type}\r\n"
+        response += f"Content-Length: {file_size}\r\n"
+        response += "Connection: close\r\n"
 
-    clt_sock.send(response)
-    clt_sock.close()
+        ts = os.path.getmtime(file_path)
+        dt = datetime.fromtimestamp(ts, ZoneInfo("Asia/Tokyo"))
+        last_modified = dt.strftime("%a, %d %b %Y %H:%M:%S JST")
+        response += f"Last-Modified: {last_modified}\r\n"
+
+        response += "\r\n"
+        response = response.encode("utf-8")
+
+        with open(file_path, "rb") as f:
+            response += f.read()
+
+        self.clt_sock.send(response)
+        self.clt_sock.close()
 
 
 def main():
@@ -116,20 +122,16 @@ def main():
     srv_sock.settimeout(1)
     srv_sock.bind((SERVER_HOST, SERVER_PORT))
     srv_sock.listen(10)
-    print(f"Listening on {SERVER_HOST}:{SERVER_PORT}...")
+    print(f"Listening on {SERVER_HOST}:{SERVER_PORT}...", flush=True)
 
     clt_sock = None
     while True:
         try:
             # クライアントからの接続を待ち受ける
             clt_sock, clt_addr = srv_sock.accept()
-            print(f"Connection from {clt_addr}")
-            thread = Thread(
-                target=handle_client,
-                args=(clt_sock, clt_addr),
-                daemon=True,
-            )
-            thread.start()
+            print(f"Connection from {clt_addr}", flush=True)
+            handler = ClientHandler(clt_sock, clt_addr)
+            handler.start()
         except socket.timeout:
             # 接続がタイムアウトしたら、再度接続を待ち受ける
             continue
