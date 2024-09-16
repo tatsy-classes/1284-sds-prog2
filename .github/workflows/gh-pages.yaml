@@ -6,14 +6,13 @@ on:
       - master
       - dev
 
-jobs:
-  deploy:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        python-version: [3.11]
+env:
+  PYTHON_VERSION: "3.11"
+  POETRY_VERSION: "1.8.0"
 
-    runs-on: ${{ matrix.os }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -40,12 +39,12 @@ jobs:
 
       - name: Install Poetry
         run: |
-          pipx install poetry==1.8.0
+          pipx install poetry==${{ env.POETRY_VERSION }}
 
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ env.PYTHON_VERSION }}
           cache: "poetry"
 
       - name: Install packages
@@ -56,10 +55,24 @@ jobs:
       - name: Build
         run: poetry run jb build --all .
 
-      - name: Github Pages deployment
-        uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/master'
+      - name: Upload artifacts
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_build/html/
-          publish_branch: gh-pages
+          path: ./_build/html/
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      id-token: write
+      pages: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Github Pages deployment
+        id: deployment
+        uses: actions/deploy-pages@v4
+        if: github.ref == 'refs/heads/master'
