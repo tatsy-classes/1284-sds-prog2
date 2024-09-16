@@ -1,4 +1,8 @@
 h1 {
   font-weight: bold;
-  color: #ff0000;
+  color: #006699;
+}
+
+img {
+  border-radius: 5px;
 }

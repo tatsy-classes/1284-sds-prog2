@@ -55,7 +55,7 @@
 7. [情報検索の基礎](sec:retrieval)
 8.  [ソケット通信 (by 坂野先生)](https://www.rbanno.net/classes/hitu_2024_p2/day07/socket.html)
 9.  [簡易ウェブサーバの作成](sec:web-server)
-10. [課題:Webシステムの実装](sec:web-system)
+<!-- 10. [課題:Webシステムの実装](sec:web-system) -->
 
 ## Build Status
 
